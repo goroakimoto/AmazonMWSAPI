@@ -3,14 +3,23 @@
     "description": "A PHP library to connect with, update to and pull data from Amazon MWS.",
     "type": "library",
     "license": "MIT",
+    "homepage": "https://github.com/michaeljberry/AmazonMWSAPI",
+    "keywords": [
+        "Amazon MWS",
+        "Amazon API",
+        "MWS"
+    ],
     "authors": [
         {
             "name": "Michael Berry",
-            "email": "michael@michaeljberry.com"
+            "email": "michael@michaeljberry.com",
+            "homepage": "https://michaeljberry.com",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": "^7.0",
         "vlucas/phpdotenv": "^2.5@dev"
     },
     "require-dev": {
