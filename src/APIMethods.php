@@ -2,9 +2,6 @@
 
 namespace Amazon\API;
 
-use Ecommerce\Ecommerce;
-
-
 trait APIMethods
 {
 

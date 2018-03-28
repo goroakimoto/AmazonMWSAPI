@@ -70,7 +70,8 @@ class XMLController
 
         $generatedXML = '';
 
-        foreach ($xml as $key => $value) {
+        foreach ($xml as $key => $value)
+        {
 
             $generatedXML .= XMLController::generate($key, $value, $parentKey);
 

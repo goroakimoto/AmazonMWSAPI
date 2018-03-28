@@ -2,8 +2,6 @@
 
 namespace Amazon\API\Orders;
 
-use Ecommerce\Ecommerce;
-
 class GetOrder extends Orders
 {
 

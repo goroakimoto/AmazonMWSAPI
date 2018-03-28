@@ -5,7 +5,6 @@ namespace Amazon\API\Orders;
 use \DateTime;
 use \DateTimeZone;
 use Amazon\Amazon;
-use Ecommerce\Ecommerce;
 
 class ListOrders extends Orders
 {

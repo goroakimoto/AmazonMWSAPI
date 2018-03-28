@@ -2,8 +2,6 @@
 
 namespace Amazon\API\Finances;
 
-use Ecommerce\Ecommerce;
-
 class ListFinancialEventGroups extends Finances
 {
 

@@ -3,7 +3,7 @@
 namespace Amazon\API;
 
 use Amazon\AmazonClient;
-use Ecommerce\Ecommerce;
+use AmazonMWSAPI\Helpers;
 use DateTime;
 use DateTimeZone;
 
@@ -1006,8 +1006,8 @@ trait APIParameters
 
     public static function verifyParameters()
     {
-        Ecommerce::dd(static::getCurlParameters());
-        Ecommerce::dd(static::getParameters());
+        Helpers::dd(static::getCurlParameters());
+        Helpers::dd(static::getParameters());
 
         static::ensureRequiredParametersAreSet();
 

@@ -2,9 +2,9 @@
 
 namespace AmazonMWSAPI;
 
-use Ecommerce\Ecommerce;
-use AmazonMWSAPI\Helpers\CurlController;
+use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\Helpers\XMLController;
+use AmazonMWSAPI\Helpers\CurlController;
 
 trait AmazonClientCurl
 {
@@ -13,14 +13,23 @@ trait AmazonClientCurl
     {
 
         $sign = $amazonAPI::getMethod();
+
         $sign .= "\n";
-        $sign .= Ecommerce::removeUrlProtocol($amazonAPI::getEndpoint());
+
+        $sign .= Helpers::removeUrlProtocol($amazonAPI::getEndpoint());
+
         $sign .= "\n/";
+
         $sign .= $amazonAPI::getFeed();
+
         $sign .= "/";
+
         $sign .= $amazonAPI::getParameterByKey('Version');
+
         $sign .= "\n";
+
         $sign .= $arr;
+
         return $sign;
 
     }
@@ -29,11 +38,17 @@ trait AmazonClientCurl
     {
 
         $httpHeader = array();
+
         $httpHeader[] = 'Transfer-Encoding: chunked';
+
         $httpHeader[] = 'Content-Type: application/xml';
+
         $httpHeader[] = 'Content-MD5: ' . base64_encode(md5($amazonXmlFeed, true));
+
         $httpHeader[] = 'Expect:';
+
         $httpHeader[] = 'Accept:';
+
         return $httpHeader;
 
     }
@@ -51,7 +66,9 @@ trait AmazonClientCurl
         }
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE);
+
         curl_setopt($request, CURLOPT_POST, 1);
 
         if ($post_string)
@@ -69,6 +86,7 @@ trait AmazonClientCurl
     {
 
         $parameters = $amazonAPI::getCurlParameters();
+
         $url = [];
 
         foreach ($parameters as $key => $val)
@@ -82,7 +100,9 @@ trait AmazonClientCurl
             }
 
             $key = str_replace("%7E", "~", rawurlencode($key));
+
             $val = str_replace("%7E", "~", rawurlencode($val));
+
             $url[] = "{$key}={$val}";
 
         }
@@ -95,7 +115,9 @@ trait AmazonClientCurl
     {
 
         $signature = hash_hmac("sha256", $sign, AmazonClient::getSecretKey(), true);
+
         $signature = urlencode(base64_encode($signature));
+
         return $signature;
 
     }
@@ -104,19 +126,27 @@ trait AmazonClientCurl
     {
 
         $url = static::createUrlArray($amazonAPI);
+
         usort($url, [get_called_class(), "cmp"]);
 
         $arr = implode('&', $url);
+
         $sign = static::sign($arr, $amazonAPI);
 
         $signature = static::encodeSignature($sign);
 
         $link = $amazonAPI::getEndpoint();
+
         $link .= "/";
+
         $link .= $amazonAPI::getFeed();
+
         $link .= "/";
+
         $link .= $amazonAPI::getParameterByKey('Version');
+
         $link .= "?$arr&Signature=$signature";
+
         return $link;
 
     }
@@ -125,7 +155,9 @@ trait AmazonClientCurl
     {
 
         $a = substr($a, 0, strpos($a, "="));
+
         $b = substr($b, 0, strpos($b, "="));
+
         return ($a < $b) ? -1 : 1;
 
     }
@@ -134,15 +166,23 @@ trait AmazonClientCurl
     {
 
         $xml = [
+
             'Header' => [
+
                 'DocumentVersion' => '1.01',
+
                 'MerchantIdentifier' => AmazonClient::getMerchantId()
+
             ]
+
         ];
 
         $request = 'AmazonEnvelope';
+
         $parameters = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd"';
+
         $header = XMLController::openingXMLTag($request, $parameters);
+
         $header .= static::parseXML($xml);
 
         return $header;
@@ -153,7 +193,9 @@ trait AmazonClientCurl
     {
 
         $request = 'AmazonEnvelope';
+
         $footer = XMLController::closingXMLTag($request);
+
         return $footer;
 
     }
@@ -187,8 +229,11 @@ trait AmazonClientCurl
         {
 
             $amazonXML = XMLController::xmlOpenTag();
+
             $amazonXML .= static::xmlAmazonEnvelopeHeader();
+
             $amazonXML .= static::parseXML($amazonAPI::getParameterByKey("FeedContent"));
+
             $amazonXML .= static::xmlAmazonEnvelopeFooter();
 
         }
@@ -201,11 +246,17 @@ trait AmazonClientCurl
     {
 
         $amazonXmlFeed = static::parseAmazonXML($amazonAPI);
-        Ecommerce::dd($amazonXmlFeed);
+
+        Helpers::dd($amazonXmlFeed);
+
         $link = static::createLink($amazonAPI);
+
         $httpHeader = static::buildHeader($amazonXmlFeed);
+
         $request = static::setCurlOptions($link, $httpHeader, $amazonXmlFeed);
+
         // curl_setopt($request, CURLINFO_HEADER_OUT, true);
+
         return CurlController::request($request);
 
     }

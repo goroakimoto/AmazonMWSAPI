@@ -26,7 +26,8 @@ class AmazonClient
     public static function instance()
     {
 
-        if (static::$instance === null) {
+        if (static::$instance === null)
+        {
 
             static::$instance = new AmazonClient();
 
@@ -40,10 +41,15 @@ class AmazonClient
     {
 
         static::setInfo();
+
         static::setMerchantId();
+
         static::setMarketplaceId();
+
         static::setAwsAccessKey();
+
         static::setSecretKey();
+
         static::setStoreId();
 
     }

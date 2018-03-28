@@ -5,9 +5,8 @@ namespace Amazon\API;
 use \Exception;
 use \DateTime;
 use \DateInterval;
-
 use \DateTimeZone;
-use Ecommerce\Ecommerce;
+use AmazonMWSAPI\Helpers;
 
 trait APIParameterValidation
 {
@@ -150,7 +149,7 @@ trait APIParameterValidation
 
                 $dependentParameter = "The following must all be set: ";
 
-                $dependentParameter .= Ecommerce::arrayToString($dependentParametersCopy);
+                $dependentParameter .= Helpers::arrayToString($dependentParametersCopy);
 
                 $dependentParameter .= "Please correct and try again.";
 
@@ -259,7 +258,7 @@ trait APIParameterValidation
 
                 $exception = "The value for $parameterToCheck must be one of the following: ";
 
-                $exception .= Ecommerce::arrayToString($validParameterValue);
+                $exception .= Helpers::arrayToString($validParameterValue);
 
                 $exception .= "Please correct and try again.";
 
