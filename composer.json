@@ -1,5 +1,5 @@
 {
-    "name": "michaeljberry/amazonmwsapi",
+    "name": "michaeljberry/amazon-mws-api",
     "description": "A PHP library to connect with, update to and pull data from Amazon MWS.",
     "type": "library",
     "license": "MIT",
