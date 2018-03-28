@@ -1,10 +1,8 @@
 <?php
 
-namespace Amazon\API\Products;
+namespace AmazonMWSAPI\Products;
 
-use Amazon\API \{
-    APIMethods, APIParameters, APIParameterValidation, APIProperties
-};
+use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 
 class Products
 {

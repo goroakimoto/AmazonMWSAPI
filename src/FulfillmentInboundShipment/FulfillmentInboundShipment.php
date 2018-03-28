@@ -1,8 +1,8 @@
 <?php
 
-namespace Amazon\API\FulfillmentInboundShipment;
+namespace AmazonMWSAPI\FulfillmentInboundShipment;
 
-use Amazon\API\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 
 class FulfillmentInboundShipment
 {

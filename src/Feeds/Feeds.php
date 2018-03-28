@@ -1,8 +1,8 @@
 <?php
 
-namespace Amazon\API\Feeds;
+namespace AmazonMWSAPI\Feeds;
 
-use Amazon\API\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 
 class Feeds
 {

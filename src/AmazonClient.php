@@ -9,13 +9,10 @@ class AmazonClient
 
     use AmazonClientCurl;
 
-    private static $amazonInfo;
     private static $amazonMerchantID;
     private static $amazonMarketplaceID;
     private static $amazonAWSAccessKey;
     private static $amazonSecretKey;
-    private static $amazonStoreID;
-    public static $env;
     protected static $instance = null;
 
 
@@ -58,7 +55,6 @@ class AmazonClient
         static::setAwsAccessKey();
 
         static::setSecretKey();
-
 
     }
 

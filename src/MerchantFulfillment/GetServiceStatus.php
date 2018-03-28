@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\MerchantFulfillment;
+namespace AmazonMWSAPI\MerchantFulfillment;
 
 class GetServiceStatus extends MerchantFulfillment
 {

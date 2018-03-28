@@ -3,7 +3,7 @@
 namespace AmazonMWSAPI;
 
 use AmazonMWSAPI\AmazonClient;
-use AmazonMWSAPI\Helpers;
+use AmazonMWSAPI\Helpers\Helpers;
 use DateTime;
 use DateTimeZone;
 

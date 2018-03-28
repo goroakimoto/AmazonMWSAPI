@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\FulfillmentOutboundShipment;
+namespace AmazonMWSAPI\FulfillmentOutboundShipment;
 
 class ListAllFulfillmentOrdersByNextToken extends FulfillmentOutboundShipment
 {

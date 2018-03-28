@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\FulfillmentInboundShipment;
+namespace AmazonMWSAPI\FulfillmentInboundShipment;
 
 class ConfirmPreorder extends FulfillmentInboundShipment
 {

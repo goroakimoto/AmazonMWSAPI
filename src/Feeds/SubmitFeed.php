@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\Feeds;
+namespace AmazonMWSAPI\Feeds;
 
 class SubmitFeed extends Feeds
 {

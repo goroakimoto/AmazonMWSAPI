@@ -1,8 +1,8 @@
 <?php
 
-namespace Amazon\API\Orders;
+namespace AmazonMWSAPI\Orders;
 
-use Amazon\API\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 
 class Orders
 {

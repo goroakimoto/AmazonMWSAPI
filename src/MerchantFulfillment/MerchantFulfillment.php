@@ -1,10 +1,8 @@
 <?php
 
-namespace Amazon\API\MerchantFulfillment;
+namespace AmazonMWSAPI\MerchantFulfillment;
 
-use Amazon\API \{
-    APIMethods, APIParameters, APIParameterValidation, APIProperties
-};
+use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 
 class MerchantFulfillment
 {

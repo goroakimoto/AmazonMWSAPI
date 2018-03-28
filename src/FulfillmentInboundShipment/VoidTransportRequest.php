@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\FulfillmentInboundShipment;
+namespace AmazonMWSAPI\FulfillmentInboundShipment;
 
 class VoidTransportRequest extends FulfillmentInboundShipment
 {

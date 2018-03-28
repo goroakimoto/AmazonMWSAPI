@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\Orders;
+namespace AmazonMWSAPI\Orders;
 
 class GetOrder extends Orders
 {
@@ -23,14 +23,5 @@ class GetOrder extends Orders
             "required"
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

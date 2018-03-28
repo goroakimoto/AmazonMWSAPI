@@ -1,8 +1,8 @@
 <?php
 
-namespace Amazon\API\FulfillmentInventory;
+namespace AmazonMWSAPI\FulfillmentInventory;
 
-use Amazon\API\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 
 class FulfillmentInventory
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\Products;
+namespace AmazonMWSAPI\Products;
 
 class ListMatchingProducts extends Products
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\FulfillmentInventory;
+namespace AmazonMWSAPI\FulfillmentInventory;
 
 class ListInventorySupply extends FulfillmentInventory
 {

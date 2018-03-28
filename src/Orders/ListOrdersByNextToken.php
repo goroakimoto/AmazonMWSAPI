@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\Orders;
+namespace AmazonMWSAPI\Orders;
 
 class ListOrdersByNextToken extends Orders
 {

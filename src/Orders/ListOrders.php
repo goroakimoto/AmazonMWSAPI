@@ -1,10 +1,9 @@
 <?php
 
-namespace Amazon\API\Orders;
+namespace AmazonMWSAPI\Orders;
 
 use \DateTime;
 use \DateTimeZone;
-use Amazon\Amazon;
 
 class ListOrders extends Orders
 {
@@ -126,14 +125,5 @@ class ListOrders extends Orders
             ]
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

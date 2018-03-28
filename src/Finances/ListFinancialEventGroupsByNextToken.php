@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API\Finances;
+namespace AmazonMWSAPI\Finances;
 
 class ListFinancialGroupsByNextToken extends Finances
 {
