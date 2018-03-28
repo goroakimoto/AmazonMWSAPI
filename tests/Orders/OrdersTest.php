@@ -3,14 +3,18 @@
 namespace Tests\Orders;
 
 use Tests\TestCase;
-use michaeljberry\AmazonMWSAPI\Orders;
+use AmazonMWSAPI\Orders;
+use AmazonMWSAPI\Helpers\Helpers;
+use AmazonMWSAPI\AmazonClient;
 
 class OrdersTest extends TestCase
 {
 
-    public function testBasic()
+    public function testAmazonAPIInformationHasBeenSet()
     {
-        $this->assertInstanceOf('\michaeljberry\AmazonMWSAPI\Orders', new Orders());
+        AmazonClient::instance();
+        $this->expectOutputString(AmazonClient::getMerchantId());
+        print getenv("AMAZON_MERCHANTID");
     }
 
 }

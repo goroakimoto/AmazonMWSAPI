@@ -1,13 +1,11 @@
 <?php
 
-namespace Amazon\API;
+namespace AmazonMWSAPI;
 
-use Amazon\AmazonClient;
+use AmazonMWSAPI\AmazonClient;
 use AmazonMWSAPI\Helpers;
 use DateTime;
 use DateTimeZone;
-
-use ReflectionClass;
 
 trait APIParameters
 {

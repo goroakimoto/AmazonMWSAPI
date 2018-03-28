@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API;
+namespace AmazonMWSAPI;
 
 trait APIProperties
 {

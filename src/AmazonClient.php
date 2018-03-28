@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI;
 
+use Dotenv\Dotenv;
+
 class AmazonClient
 {
 
@@ -13,6 +15,7 @@ class AmazonClient
     private static $amazonAWSAccessKey;
     private static $amazonSecretKey;
     private static $amazonStoreID;
+    public static $env;
     protected static $instance = null;
 
 
@@ -40,7 +43,13 @@ class AmazonClient
     public function __construct()
     {
 
-        static::setInfo();
+        if(!getenv("AMAZON_MERCHANTID"))
+        {
+
+            $env = new Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src');
+            $env->load();
+
+        }
 
         static::setMerchantId();
 
@@ -50,42 +59,34 @@ class AmazonClient
 
         static::setSecretKey();
 
-        static::setStoreId();
-
-    }
-
-    private static function setInfo()
-    {
-
-        static::$amazonInfo = Channel::getAppInfo(Amazon::getUserId(), AmazonClient::getApiTable(), AmazonClient::getChannelName(), AmazonClient::getApiColumns());
 
     }
 
     private static function setMerchantId()
     {
 
-        static::$amazonMerchantID = decrypt(static::$amazonInfo['merchantid']);
+        static::$amazonMerchantID = getenv("AMAZON_MERCHANTID");
 
     }
 
     private static function setMarketplaceId()
     {
 
-        static::$amazonMarketplaceID = decrypt(static::$amazonInfo['marketplaceid']);
+        static::$amazonMarketplaceID = getenv("AMAZON_MARKETPLACEID");
 
     }
 
     private static function setAwsAccessKey()
     {
 
-        static::$amazonAWSAccessKey = decrypt(static::$amazonInfo['aws_access_key']);
+        static::$amazonAWSAccessKey = getenv("AMAZON_AWSACCESSKEY");
 
     }
 
     private static function setSecretKey()
     {
 
-        static::$amazonSecretKey = decrypt(static::$amazonInfo['secret_key']);
+        static::$amazonSecretKey = getenv("AMAZON_SECRETKEY");
 
     }
 

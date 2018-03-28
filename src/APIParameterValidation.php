@@ -1,6 +1,6 @@
 <?php
 
-namespace Amazon\API;
+namespace AmazonMWSAPI;
 
 use \Exception;
 use \DateTime;
