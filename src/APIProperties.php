@@ -7,7 +7,7 @@ trait APIProperties
 
     protected static $orderNumberFormat = "/^[0-9]{3}\-[0-9]{7}\-[0-9]{7}$/";
     protected static $country = "US";
-    protected static $marketplaces = [
+    protected static $marketplaceTypes = [
         "US" => [
             "endpoint" => "https://mws.amazonservices.com",
             "MarketplaceId" => "ATVPDKIKX0DER",

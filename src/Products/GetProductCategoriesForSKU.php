@@ -2,28 +2,25 @@
 
 namespace AmazonMWSAPI\Products;
 
-class ListMatchingProducts extends Products
+class GetProductCategoriesForSKU extends Products
 {
 
     protected static $requestQuota = 20;
     protected static $restoreRate = 1;
     protected static $restoreRateTime = 5;
-    protected static $restoreRateTimePeriod = "second";
+    protected static $restoreRateTimePeriod = "seconds";
     protected static $hourlyRequestQuota = 720;
     protected static $method = "POST";
     private static $curlParameters = [];
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_ListMatchingProducts.html";
+    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetProductCategoriesForSKU.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
             "required"
         ],
-        "Query" => [
+        "SellerSKU" => [
             "required"
-        ],
-        "QueryContextId" => [
-            "format" => "QueryContextId"
         ],
         "SellerId" => [
             "required"

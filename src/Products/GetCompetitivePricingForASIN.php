@@ -2,28 +2,26 @@
 
 namespace AmazonMWSAPI\Products;
 
-class ListMatchingProducts extends Products
+class GetCompetitivePricingForASIN extends Products
 {
 
     protected static $requestQuota = 20;
-    protected static $restoreRate = 1;
-    protected static $restoreRateTime = 5;
+    protected static $restoreRate = 10;
+    protected static $restoreRateTime = 1;
     protected static $restoreRateTimePeriod = "second";
-    protected static $hourlyRequestQuota = 720;
+    protected static $hourlyRequestQuota = 36000;
     protected static $method = "POST";
     private static $curlParameters = [];
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_ListMatchingProducts.html";
+    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetCompetitivePricingForASIN.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
             "required"
         ],
-        "Query" => [
+        "ASINList" => [
+            "maximumCount" => 20,
             "required"
-        ],
-        "QueryContextId" => [
-            "format" => "QueryContextId"
         ],
         "SellerId" => [
             "required"

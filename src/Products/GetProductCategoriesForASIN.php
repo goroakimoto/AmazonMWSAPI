@@ -2,7 +2,7 @@
 
 namespace AmazonMWSAPI\Products;
 
-class ListMatchingProducts extends Products
+class GetProductCategoriesForASIN extends Products
 {
 
     protected static $requestQuota = 20;
@@ -12,18 +12,15 @@ class ListMatchingProducts extends Products
     protected static $hourlyRequestQuota = 720;
     protected static $method = "POST";
     private static $curlParameters = [];
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_ListMatchingProducts.html";
+    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetProductCategoriesForASIN.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
             "required"
         ],
-        "Query" => [
+        "ASIN" => [
             "required"
-        ],
-        "QueryContextId" => [
-            "format" => "QueryContextId"
         ],
         "SellerId" => [
             "required"

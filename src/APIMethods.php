@@ -39,14 +39,14 @@ trait APIMethods
     public static function getEndpoint()
     {
 
-        return self::$marketplaces[static::getCountry()]["endpoint"];
+        return self::$marketplaceTypes[static::getCountry()]["endpoint"];
 
     }
 
     public static function getMarketplaceId()
     {
 
-        return self::$marketplaces[static::getCountry()]["MarketplaceId"];
+        return self::$marketplaceTypes[static::getCountry()]["MarketplaceId"];
 
     }
 
