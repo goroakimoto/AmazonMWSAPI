@@ -3,6 +3,7 @@
 namespace AmazonMWSAPI;
 
 use Dotenv\Dotenv;
+use AmazonMWSAPI\Helpers\Helpers;
 
 class AmazonClient
 {
@@ -39,14 +40,6 @@ class AmazonClient
 
     public function __construct()
     {
-
-        if(!getenv("AMAZON_MERCHANTID"))
-        {
-
-            $env = new Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src');
-            $env->load();
-
-        }
 
         static::setMerchantId();
 

@@ -11,7 +11,7 @@ class GetServiceStatus extends Finances
     protected static $restoreRateTimePeriod = "minute";
     protected static $method = "POST";
     private static $curlParameters = [];
-    private static $apiUrl = "";
+    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/finances/Finances_GetServiceStatus.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];
     protected static $parameters = [
