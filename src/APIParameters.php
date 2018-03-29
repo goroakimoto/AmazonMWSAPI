@@ -30,7 +30,7 @@ trait APIParameters
     // required
     // requiredIf
     // requiredIfNotSet
-    // validIn
+    // validIf
     // validWith
     // parent - Key => value || value
 
@@ -177,10 +177,10 @@ trait APIParameters
 
     }
 
-    protected static function setMarketplaceIdParameter($key)
+    protected static function setMarketplaceIdParameter()
     {
 
-        self::setParameterByKey($key, self::getMarketplaceId());
+        static::incrementParameter("MarketplaceId", self::getMarketplaceId());
 
     }
 
@@ -432,7 +432,7 @@ trait APIParameters
         }
 
         return false;
-
+//
     }
 
     public static function incrementParameter($parameter, $value, $parentParameterKey = null, $x = 1)
@@ -964,17 +964,10 @@ trait APIParameters
 
         }
 
-        if (array_key_exists("MarketplaceId.Id.1", static::getRequiredParameters()))
-        {
-
-            static::setMarketplaceIdParameter("MarketplaceId.Id.1");
-
-        }
-
         if (array_key_exists("MarketplaceId", static::getRequiredParameters()))
         {
 
-            static::setMarketplaceIdParameter("MarketplaceId.Id.1");
+            static::setMarketplaceIdParameter();
 
         }
 
