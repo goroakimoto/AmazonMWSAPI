@@ -44,5 +44,8 @@ class ListInboundShipments extends FulfillmentInboundShipment
             "requiredIfSet" => "LastUpdatedAfter"
         ]
     ];
+    protected static $example = [
+        "ShipmentStatusList" => "WORKING"
+    ];
 
 }

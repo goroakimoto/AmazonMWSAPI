@@ -928,26 +928,6 @@ trait APIParameters
 
         $rangeWithinParameters = static::recursiveArrayFilterReturnArray("oneOrTheOtherIsSet", $parameters, false);
 
-        // array_filter(
-
-        //     static::getParameters(),
-
-        //     function ($v, $k)
-        //     {
-
-        //         if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
-        //         {
-
-        //             static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
-
-        //         }
-
-        //     },
-
-        //     ARRAY_FILTER_USE_BOTH
-
-        // );
-
     }
 
     protected static function testParametersWithIncompatibilities()
