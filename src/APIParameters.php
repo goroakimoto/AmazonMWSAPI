@@ -285,7 +285,7 @@ trait APIParameters
 
                 unset($array[$key]);
 
-            } elseif (!(bool)$value) {
+            } elseif (!(bool)$value && $value !== 0) {
 
                 unset($array[$key]);
 
@@ -401,7 +401,7 @@ trait APIParameters
     public static function setParameterByKey($key, $value)
     {
 
-        if($value)
+        if(isset($value))
         {
 
             if(array_key_exists($key, static::getDateParameters()) && !in_array($key, self::$curlParameters))
@@ -881,28 +881,28 @@ trait APIParameters
 
     }
 
+    protected static function areWithinRange($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("rangeWithin", $v)) {
+
+            static::ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
+            static::ensureParameterIsNotLessThanMinimum($k, $v["rangeWithin"]["min"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreWithinGivenRange()
     {
 
-        array_filter(
+        $parameters = static::getParameters();
 
-            static::getParameters(),
-
-            function ($v, $k)
-            {
-
-                if (is_array($v) && array_key_exists("rangeWithin", $v))
-                {
-
-                    static::ensureParameterIsInRange($k, $v["rangeWithin"]["min"], $v["rangeWithin"]["max"]);
-
-                }
-
-            },
-
-            ARRAY_FILTER_USE_BOTH
-
-        );
+        $rangeWithinParameters = static::recursiveArrayFilterReturnArray("areWithinRange", $parameters, false);
 
     }
 
@@ -1033,7 +1033,7 @@ trait APIParameters
 
         static::testParametersAreValid();
 
-        // static::testParametersAreWithinGivenRange();
+        static::testParametersAreWithinGivenRange();
 
         static::testParametersAreNoLongerThanMaximum();
 

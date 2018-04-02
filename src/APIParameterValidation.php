@@ -342,8 +342,11 @@ trait APIParameterValidation
     public static function ensureParameterIsInRange($parameterToCheck, $min, $max)
     {
 
-        if(null !== static::getParameterByKey($parameterToCheck))
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if(!empty($matchingParameters))
         {
+
 
             if(
                 static::getParameterByKey($parameterToCheck) < $min ||
@@ -351,6 +354,40 @@ trait APIParameterValidation
             ){
 
                 throw new Exception("$parameterToCheck must be between $min and $max. Please correct and try again.");
+
+            }
+
+        }
+
+    }
+
+    public static function ensureParameterIsNotGreaterThanMaximum($parameterToCheck, $max)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if (!empty($matchingParameters)) {
+
+            if (end($matchingParameters) > $max) {
+
+                throw new Exception("$parameterToCheck must be less than or equal to $max. Please correct and try again.");
+
+            }
+
+        }
+
+    }
+
+    public static function ensureParameterIsNotLessThanMinimum($parameterToCheck, $min)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if (!empty($matchingParameters)) {
+
+            if (trim(end($matchingParameters)) < $min) {
+
+                throw new Exception("$parameterToCheck must be greater than or equal to $min. Please correct and try again.");
 
             }
 
