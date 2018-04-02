@@ -185,8 +185,9 @@ trait APIParameterValidation
     public static function ensureIncompatibleParametersNotSet($parameterToCheck, $restrictedParameters)
     {
 
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(null !== static::getParameterByKey($parameterToCheck))
+        if(!empty($matchingParameters))
         {
 
             if(is_array($restrictedParameters))
@@ -195,7 +196,7 @@ trait APIParameterValidation
                 foreach($restrictedParameters as $restricted)
                 {
 
-                    if(null !== static::getParameterByKey($restricted))
+                    if(!empty(static::searchCurlParametersReturnResults($restricted)))
                     {
 
                         throw new Exception("$restricted cannot be set at the same time as $parameterToCheck. Please correct and try again.");
@@ -206,7 +207,7 @@ trait APIParameterValidation
 
             } else {
 
-                if(null !== static::getParameterByKey($restrictedParameters))
+                if(!empty(static::searchCurlParametersReturnResults($restrictedParameters)))
                 {
 
                     throw new Exception("$restrictedParameters cannot be set at the same time as $parameterToCheck. Please correct and try again.");

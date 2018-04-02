@@ -758,6 +758,21 @@ trait APIParameters
         return false;
     }
 
+    protected static function withIncompatibilities($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("incompatibleWith", $v)) {
+
+            static::ensureIncompatibleParametersNotSet($k, $v["incompatibleWith"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -933,25 +948,9 @@ trait APIParameters
     protected static function testParametersWithIncompatibilities()
     {
 
-        array_filter(
+        $parameters = static::getParameters();
 
-            static::getParameters(),
-
-            function ($v, $k)
-            {
-
-                if (is_array($v) && array_key_exists("incompatibleWith", $v))
-                {
-
-                    static::ensureIncompatibleParametersNotSet($k, $v["incompatibleWith"]);
-
-                }
-
-            },
-
-            ARRAY_FILTER_USE_BOTH
-
-        );
+        $rangeWithinParameters = static::recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
 
     }
 
