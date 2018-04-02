@@ -377,6 +377,23 @@ trait APIParameterValidation
 
     }
 
+    public static function ensureParameterIsNoShorterThanMinimum($parameterToCheck, $min)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if (!empty($matchingParameters)) {
+
+            if (strlen(end($matchingParameters)) < $min) {
+
+                throw new Exception("$parameterToCheck must be longer than $min characters. Please correct and try again.");
+
+            }
+
+        }
+
+    }
+
     public static function ensureParameterCountIsLessThanMaximum($parameterToCheck, $maxCount)
     {
 

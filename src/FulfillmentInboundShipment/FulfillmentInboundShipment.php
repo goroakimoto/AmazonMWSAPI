@@ -408,10 +408,8 @@ class FulfillmentInboundShipment
                 ]
             ],
             "ProNumber" => [
-                "lengthBetween" => [
-                    "min" => 7,
-                    "max" => 10
-                ],
+                "minimumLength" => 7,
+                "maximumLength" => 10,
                 "required"
             ]
         ],
@@ -441,10 +439,8 @@ class FulfillmentInboundShipment
                 ]
             ],
             "ProNumber" => [
-                "lengthBetween" => [
-                    "min" => 7,
-                    "max" => 10
-                ],
+                "minimumLength" => 7,
+                "maximumLength" => 10,
                 "required"
             ]
         ],
