@@ -727,6 +727,22 @@ trait APIParameters
 
     }
 
+    protected static function areWithinRange($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("rangeWithin", $v)) {
+
+            static::ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
+            static::ensureParameterIsNotLessThanMinimum($k, $v["rangeWithin"]["min"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -878,22 +894,6 @@ trait APIParameters
             ARRAY_FILTER_USE_BOTH
 
         );
-
-    }
-
-    protected static function areWithinRange($v, $k)
-    {
-
-        if (is_array($v) && array_key_exists("rangeWithin", $v)) {
-
-            static::ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
-            static::ensureParameterIsNotLessThanMinimum($k, $v["rangeWithin"]["min"]);
-
-            return true;
-
-        }
-
-        return false;
 
     }
 
