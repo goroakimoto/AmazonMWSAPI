@@ -733,6 +733,7 @@ trait APIParameters
         if (is_array($v) && array_key_exists("rangeWithin", $v)) {
 
             static::ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
+
             static::ensureParameterIsNotLessThanMinimum($k, $v["rangeWithin"]["min"]);
 
             return true;
@@ -741,6 +742,20 @@ trait APIParameters
 
         return false;
 
+    }
+
+    protected static function oneOrTheOtherIsSet($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("requiredIfNotSet", $v)) {
+
+            static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+
+            return true;
+
+        }
+
+        return false;
     }
 
     protected static function testParametersAreValid()
@@ -909,25 +924,29 @@ trait APIParameters
     protected static function testOneOrTheOtherIsSet()
     {
 
-        array_filter(
+        $parameters = static::getParameters();
 
-            static::getParameters(),
+        $rangeWithinParameters = static::recursiveArrayFilterReturnArray("oneOrTheOtherIsSet", $parameters, false);
 
-            function ($v, $k)
-            {
+        // array_filter(
 
-                if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
-                {
+        //     static::getParameters(),
 
-                    static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+        //     function ($v, $k)
+        //     {
 
-                }
+        //         if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
+        //         {
 
-            },
+        //             static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
 
-            ARRAY_FILTER_USE_BOTH
+        //         }
 
-        );
+        //     },
+
+        //     ARRAY_FILTER_USE_BOTH
+
+        // );
 
     }
 
@@ -1049,7 +1068,7 @@ trait APIParameters
 
         // static::testDatesNotOutsideInterval();
 
-        // static::testOneOrTheOtherIsSet();
+        static::testOneOrTheOtherIsSet();
 
         // static::testGreaterThan();
 

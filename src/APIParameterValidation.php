@@ -164,17 +164,19 @@ trait APIParameterValidation
     public static function ensureOneOrTheOtherIsSet($firstParameter, $secondParameter)
     {
 
+        $matchingFirstParameters = static::searchCurlParametersReturnResults($firstParameter);
+
+        $matchingSecondParameters = static::searchCurlParametersReturnResults($secondParameter);
+
         if(
             (
-                null === static::getParameterByKey($firstParameter) &&
-                null === static::getParameterByKey($secondParameter)
+                empty($matchingFirstParameters) && empty($matchingSecondParameters)
             ) || (
-                null !== static::getParameterByKey($firstParameter) &&
-                null !== static::getParameterByKey($secondParameter)
+                !empty($matchingFirstParameters) && !empty($matchingSecondParameters)
             )
         ){
 
-            throw new Exception("$firstParameter or $secondParameter must be set. Please correct and try again.");
+            throw new Exception("$firstParameter OR $secondParameter (not both) must be set. Please correct and try again.");
 
         }
 
