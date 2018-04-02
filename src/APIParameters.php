@@ -18,7 +18,6 @@ trait APIParameters
     // incompatibleWith
     // laterThan -- Timestamp default interval is "PT2M"
     // length
-    // lengthBetween
     // maximumLength
     // maximumCount
     // minimumLength
@@ -713,6 +712,21 @@ trait APIParameters
 
     }
 
+    protected static function noShorterThanMinimum($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("minimumLength", $v)) {
+
+            static::ensureParameterIsNoShorterThanMinimum($k, $v["minimumLength"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -737,6 +751,15 @@ trait APIParameters
         $parameters = static::getParameters();
 
         $noLongerThanMaximumParameters = static::recursiveArrayFilterReturnArray("noLongerThanMaximum", $parameters, false);
+
+    }
+
+    protected static function testParametersAreNoShorterThanMinimum()
+    {
+
+        $parameters = static::getParameters();
+
+        $noShorterThanMinimumParameters = static::recursiveArrayFilterReturnArray("noShorterThanMinimum", $parameters, false);
 
     }
 
@@ -1013,6 +1036,8 @@ trait APIParameters
         // static::testParametersAreWithinGivenRange();
 
         static::testParametersAreNoLongerThanMaximum();
+
+        static::testParametersAreNoShorterThanMinimum();
 
         static::testParameterCountIsLessThanMaximum();
 

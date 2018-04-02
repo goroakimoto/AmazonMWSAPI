@@ -27,7 +27,7 @@ class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
             ]
         ],
         "DisplayableOrderId" => [
-            "minimumLength" => 1,
+            "minimumLength" => 7,
             "maximumLength" => 40
         ],
         "DisplayableOrderDateTime" => [

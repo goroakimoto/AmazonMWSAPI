@@ -6,7 +6,7 @@ use \Exception;
 use \DateTime;
 use \DateInterval;
 use \DateTimeZone;
-use AmazonMWSAPI\Helpers;
+use AmazonMWSAPI\Helpers\Helpers;
 
 trait APIParameterValidation
 {
@@ -384,9 +384,9 @@ trait APIParameterValidation
 
         if (!empty($matchingParameters)) {
 
-            if (strlen(end($matchingParameters)) < $min) {
+            if (strlen(trim(end($matchingParameters))) < $min) {
 
-                throw new Exception("$parameterToCheck must be longer than $min characters. Please correct and try again.");
+                throw new Exception("$parameterToCheck must be at least $min character(s). Please correct and try again.");
 
             }
 
