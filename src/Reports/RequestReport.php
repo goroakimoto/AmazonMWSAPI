@@ -21,10 +21,10 @@ class RequestReport extends Reports
             "required"
         ],
         "StartDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "EndDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "ReportOptions",
         "MarketplaceIdList",

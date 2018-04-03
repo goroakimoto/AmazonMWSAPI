@@ -26,11 +26,11 @@ class Reports
             ],
             "ReportRequestId",
             "AvailableDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "Acknowledged",
             "AcknowledgedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "ReportRequestInfo" => [
@@ -39,10 +39,10 @@ class Reports
                 "format" => "ReportType"
             ],
             "StartDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "EndDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "Scheduled" => [
                 "validWith" => [
@@ -51,26 +51,26 @@ class Reports
                 ]
             ],
             "SubmittedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "ReportProcessingStatus",
             "GeneratedReportId",
             "StartedProcessingDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "CompletedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "ReportSchedule" => [
             "ReportType" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "Schedule" => [
                 "format" => "Schedule"
             ],
             "ScheduledDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "ReportType" => [

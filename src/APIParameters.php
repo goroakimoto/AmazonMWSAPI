@@ -11,25 +11,24 @@ trait APIParameters
 {
 
     // dependentOn
-    // divisorOf
+    // !divisorOf
     // earlierThan -- Timestamp default interval is "PT2M"
     // format
-    // greaterThan
+    // !greaterThan
     // incompatibleWith
     // laterThan -- Timestamp default interval is "PT2M"
-    // length
+    // !length
     // maximumLength
     // maximumCount
     // minimumLength
-    // multipleValuesAllowed
     // notIncremented
     // notFartherApartThan
-    // onlyIfOperationIs
+    // !onlyIfOperationIs
     // rangeWithin
     // required
-    // requiredIf
+    // !requiredIf
     // requiredIfNotSet
-    // validIf
+    // !validIf
     // validWith
     // parent - Key => value || value
 
@@ -313,7 +312,7 @@ trait APIParameters
 
     }
 
-    public static function getDateParameters()
+    public static function getDateTimeParameters()
     {
 
         return array_filter(
@@ -322,6 +321,25 @@ trait APIParameters
 
             function ($v, $k)
             {
+
+                return is_array($v) && array_key_exists("format", $v) && $v["format"] === "dateTime";
+
+            },
+
+            ARRAY_FILTER_USE_BOTH
+
+        );
+
+    }
+
+    public static function getDateParameters()
+    {
+
+        return array_filter(
+
+            static::getParameters(),
+
+            function ($v, $k) {
 
                 return is_array($v) && array_key_exists("format", $v) && $v["format"] === "date";
 
@@ -370,7 +388,7 @@ trait APIParameters
         foreach ($array as $key => $value)
         {
 
-            if(array_key_exists($key, $parametersWithFormats))
+            if(array_key_exists($key, $parametersWithFormats) && $value["format"] !== "dateTime" && $value["format"] !== "date")
             {
 
                 $format = $value["format"];
@@ -404,8 +422,12 @@ trait APIParameters
         if(isset($value))
         {
 
-            if(array_key_exists($key, static::getDateParameters()) && !in_array($key, self::$curlParameters))
+            if(array_key_exists($key, static::getDateTimeParameters()) && !in_array($key, self::$curlParameters))
             {
+
+                static::setDateParameter($key, $value);
+
+            } elseif(array_key_exists($key, static::getDateParameters()) && !in_array($key, self::$curlParameters)) {
 
                 static::setDateParameter($key, $value);
 
@@ -493,7 +515,7 @@ trait APIParameters
 
                 } else {
 
-                    $x++;
+                    // $x++;
 
                     if(is_numeric($key))
                     {
@@ -521,7 +543,7 @@ trait APIParameters
 
     }
 
-    public static function setPassedParameters($parametersToSet, $incrementParameter)
+    public static function setPassedParameters($parametersToSet, $incrementParameter, $parentParameter = null)
     {
 
         foreach ($parametersToSet as $parameter => $value)
@@ -537,13 +559,30 @@ trait APIParameters
                 foreach ($value as $parameterSubKey => $subKeyValue)
                 {
 
-                    static::setParameterByKey($parameter . "." . $parameterSubKey, $subKeyValue);
+                    if(is_array($subKeyValue))
+                    {
+
+                        static::setPassedParameters($subKeyValue, $incrementParameter, $parameter . "." . $parameterSubKey);
+
+                    } else {
+
+                        static::setParameterByKey($parameter . "." . $parameterSubKey, $subKeyValue);
+
+                    }
 
                 }
 
             } else {
 
-                static::setParameterByKey($parameter, $value);
+                if($parentParameter)
+                {
+                    static::setParameterByKey($parentParameter . "." . $parameter, $value);
+
+                } else {
+
+                    static::setParameterByKey($parameter, $value);
+
+                }
 
             }
 
@@ -797,7 +836,7 @@ trait APIParameters
     protected static function datesAreInProperFormat($v, $k)
     {
 
-        static::ensureDatesAreInProperFormat($k);
+        static::ensureDateTimesAreInProperFormat($k);
 
     }
 
@@ -896,10 +935,10 @@ trait APIParameters
 
     }
 
-    protected static function testDatesAreInProperFormat()
+    protected static function testDateTimesAreInProperFormat()
     {
 
-        $dateParameters = static::getDateParameters();
+        $dateParameters = static::getDateTimeParameters();
 
         $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreInProperFormat", $dateParameters, false);
 
@@ -1015,7 +1054,7 @@ trait APIParameters
     public static function verifyParameters()
     {
         Helpers::dd(static::getCurlParameters());
-        Helpers::dd(static::getParameters());
+        // Helpers::dd(static::getParameters());
 
         static::ensureRequiredParametersAreSet();
 
@@ -1039,7 +1078,7 @@ trait APIParameters
 
         static::testDatesAreLaterThan();
 
-        static::testDatesAreInProperFormat();
+        static::testDateTimesAreInProperFormat();
 
         static::testDatesNotOutsideInterval();
 

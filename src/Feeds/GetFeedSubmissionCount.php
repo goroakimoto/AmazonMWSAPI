@@ -26,10 +26,10 @@ class GetFeedSubmissionCount extends Feeds
             "required"
         ],
         "SubmittedFromDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "SubmittedToDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ]
     ];
 

@@ -33,13 +33,13 @@ class ListOrders extends Orders
                 "CreatedBefore",
                 "Timestamp"
             ],
-            "format" => "date",
+            "format" => "dateTime",
             "incompatibleWith" => "LastUpdatedAfter",
             "requiredIfNotSet" => "LastUpdatedAfter"
         ],
         "CreatedBefore" => [
             "earlierThan" => "Timestamp",
-            "format" => "date",
+            "format" => "dateTime",
             "laterThan" => "CreatedAfter"
         ],
         "FulfillmentChannel" => [
@@ -53,7 +53,7 @@ class ListOrders extends Orders
                 "LastUpdatedBefore",
                 "Timestamp"
             ],
-            "format" => "date",
+            "format" => "dateTime",
             "incompatibleWith" => [
                 "BuyerEmail",
                 "CreatedAfter",
@@ -63,7 +63,7 @@ class ListOrders extends Orders
         ],
         "LastUpdatedBefore" => [
             "earlierThan" => "Timestamp",
-            "format" => "date",
+            "format" => "dateTime",
             "laterThan" => "LastUpdatedAfter"
         ],
         "MarketplaceId" => [

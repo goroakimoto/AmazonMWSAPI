@@ -42,7 +42,7 @@ class ListFinancialEvents extends Finances
                 "PostedBefore",
                 "Timestamp"
             ],
-            "format" => "date",
+            "format" => "dateTime",
             "incompatibleWith" => [
                 "AmazonOrderId",
                 "FinancialEventGroupId"
@@ -50,7 +50,7 @@ class ListFinancialEvents extends Finances
         ],
         "PostedBefore" => [
             "earlierThan" => "Timestamp",
-            "format" => "date",
+            "format" => "dateTime",
             "incompatibleWith" => [
                 "AmazonOrderId",
                 "FinancialEventGroupId"

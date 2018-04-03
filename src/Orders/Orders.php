@@ -85,7 +85,7 @@ class Orders
                 "required"
             ],
             "LastUpdateDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "OrderStatus" => [
@@ -178,16 +178,16 @@ class Orders
                 ]
             ],
             "EarliestShipDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "LatestShipDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "EarliestDeliveryDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "LatestDeliveryDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "IsBusinessOrder" => [
                 "validWith" => [
@@ -292,10 +292,10 @@ class Orders
                 ]
             ],
             "ScheduledDeliveryStartDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "ScheduledDeliveryEndDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "PriceDesignation" => [
                 "validWith" => [

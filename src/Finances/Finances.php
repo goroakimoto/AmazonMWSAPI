@@ -38,7 +38,7 @@ class Finances
                 "format" => "AdjustmentItem"
             ],
             "PostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "AdjustmentItem" => [
@@ -103,7 +103,7 @@ class Finances
         ],
         "CouponPaymentEvent" => [
             "PostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "CouponId",
             "SellerCouponDescription",
@@ -154,10 +154,10 @@ class Finances
                 "format" => "CurrencyAmount"
             ],
             "GroupBeginDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "GroupEndDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "DirectPayment" => [
@@ -250,7 +250,7 @@ class Finances
                 "format" => "CurrencyAmount"
             ],
             "FundTransferDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "TraceId",
             "AccountTail",
@@ -258,10 +258,10 @@ class Finances
                 "format" => "CurrencyAmount"
             ],
             "FinancialEventGroupStart" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "FinancialEventGroupEnd" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "FinancialEvents" => [
@@ -346,7 +346,7 @@ class Finances
         "PayWithAmazonEvent" => [
             "SellerOrderId",
             "TranactionPostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "BusinessObjectType" => [
                 "validWith" => [
@@ -424,7 +424,7 @@ class Finances
             ],
             "ExtensionLength",
             "PosedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "RentalChargeList" => [
                 "format" => "ChargeComponent"
@@ -449,7 +449,7 @@ class Finances
             ],
             "AmazonOrderId",
             "PostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "BaseTax" => [
                 "format" => "CurrencyAmount"
@@ -461,7 +461,7 @@ class Finances
         ],
         "SAFETReimbursementEvent" => [
             "PostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "SAFETClaimId",
             "ReimbursedAmount" => [
@@ -478,7 +478,7 @@ class Finances
         ],
         "SellerReviewEnrollmentPaymentEvent" => [
             "PostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "EnrollmentId",
             "ParentASIN",
@@ -529,7 +529,7 @@ class Finances
                 "format" => "DirectPayment"
             ],
             "PostedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "ShipmentItemList" => [
                 "format" => "ShipmentItem"

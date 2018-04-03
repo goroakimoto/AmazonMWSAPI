@@ -277,11 +277,11 @@ class MerchantFulfillment
                 "maximumLength" => 30
             ],
             "CreatedDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "LastUpdatedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "ShipmentRequestDetails" => [
@@ -309,7 +309,7 @@ class MerchantFulfillment
                 "required"
             ],
             "MustArriveByDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "ShipDate",
             "ShippingServiceOptions" => [

@@ -21,7 +21,7 @@ class ListInventorySupply extends FulfillmentInventory
             "requiredIfNotSet" => "QueryStartDateTime"
         ],
         "QueryStartDateTime" => [
-            "format" => "date",
+            "format" => "dateTime",
             "incompatibleWith" => "SellerSkus"
         ],
         "ResponseGroup" => [

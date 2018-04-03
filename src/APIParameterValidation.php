@@ -104,7 +104,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureDatesAreInProperFormat($parameterToCheck)
+    public static function ensureDateTimesAreInProperFormat($parameterToCheck)
     {
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);

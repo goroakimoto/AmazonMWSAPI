@@ -80,6 +80,7 @@ trait APIProperties
         "FeedSubmissionIdList" => "Id",
         "FeedTypeList" => "Type",
         "FulfillmentChannel" => "Channel",
+        "InboundShipmentItems" => "member",
         "InboundShipmentPlanRequest" => "member",
         "InboundShipmentPlanRequestItems" => "member",
         "Items" => "member",

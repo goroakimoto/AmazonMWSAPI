@@ -542,10 +542,10 @@ class FulfillmentInboundShipment
                 "format" => "Amount"
             ],
             "ConfirmDeadline" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "VoidDeadline" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "PartneredLtlDataInput" => [
@@ -642,11 +642,11 @@ class FulfillmentInboundShipment
                 "format" => "Amount"
             ],
             "PreviewPickupDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "PreviewDeliveryDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "PreviewFreightClass" => [
@@ -776,7 +776,6 @@ class FulfillmentInboundShipment
             ]
         ],
         "PrepInstruction" => [
-            "multipleValuesAllowed",
             "validWith" => [
                 "BlackShrinkWrapping",
                 "BubbleWrapping",

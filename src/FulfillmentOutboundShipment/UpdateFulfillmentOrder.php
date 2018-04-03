@@ -31,7 +31,7 @@ class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
             "maximumLength" => 40
         ],
         "DisplayableOrderDateTime" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "DisplayableOrderComment" => [
             "maximumLength" => 1000

@@ -16,7 +16,7 @@ class ListAllFulfillmentOrders extends FulfillmentOutboundShipment
     protected static $allowedParameters = [];
     protected static $parameters = [
         "QueryStartDateTime" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "SellerId" => [
             "required"

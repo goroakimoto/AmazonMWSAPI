@@ -21,12 +21,12 @@ class ListFinancialEventGroups extends Finances
                 "Timestamp",
                 "FinancialEventGroupStartedBefore"
             ],
-            "format" => "date",
+            "format" => "dateTime",
             "required"
         ],
         "FinancialEventGroupStartedBefore" => [
             "earlierThan" => "Timestamp",
-            "format" => "date",
+            "format" => "dateTime",
             "laterThan" => "FinancialEventGroupStartedAfter",
             "notFartherApartThan" => [
                 "days" => 180,

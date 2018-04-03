@@ -23,12 +23,12 @@ class ListInboundShipmentItems extends FulfillmentInboundShipment
         ],
         "LastUpdatedAfter" => [
             "earlierThan" => "LastUpdatedBefore",
-            "format" => "date",
+            "format" => "dateTime",
             "requiredIfSet" => "LastUpdatedBefore",
             "requiredIfNotSet" => "ShipmentId"
         ],
         "LastUpdatedBefore" => [
-            "format" => "date",
+            "format" => "dateTime",
             "laterThan" => "LastUpdatedAfter",
             "requiredIfSet" => "LastUpdatedAfter",
             "requiredIfNotSet" => "ShipmentId"

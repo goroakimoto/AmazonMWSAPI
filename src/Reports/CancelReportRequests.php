@@ -30,10 +30,10 @@ class CancelReportRequests extends Reports
             ]
         ],
         "RequestedFromDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "RequestedToDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "SellerId" => [
             "required"

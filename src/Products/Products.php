@@ -50,7 +50,7 @@ class Products
             "minimumHours",
             "maximumHours",
             "availableDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "availabilityType" => [
                 "format" => "AvailabilityType"

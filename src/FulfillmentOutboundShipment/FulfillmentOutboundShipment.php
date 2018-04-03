@@ -170,11 +170,11 @@ class FulfillmentOutboundShipment
         ],
         "DeliveryWindow" => [
             "StartDateTime" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "EndDateTime" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ]
         ],
@@ -236,7 +236,7 @@ class FulfillmentOutboundShipment
                 ]
             ],
             "ReceivedDateTime" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "FulfillmentOrderStatus" => [
@@ -252,7 +252,7 @@ class FulfillmentOutboundShipment
                 ]
             ],
             "StatusUpdatedDateTime" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "NotificationEmailList",
@@ -278,10 +278,10 @@ class FulfillmentOutboundShipment
                 "required"
             ],
             "EstimatedShipDateTime" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "EstimatedArrivalDateTime" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "PerUnitDeclaredValue" => [
                 "format" => "Currency"
@@ -359,19 +359,19 @@ class FulfillmentOutboundShipment
         ],
         "FulfillmentPreviewShipment" => [
             "EarliestShipDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "LatestShipDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "EarliestArrivalDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "LatestArrivalDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "FulfillmentPreviewItems" => [
@@ -396,10 +396,10 @@ class FulfillmentOutboundShipment
                 ]
             ],
             "ShippingDateTime" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "EstimatedArrivalDateTime" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "FulfillmentShipmentItem" => [
                 "format" => "FulfillmentShipmentItem",
@@ -428,7 +428,7 @@ class FulfillmentOutboundShipment
             ],
             "TrackingNumber",
             "EstimatedArrivalDateTime" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "GetFulfillmentPreviewItem" => [
@@ -520,7 +520,7 @@ class FulfillmentOutboundShipment
                 "required"
             ],
             "StatusChangedDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "ReturnAuthorizationId",
@@ -569,7 +569,7 @@ class FulfillmentOutboundShipment
         ],
         "TrackingEvent" => [
             "EventDate" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "EventAddress" => [

@@ -25,7 +25,7 @@ class ManageReportSchedule extends Reports
             "required"
         ],
         "ScheduleDate" => [
-            "format" => "date",
+            "format" => "dateTime",
             "notFartherApartThan" => [
                 "from" => "now",
                 "days" => 365

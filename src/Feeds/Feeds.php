@@ -25,16 +25,16 @@ class Feeds
                 "format" => "FeedType"
             ],
             "SubmittedDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "FeedProcessingStatus" => [
                 "format" => "FeedProcessingStatus"
             ],
             "StartedProcessingDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "CompletedProcessingDate" => [
-                "format" => "date"
+                "format" => "dateTime"
             ]
         ],
         "FeedProcessingStatus" => [

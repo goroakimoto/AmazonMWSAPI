@@ -24,7 +24,7 @@ class Sellers
             "Name",
             "DefaultCountryCode",
             "DefaultCurrencyCode" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "DefaultLanguageCode" => [
                 "length" => 5

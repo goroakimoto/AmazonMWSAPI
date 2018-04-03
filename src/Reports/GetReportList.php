@@ -28,10 +28,10 @@ class GetReportList extends Reports
         "Acknowledged",
         "ReportRequestIdList",
         "AvailableFromDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "AvailableToDate" => [
-            "format" => "date"
+            "format" => "dateTime"
         ],
         "SellerId" => [
             "required"

@@ -23,7 +23,7 @@ class Recommendations
             "RecommendationId",
             "RecommendationReason",
             "LastUpdated" => [
-                "format" => "date"
+                "format" => "dateTime"
             ],
             "ItemIdentifier" => [
                 "format" => "ProductIdentifier"
@@ -91,7 +91,7 @@ class Recommendations
                 "RecommendationId",
                 "RecommendationReason",
                 "LastUpdated" => [
-                    "format" => "date"
+                    "format" => "dateTime"
                 ],
                 "ItemIdentifier" => [
                     "format" => "ProductIdentifier"
@@ -115,7 +115,7 @@ class Recommendations
                 "RecommendationId",
                 "RecommendationReason",
                 "LastUpdated" => [
-                    "format" => "date"
+                    "format" => "dateTime"
                 ],
                 "ItemIdentifier" => [
                     "format" => "ProductIdentifier"
@@ -139,7 +139,7 @@ class Recommendations
                 "RecommendationId",
                 "RecommendationReason",
                 "LastUpdated" => [
-                    "format" => "date"
+                    "format" => "dateTime"
                 ],
                 "ItemIdentifier" => [
                     "format" => "ProductIdentifier"
@@ -200,7 +200,7 @@ class Recommendations
                 "RecommendationId",
                 "RecommendationReason",
                 "LastUpdated" => [
-                    "format" => "date"
+                    "format" => "dateTime"
                 ],
                 "ItemIdentifier" => [
                     "format" => "ProductIdentifier"

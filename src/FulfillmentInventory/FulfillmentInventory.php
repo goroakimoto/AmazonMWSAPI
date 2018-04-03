@@ -73,11 +73,11 @@ class FulfillmentInventory
                 ]
             ],
             "EarliestAvailableToPick" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ],
             "LatestAvailableToPick" => [
-                "format" => "date",
+                "format" => "dateTime",
                 "required"
             ]
         ],

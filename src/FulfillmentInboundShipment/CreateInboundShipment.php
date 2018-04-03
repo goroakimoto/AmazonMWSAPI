@@ -30,5 +30,41 @@ class CreateInboundShipment extends FulfillmentInboundShipment
             "required"
         ]
     ];
+    protected static $example = [
+        "ShipmentId" => "1234567890",
+        "InboundShipmentHeader" => [
+            "ShipmentName" => "Blah",
+            "ShipFromAddress" => [
+                "Name" => "Ben Parker",
+                "AddressLine1" => "1234 Main St.",
+                "City" => "New York",
+                "CountryCode" => "US"
+            ],
+            "DestinationFulfillmentCenterId" => "987654321",
+            "LabelPrepPreference" => "SELLER_LABEL",
+            "AreCasesRequired" => "false",
+            "ShipmentStatus" => "WORKING",
+        ],
+        "InboundShipmentItems" => [
+            [
+                "SellerSKU" => "M150",
+                "QuantityShipped" => 5,
+                "ReleaseDate" => "2018-01-05",
+                "PrepDetailsList" => [
+                    "PrepInstruction" => "Labeling",
+                    "PrepOwner" => "SELLER"
+                ]
+            ],
+            [
+                "SellerSKU" => "M180",
+                "QuantityShipped" => 2,
+                "ReleaseDate" => "2018-01-05",
+                "PrepDetailsList" => [
+                    "PrepInstruction" => "Labeling",
+                    "PrepOwner" => "SELLER"
+                ]
+            ]
+        ]
+    ];
 
 }

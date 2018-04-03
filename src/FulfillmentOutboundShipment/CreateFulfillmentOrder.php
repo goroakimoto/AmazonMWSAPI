@@ -32,7 +32,7 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
             "required"
         ],
         "DisplayableOrderDateTime" => [
-            "format" => "date",
+            "format" => "dateTime",
             "required"
         ],
         "DisplayableOrderComment" => [

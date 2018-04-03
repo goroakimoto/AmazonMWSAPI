@@ -34,12 +34,12 @@ class ListInboundShipments extends FulfillmentInboundShipment
             "requiredIfNotSet" => "ShipmentStatusList"
         ],
         "LastUpdatedAfter" => [
-            "format" => "date",
+            "format" => "dateTime",
             "earlierThan" => "LastUpdatedBefore",
             "requiredIfSet" => "LastUpdatedBefore"
         ],
         "LastUpdatedBefore" => [
-            "format" => "date",
+            "format" => "dateTime",
             "laterThan" => "LastUpdatedAfter",
             "requiredIfSet" => "LastUpdatedAfter"
         ]
