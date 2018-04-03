@@ -337,6 +337,7 @@ trait APIParameters
 
             function ($v, $k) {
 
+
                 return is_array($v) && array_key_exists("format", $v) && $v["format"] === "date";
 
             },
@@ -852,10 +853,17 @@ trait APIParameters
 
     }
 
-    protected static function datesAreInProperFormat($v, $k)
+    protected static function dateTimesAreInProperFormat($v, $k)
     {
 
         static::ensureDateTimesAreInProperFormat($k);
+
+    }
+
+    protected static function datesAreInProperFormat($v, $k)
+    {
+
+        static::ensureDateAreInProperFormat($k);
 
     }
 
@@ -956,7 +964,18 @@ trait APIParameters
     protected static function testDateTimesAreInProperFormat()
     {
 
-        $dateParameters = static::getDateTimeParameters();
+        $dateTimeParameters = static::getDateTimeParameters();
+
+        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("dateTimesAreInProperFormat", $dateTimeParameters, false);
+
+    }
+
+    protected static function testDatesAreInProperFormat()
+    {
+
+        $dateParameters = static::getDateParameters();
+
+        Helpers::dd($dateParameters);
 
         $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreInProperFormat", $dateParameters, false);
 
@@ -1095,6 +1114,8 @@ trait APIParameters
         static::testDatesAreEarlierThan();
 
         static::testDatesAreLaterThan();
+
+        static::testDatesAreInProperFormat();
 
         static::testDateTimesAreInProperFormat();
 

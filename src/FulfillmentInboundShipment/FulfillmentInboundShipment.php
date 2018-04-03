@@ -256,7 +256,7 @@ class FulfillmentInboundShipment
                 ]
             ],
             "ConfirmedNeedByDate" => [
-                "format" => "YYYY-MM-DD"
+                "format" => "date"
             ],
             "BoxContentsSource" => [
                 "format" => "BoxContentsSource"
@@ -282,7 +282,7 @@ class FulfillmentInboundShipment
                 "format" => "PrepDetails"
             ],
             "ReleaseDate" => [
-                "format" => "YYYY-MM-DD"
+                "format" => "date"
             ]
         ],
         "InboundShipmentPlan" => [
@@ -579,7 +579,7 @@ class FulfillmentInboundShipment
                 ]
             ],
             "FreightReadyDate" => [
-                "format" => "YYYY-MM-DD",
+                "format" => "date",
                 "required"
             ],
             "PalletList" => [
@@ -623,7 +623,7 @@ class FulfillmentInboundShipment
                 ]
             ],
             "FreightReadyDate" => [
-                "format" => "YYYY-MM-DD",
+                "format" => "date",
                 "laterThan" => "PT2D",
                 "required"
             ],

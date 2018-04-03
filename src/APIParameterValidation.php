@@ -123,6 +123,23 @@ trait APIParameterValidation
 
     }
 
+    public static function ensureDateAreInProperFormat($parameterToCheck)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if (!empty($matchingParameters)) {
+
+            if (!preg_match("/^\d{4}-\d{2}-\d{2}Z$/", end($matchingParameters))) {
+
+                throw new Exception("Dates must be in this format: YYYY-MM-DDZ. Please correct and try again.");
+
+            }
+
+        }
+
+    }
+
     public static function ensureAllAreSet($dependentParameters)
     {
 
