@@ -80,10 +80,13 @@ trait APIProperties
             "default" => "Id",
             "GetMyPriceForASIN" => "ASIN"
         ],
+        "AttributeList" => "member",
+        "CategoryQueryList" => "CategoryQuery",
         "FeedProcessingStatusList" => "Status",
         "FeedSubmissionIdList" => "Id",
         "FeedTypeList" => "Type",
         "FeesEstimateRequestList" => "FeesEstimateRequest",
+        "FilterOptions" => "FilterOption",
         "FulfillmentChannel" => "Channel",
         "IdList" => "Id",
         "InboundShipmentItems" => "member",
@@ -99,6 +102,9 @@ trait APIProperties
         "PackageList" => "member",
         "PaymentMethod" => "Method",
         "PrepDetailsList" => "member",
+        "ReportProcessingStatusList" => "Status",
+        "ReportRequestIdList" => "Id",
+        "ReportTypeList" => "Type",
         "SellerSKUList" => [
             "default" => "Id",
             "GetMyPriceForSKU" => "SellerSKU"
