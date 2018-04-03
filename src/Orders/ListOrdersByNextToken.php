@@ -23,13 +23,4 @@ class ListOrdersByNextToken extends Orders
         ]
     ];
 
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
-
 }

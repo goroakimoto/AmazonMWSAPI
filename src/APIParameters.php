@@ -515,6 +515,13 @@ trait APIParameters
 
                 } else {
 
+                    // $x++; Must be commented out to allow
+                    // FulfillmentInboundShipment\CreateInboundShipment->
+                    // InboundShipmentItems.member.{#}.PrepDetailsList.member.{#}
+                    // to increment properly
+                    // This is included only to allow for further testing
+                    // to ensure it is a non-breaking change.
+
                     // $x++;
 
                     if(is_numeric($key))
@@ -543,13 +550,13 @@ trait APIParameters
 
     }
 
-    public static function setPassedParameters($parametersToSet, $incrementParameter, $parentParameter = null)
+    public static function setPassedParameters($parametersToSet, $parentParameter = null)
     {
 
         foreach ($parametersToSet as $parameter => $value)
         {
 
-            if(static::getIncrementorByKey($parameter) && $incrementParameter !== false)
+            if(static::getIncrementorByKey($parameter))
             {
 
                 static::incrementParameter($parameter, $value);
@@ -562,7 +569,7 @@ trait APIParameters
                     if(is_array($subKeyValue))
                     {
 
-                        static::setPassedParameters($subKeyValue, $incrementParameter, $parameter . "." . $parameterSubKey);
+                        static::setPassedParameters($subKeyValue, $parameter . "." . $parameterSubKey);
 
                     } else {
 
@@ -989,7 +996,7 @@ trait APIParameters
 
     }
 
-    public static function setParameters($parametersToSet = null, $incrementParameter = null)
+    public static function setParameters($parametersToSet = null)
     {
 
         static::resetCurlParameters();
@@ -1045,7 +1052,7 @@ trait APIParameters
         if($parametersToSet)
         {
 
-            static::setPassedParameters($parametersToSet, $incrementParameter);
+            static::setPassedParameters($parametersToSet);
 
         }
 

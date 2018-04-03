@@ -76,22 +76,30 @@ trait APIProperties
     ];
     protected static $incrementors = [
         "AmazonOrderId" => "Id",
+        "ASINList" => "Id",
         "FeedProcessingStatusList" => "Status",
         "FeedSubmissionIdList" => "Id",
         "FeedTypeList" => "Type",
+        "FeesEstimateRequestList" => "FeesEstimateRequest",
         "FulfillmentChannel" => "Channel",
+        "IdList" => "Id",
         "InboundShipmentItems" => "member",
         "InboundShipmentPlanRequest" => "member",
         "InboundShipmentPlanRequestItems" => "member",
+        "ItemList" => "Item",
         "Items" => "member",
         "MarketplaceId" => "Id",
         "MarketplaceIdList" => "Id",
         "NotificationEmailList" => "member",
         "OrderStatus" => "Status",
+        "PackageLabelsToPrint" => "member",
+        "PackageList" => "member",
         "PaymentMethod" => "Method",
         "PrepDetailsList" => "member",
         "SellerSKUList" => "Id",
-        "SellerSkus" => "member"
+        "SellerSkus" => "member",
+        "ShipmentIdList" => "member",
+        "ShipmentStatusList" => "member"
     ];
 
 }
