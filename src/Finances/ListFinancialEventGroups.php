@@ -43,5 +43,8 @@ class ListFinancialEventGroups extends Finances
             "required"
         ]
     ];
+    protected static $example = [
+        "FinancialEventGroupStartedAfter" => "-1 days"
+    ];
 
 }

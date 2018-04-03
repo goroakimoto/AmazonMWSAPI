@@ -788,6 +788,13 @@ trait APIParameters
 
     }
 
+    protected static function datesAreInProperFormat($v, $k)
+    {
+
+        static::ensureDatesAreInProperFormat($k);
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -838,20 +845,7 @@ trait APIParameters
 
         $dateParameters = static::getDateParameters();
 
-        array_filter(
-
-            $dateParameters,
-
-            function ($v, $k)
-            {
-
-                static::ensureDatesAreInProperFormat($k);
-
-            },
-
-            ARRAY_FILTER_USE_BOTH
-
-        );
+        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreInProperFormat", $dateParameters, false);
 
     }
 
@@ -1042,7 +1036,7 @@ trait APIParameters
 
         // static::testDatesAreLaterThan();
 
-        // static::testDatesAreInProperFormat();
+        static::testDatesAreInProperFormat();
 
         static::testDatesNotOutsideInterval();
 

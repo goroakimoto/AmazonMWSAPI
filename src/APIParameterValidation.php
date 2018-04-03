@@ -126,10 +126,12 @@ trait APIParameterValidation
     public static function ensureDatesAreInProperFormat($parameterToCheck)
     {
 
-        if(null !== static::getParameterByKey($parameterToCheck))
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if(!empty($matchingParameters))
         {
 
-            if (!preg_match("/^\d{4}-\d{2}-\d{2}T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$/", static::getParameterByKey($parameterToCheck)))
+            if (!preg_match("/^\d{4}-\d{2}-\d{2}T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$/", end($matchingParameters)))
             {
 
                 throw new Exception("Dates must be in this format: YYYY-MM-DDTHH:II:SSZ. Please correct and try again.");
