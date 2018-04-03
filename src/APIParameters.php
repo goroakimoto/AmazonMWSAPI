@@ -773,6 +773,21 @@ trait APIParameters
 
     }
 
+    protected static function datesNotOutsideInterval($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("notFartherApartThan", $v)) {
+
+            static::ensureDatesNotOutsideInterval($k, $v["notFartherApartThan"]["from"], $v["notFartherApartThan"]["days"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -787,7 +802,7 @@ trait APIParameters
 
         $parameters = static::getParameters();
 
-        $noLongerThanMaximumParameters = static::recursiveArrayFilterReturnArray("countIsLessThanMaximum", $parameters, false);
+        $countIsLessThanMaximumParameters = static::recursiveArrayFilterReturnArray("countIsLessThanMaximum", $parameters, false);
 
     }
 
@@ -812,25 +827,9 @@ trait APIParameters
     protected static function testDatesNotOutsideInterval()
     {
 
-        array_filter(
+        $parameters = static::getParameters();
 
-            static::getParameters(),
-
-            function ($v, $k)
-            {
-
-                if (is_array($v) && array_key_exists("notFartherApartThan", $v))
-                {
-
-                    static::ensureDatesNotOutsideInterval($k, $v["notFartherApartThan"]["from"], $v["notFartherApartThan"]["days"]);
-
-                }
-
-            },
-
-            ARRAY_FILTER_USE_BOTH
-
-        );
+        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesNotOutsideInterval", $parameters, false);
 
     }
 
@@ -1045,7 +1044,7 @@ trait APIParameters
 
         // static::testDatesAreInProperFormat();
 
-        // static::testDatesNotOutsideInterval();
+        static::testDatesNotOutsideInterval();
 
         static::testOneOrTheOtherIsSet();
 
