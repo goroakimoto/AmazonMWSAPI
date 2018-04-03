@@ -795,6 +795,21 @@ trait APIParameters
 
     }
 
+    protected static function datesAreLaterThan($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("laterThan", $v)) {
+
+            static::ensureIntervalBetweenDates($k, $v["laterThan"], "later");
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -852,25 +867,9 @@ trait APIParameters
     protected static function testDatesAreLaterThan()
     {
 
-        array_filter(
+        $parameters = static::getParameters();
 
-            static::getParameters(),
-
-            function ($v, $k)
-            {
-
-                if (is_array($v) && array_key_exists("laterThan", $v))
-                {
-
-                    static::ensureIntervalBetweenDates($k, $v["laterThan"], "later");
-
-                }
-
-            },
-
-            ARRAY_FILTER_USE_BOTH
-
-        );
+        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreLaterThan", $parameters, false);
 
     }
 
@@ -1034,7 +1033,7 @@ trait APIParameters
 
         // static::testDatesAreEarlierThan();
 
-        // static::testDatesAreLaterThan();
+        static::testDatesAreLaterThan();
 
         static::testDatesAreInProperFormat();
 

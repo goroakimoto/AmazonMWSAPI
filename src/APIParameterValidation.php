@@ -51,10 +51,14 @@ trait APIParameterValidation
     public static function ensureIntervalBetweenDates($dateToEnsureInterval, $baseDate = "Timestamp", $direction = "earlier", $interval = "PT2M")
     {
 
-        if(null !== static::getParameterByKey($dateToEnsureInterval))
+        $matchingParameters = static::searchCurlParametersReturnResults($dateToEnsureInterval);
+
+        if(!empty($matchingParameters))
         {
 
-            $date = new DateTime(static::getParameterByKey($baseDate));
+            $baseDateResults = static::searchCurlParametersReturnResults($baseDate);
+
+            $date = new DateTime(end($baseDateResults));
 
             $formattedInterval = new DateInterval($interval);
 
@@ -69,7 +73,7 @@ trait APIParameterValidation
 
             }
 
-            $dateToEnsure = new DateTime(static::getParameterByKey($dateToEnsureInterval));
+            $dateToEnsure = new DateTime(end($matchingParameters));
 
             if($dateToEnsure > $adjustedDate && $direction === "earlier")
             {
