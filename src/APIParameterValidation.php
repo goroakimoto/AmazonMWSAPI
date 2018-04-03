@@ -99,13 +99,17 @@ trait APIParameterValidation
     public static function ensureDatesNotOutsideInterval($earlierDate, $laterDate, $intervalInDays)
     {
 
+        $matchingEarlierDateParameters = static::searchCurlParametersReturnResults($earlierDate);
+
+        $matchingLaterDateParameters = static::searchCurlParametersReturnResults($laterDate);
+
         if(
-            null !== static::getParameterByKey($earlierDate) &&
-            null !== static::getParameterByKey($laterDate)
+            !empty($matchingEarlierDateParameters) &&
+            !empty($matchingLaterDateParameters)
         ){
 
-            $earlyDate = new DateTime(static::getParameterByKey($earlierDate));
-            $lateDate = new DateTime(static::getParameterByKey($laterDate));
+            $earlyDate = new DateTime(end($matchingEarlierDateParameters));
+            $lateDate = new DateTime(end($matchingLaterDateParameters));
             $difference = $earlyDate->diff($lateDate);
 
             if($difference->format('%a') > $intervalInDays)
