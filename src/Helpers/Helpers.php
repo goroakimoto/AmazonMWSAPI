@@ -34,6 +34,15 @@ class Helpers
 
     }
 
+    public static function getCalledClass($calledClass)
+    {
+
+        $fullClassName = explode("\\", $calledClass);
+
+        return end($fullClassName);
+
+    }
+
     public static function arrayToString($array)
     {
 

@@ -76,7 +76,10 @@ trait APIProperties
     ];
     protected static $incrementors = [
         "AmazonOrderId" => "Id",
-        "ASINList" => "Id",
+        "ASINList" => [
+            "default" => "Id",
+            "GetMyPriceForASIN" => "ASIN"
+        ],
         "FeedProcessingStatusList" => "Status",
         "FeedSubmissionIdList" => "Id",
         "FeedTypeList" => "Type",
@@ -96,7 +99,10 @@ trait APIProperties
         "PackageList" => "member",
         "PaymentMethod" => "Method",
         "PrepDetailsList" => "member",
-        "SellerSKUList" => "Id",
+        "SellerSKUList" => [
+            "default" => "Id",
+            "GetMyPriceForSKU" => "SellerSKU"
+        ],
         "SellerSkus" => "member",
         "ShipmentIdList" => "member",
         "ShipmentStatusList" => "member"

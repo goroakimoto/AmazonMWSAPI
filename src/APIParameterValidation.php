@@ -305,7 +305,6 @@ trait APIParameterValidation
         foreach ($requiredParameters as $key => $parameter)
         {
 
-
             if(is_array($parameter))
             {
 
@@ -336,7 +335,6 @@ trait APIParameterValidation
 
         if(!empty($matchingParameters))
         {
-
 
             if(
                 end($matchingParameters) < $min ||

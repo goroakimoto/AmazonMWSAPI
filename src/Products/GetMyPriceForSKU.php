@@ -17,6 +17,7 @@ class GetMyPriceForSKU extends Products
     protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
+            "notIncremented",
             "required"
         ],
         "SellerSKUList" => [

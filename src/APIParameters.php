@@ -154,10 +154,7 @@ trait APIParameters
     protected static function setActionParameter()
     {
 
-        $fullClassName = explode("\\", get_called_class());
-        $className = end($fullClassName);
-
-        self::setParameterByKey("Action", $className);
+        self::setParameterByKey("Action", Helpers::getCalledClass(get_called_class()));
 
     }
 
@@ -280,7 +277,6 @@ trait APIParameters
                 }
 
             } elseif (!call_user_func_array([$class, $method], [$value, $key, $arg])) {
-
 
                 unset($array[$key]);
 
@@ -441,11 +437,10 @@ trait APIParameters
 
     }
 
-    protected static function notIncremented($v, $k)
+    protected static function notIncremented($v, $k, $arg)
     {
 
-
-        if(is_array($v) && in_array("notIncremented", $v))
+        if(is_array($v) && in_array("notIncremented", $v) && $k === $arg)
         {
 
             return true;
@@ -453,7 +448,7 @@ trait APIParameters
         }
 
         return false;
-//
+
     }
 
     public static function incrementParameter($parameter, $value, $parentParameterKey = null, $x = 1)
@@ -464,6 +459,24 @@ trait APIParameters
         $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
 
         $incrementor = static::getIncrementorByKey($parameter);
+
+        if(is_array($incrementor))
+        {
+
+            $calledClass = Helpers::getCalledClass(get_called_class());
+
+            if(array_key_exists($calledClass, $incrementor))
+            {
+
+                $incrementor = $incrementor[$calledClass];
+
+            } else {
+
+                $incrementor = $incrementor["default"];
+
+            }
+
+        }
 
         if($notIncremented)
         {
@@ -538,7 +551,6 @@ trait APIParameters
                 }
 
             }
-
 
         } else {
 
@@ -869,7 +881,6 @@ trait APIParameters
         if (is_array($v) && array_key_exists("earlierThan", $v))
         {
 
-
             if (is_array($v["earlierThan"]))
             {
 
@@ -1092,13 +1103,6 @@ trait APIParameters
         static::testOneOrTheOtherIsSet();
 
         // static::testGreaterThan();
-
-        if(method_exists(get_called_class(), "requestRules"))
-        {
-
-            // static::requestRules();
-
-        }
 
     }
 
