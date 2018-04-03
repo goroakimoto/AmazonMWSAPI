@@ -323,7 +323,7 @@ trait APIParameters
             function ($v, $k)
             {
 
-                return is_array($v) && array_key_exists("format", $v) && $v["format"] == "date";
+                return is_array($v) && array_key_exists("format", $v) && $v["format"] === "date";
 
             },
 
@@ -443,7 +443,8 @@ trait APIParameters
 
         $incrementor = static::getIncrementorByKey($parameter);
 
-        if($notIncremented){
+        if($notIncremented)
+        {
 
             $parameterKey = "$parameter";
 
@@ -715,7 +716,8 @@ trait APIParameters
     protected static function noShorterThanMinimum($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("minimumLength", $v)) {
+        if (is_array($v) && array_key_exists("minimumLength", $v))
+        {
 
             static::ensureParameterIsNoShorterThanMinimum($k, $v["minimumLength"]);
 
@@ -730,7 +732,8 @@ trait APIParameters
     protected static function areWithinRange($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("rangeWithin", $v)) {
+        if (is_array($v) && array_key_exists("rangeWithin", $v))
+        {
 
             static::ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
 
@@ -747,7 +750,8 @@ trait APIParameters
     protected static function oneOrTheOtherIsSet($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("requiredIfNotSet", $v)) {
+        if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
+        {
 
             static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
 
@@ -761,7 +765,8 @@ trait APIParameters
     protected static function withIncompatibilities($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("incompatibleWith", $v)) {
+        if (is_array($v) && array_key_exists("incompatibleWith", $v))
+        {
 
             static::ensureIncompatibleParametersNotSet($k, $v["incompatibleWith"]);
 
@@ -776,7 +781,8 @@ trait APIParameters
     protected static function datesNotOutsideInterval($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("notFartherApartThan", $v)) {
+        if (is_array($v) && array_key_exists("notFartherApartThan", $v))
+        {
 
             static::ensureDatesNotOutsideInterval($k, $v["notFartherApartThan"]["from"], $v["notFartherApartThan"]["days"]);
 
@@ -798,7 +804,8 @@ trait APIParameters
     protected static function datesAreLaterThan($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("laterThan", $v)) {
+        if (is_array($v) && array_key_exists("laterThan", $v))
+        {
 
             static::ensureIntervalBetweenDates($k, $v["laterThan"], "later");
 
@@ -813,16 +820,19 @@ trait APIParameters
     protected static function datesAreEarlierThan($v, $k)
     {
 
-        if (is_array($v) && array_key_exists("earlierThan", $v)) {
+        if (is_array($v) && array_key_exists("earlierThan", $v))
+        {
 
 
-            if (is_array($v["earlierThan"])) {
+            if (is_array($v["earlierThan"]))
+            {
 
                 array_filter(
 
                     $v["earlierThan"],
 
-                    function ($vv, $kk) use ($k) {
+                    function ($vv, $kk) use ($k)
+                    {
 
                         static::ensureIntervalBetweenDates($k, $vv);
 

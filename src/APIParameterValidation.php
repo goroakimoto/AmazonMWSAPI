@@ -25,29 +25,6 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureDatesAreChronological($earlierDate, $laterDate)
-    {
-
-
-        if(
-            null !== static::getParameterByKey($earlierDate) &&
-            null !== static::getParameterByKey($laterDate)
-        ){
-
-            $earlyDate = new DateTime(static::getParameterByKey($earlierDate));
-            $lateDate = new DateTime(static::getParameterByKey($laterDate));
-
-            if($lateDate < $earlyDate)
-            {
-
-                throw new Exception("$earlierDate must be before $laterDate. Please correct and try again.");
-
-            }
-
-        }
-
-    }
-
     public static function ensureIntervalBetweenDates($dateToEnsureInterval, $baseDate = "Timestamp", $direction = "earlier", $interval = "PT2M")
     {
 
@@ -362,8 +339,8 @@ trait APIParameterValidation
 
 
             if(
-                static::getParameterByKey($parameterToCheck) < $min ||
-                static::getParameterByKey($parameterToCheck) > $max
+                end($matchingParameters) < $min ||
+                end($matchingParameters) > $max
             ){
 
                 throw new Exception("$parameterToCheck must be between $min and $max. Please correct and try again.");
@@ -466,10 +443,12 @@ trait APIParameterValidation
     public static function ensureParameterIsInFormat($parameterToCheck, $format)
     {
 
-        if(null !== static::getParameterByKey($parameterToCheck))
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if(!empty($matchingParameters))
         {
 
-            if(preg_match($format, $parameterToCheck) === false)
+            if(empty(preg_match($format, end($matchingParameters))))
             {
 
                 throw new Exception("$parameterToCheck does not match the format: $format. Please correct and try again.");
