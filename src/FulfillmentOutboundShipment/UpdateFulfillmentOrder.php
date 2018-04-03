@@ -80,15 +80,15 @@ class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
                 "Quantity" => 1,
                 "PerUnitDeclaredValue" => [
                     "CurrencyCode" => "USD",
-                    "Value" => 1.99
+                    "Value" => "1.99"
                 ],
                 "PerUnitPrice" => [
                     "CurrencyCode" => "USD",
-                    "Value" => 1.99
+                    "Value" => "1.99"
                 ],
                 "PerUnitTax" => [
                     "CurrencyCode" => "USD",
-                    "Value" => 0.12
+                    "Value" => "0.12"
                 ]
             ]
         ]
