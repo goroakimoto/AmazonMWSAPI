@@ -810,6 +810,37 @@ trait APIParameters
 
     }
 
+    protected static function datesAreEarlierThan($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("earlierThan", $v)) {
+
+
+            if (is_array($v["earlierThan"])) {
+
+                array_filter(
+
+                    $v["earlierThan"],
+
+                    function ($vv, $kk) use ($k) {
+
+                        static::ensureIntervalBetweenDates($k, $vv);
+
+                    },
+
+                    ARRAY_FILTER_USE_BOTH
+                );
+
+            } else {
+
+                static::ensureIntervalBetweenDates($k);
+
+            }
+
+        }
+
+    }
+
     protected static function testParametersAreValid()
     {
 
@@ -876,46 +907,9 @@ trait APIParameters
     protected static function testDatesAreEarlierThan()
     {
 
-        array_filter(
+        $parameters = static::getParameters();
 
-            static::getParameters(),
-
-            function ($v, $k)
-            {
-
-                if (is_array($v) && array_key_exists("earlierThan", $v))
-                {
-
-                    if (is_array($v["earlierThan"]))
-                    {
-
-                        array_filter(
-
-                            $v["earlierThan"],
-
-                            function ($vv, $kk) use ($k)
-                            {
-
-                                static::ensureIntervalBetweenDates($k, $vv);
-
-                            },
-
-                            ARRAY_FILTER_USE_BOTH
-                        );
-
-                    } else {
-
-                        static::ensureIntervalBetweenDates($k);
-
-                    }
-
-                }
-
-            },
-
-            ARRAY_FILTER_USE_BOTH
-
-        );
+        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreEarlierThan", $parameters, false);
 
     }
 
@@ -1031,7 +1025,7 @@ trait APIParameters
 
         static::testParameterCountIsLessThanMaximum();
 
-        // static::testDatesAreEarlierThan();
+        static::testDatesAreEarlierThan();
 
         static::testDatesAreLaterThan();
 
