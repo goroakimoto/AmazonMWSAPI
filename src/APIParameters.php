@@ -863,7 +863,7 @@ trait APIParameters
     protected static function datesAreInProperFormat($v, $k)
     {
 
-        static::ensureDateAreInProperFormat($k);
+        static::ensureDatesAreInProperFormat($k);
 
     }
 

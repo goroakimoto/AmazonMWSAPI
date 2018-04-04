@@ -123,7 +123,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureDateAreInProperFormat($parameterToCheck)
+    public static function ensureDatesAreInProperFormat($parameterToCheck)
     {
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
