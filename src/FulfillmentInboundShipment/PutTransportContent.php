@@ -38,6 +38,10 @@ class PutTransportContent extends FulfillmentInboundShipment
         ],
         "SellerId" => [
             "required"
+        ],
+        "MarketplaceId" => [
+            "notIncremented",
+            "required"
         ]
     ];
 

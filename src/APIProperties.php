@@ -6,72 +6,84 @@ trait APIProperties
 {
 
     protected static $orderNumberFormat = "/^[0-9]{3}\-[0-9]{7}\-[0-9]{7}$/";
-    protected static $country = "US";
     protected static $marketplaceTypes = [
         "US" => [
             "endpoint" => "https://mws.amazonservices.com",
-            "MarketplaceId" => "ATVPDKIKX0DER",
-            "countrycode" => "US"
+            "marketplaceId" => "ATVPDKIKX0DER",
+            "countryCode" => "US",
+            "region" => "North America"
         ],
         "Canada" => [
             "endpoint" => "https://mws.amazonservices.com",
-            "MarketplaceId" => "A2EUQ1WTGCTBG2",
-            "countrycode" => "CA"
+            "marketplaceId" => "A2EUQ1WTGCTBG2",
+            "countryCode" => "CA",
+            "region" => "North America"
         ],
         "Mexico" => [
             "endpoint" => "https://mws.amazonservices.com",
-            "MarketplaceId" => "A1AM78C64UM0Y8",
-            "countrycode" => "MX"
+            "marketplaceId" => "A1AM78C64UM0Y8",
+            "countryCode" => "MX",
+            "region" => "North America"
         ],
         "Spain" => [
             "endpoint" => "https://mws-eu.amazonservices.com",
-            "MarketplaceId" => "A1RKKUPIHCS9HS",
-            "countrycode" => "ES"
+            "marketplaceId" => "A1RKKUPIHCS9HS",
+            "countryCode" => "ES",
+            "region" => "Europe"
         ],
         "UK" => [
             "endpoint" => "https://mws-eu.amazonservices.com",
-            "MarketplaceId" => "A1F83G8C2ARO7P",
-            "countrycode" => "UK"
+            "marketplaceId" => "A1F83G8C2ARO7P",
+            "countryCode" => "UK",
+            "region" => "Europe"
         ],
         "France" => [
             "endpoint" => "https://mws-eu.amazonservices.com",
-            "MarketplaceId" => "A13V1IB3VIYZZH",
-            "countrycode" => "FR"
+            "marketplaceId" => "A13V1IB3VIYZZH",
+            "countryCode" => "FR",
+            "region" => "Europe"
         ],
         "Germany" => [
             "endpoint" => "https://mws-eu.amazonservices.com",
-            "MarketplaceId" => "A1PA6795UKMFR9",
-            "countrycode" => "DE"
+            "marketplaceId" => "A1PA6795UKMFR9",
+            "countryCode" => "DE",
+            "region" => "Europe"
         ],
         "Italy" => [
             "endpoint" => "https://mws-eu.amazonservices.com",
-            "MarketplaceId" => "APJ6JRA9NG5V4",
-            "countrycode" => "IT"
+            "marketplaceId" => "APJ6JRA9NG5V4",
+            "countryCode" => "IT",
+            "region" => "Europe"
         ],
         "Brazil" => [
             "endpoint" => "https://mws.amazonservices.com",
-            "MarketplaceId" => "A2Q3Y263D00KWC",
-            "countrycode" => "BR"
+            "marketplaceId" => "A2Q3Y263D00KWC",
+            "countryCode" => "BR",
+            "region" => "Brazil"
         ],
         "India" => [
             "endpoint" => "https://mws.amazonservices.in",
-            "MarketplaceId" => "A21TJRUUN4KGV",
-            "countrycode" => "IN"
+            "marketplaceId" => "A21TJRUUN4KGV",
+            "countryCode" => "IN",
+            "region" => "India"
         ],
         "China" => [
             "endpoint" => "https://mws.amazonservices.com.cn",
-            "MarketplaceId" => "AAHKV2X7AFYLW",
-            "countrycode" => "CN"
+            "marketplaceId" => "AAHKV2X7AFYLW",
+            "countryCode" => "CN",
+            "region" => "China"
         ],
         "Japan" => [
             "endpoint" => "https://mws.amazonservices.jp",
-            "MarketplaceId" => "A1VC38T7YXB528",
-            "countrycode" => "JP"
+            "marketplaceId" => "A1VC38T7YXB528",
+            "countryCode" => "JP",
+            "region" => "Japan"
         ],
         "Australia" => [
             "endpoint" => "https://mws.amazonservices.com.au",
-            "MarketplaceId" => "A39IBJ37TRP1C6",
-            "countrycode" => "AU"
+            "marketplaceId" => "A39IBJ37TRP1C6",
+            "countryCode" => "AU",
+            "region" => "Australia"
         ]
     ];
     protected static $incrementors = [

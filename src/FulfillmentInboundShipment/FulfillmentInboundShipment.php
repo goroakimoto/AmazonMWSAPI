@@ -209,8 +209,10 @@ class FulfillmentInboundShipment
                 ]
             ],
             "IntendedBoxContentsSource" => [
-                "validIn" => [
-                    "US"
+                "validIf" => [
+                    "country" => [
+                        "US"
+                    ]
                 ],
                 "validWith" => [
                     "NONE",
@@ -385,25 +387,27 @@ class FulfillmentInboundShipment
         "NonPartneredLtlDataInput" => [
             "CarrierName" => [
                 "required",
-                "validIn" => [
-                    "UK" => [
-                        "BUSINESS_POST",
-                        "DHL_AIRWAYS_INC",
-                        "DHL_UK",
-                        "PARCELFORCE",
-                        "DPD",
-                        "TNT_LOGISTICS_CORPORATION",
-                        "TNT",
-                        "YODEL",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
-                    ],
-                    "US" => [
-                        "DHL_EXPRESS_USA_INC",
-                        "FEDERAL_EXPRESS_CORP",
-                        "UNITED_STATES_POSTAL_SERVICE",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
+                "validIf" => [
+                    "country" => [
+                        "UK" => [
+                            "BUSINESS_POST",
+                            "DHL_AIRWAYS_INC",
+                            "DHL_UK",
+                            "PARCELFORCE",
+                            "DPD",
+                            "TNT_LOGISTICS_CORPORATION",
+                            "TNT",
+                            "YODEL",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ],
+                        "US" => [
+                            "DHL_EXPRESS_USA_INC",
+                            "FEDERAL_EXPRESS_CORP",
+                            "UNITED_STATES_POSTAL_SERVICE",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ]
                     ]
                 ]
             ],
@@ -416,25 +420,27 @@ class FulfillmentInboundShipment
         "NonPartneredLtlDataOutput" => [
             "CarrierName" => [
                 "required",
-                "validIn" => [
-                    "UK" => [
-                        "BUSINESS_POST",
-                        "DHL_AIRWAYS_INC",
-                        "DHL_UK",
-                        "PARCELFORCE",
-                        "DPD",
-                        "TNT_LOGISTICS_CORPORATION",
-                        "TNT",
-                        "YODEL",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
-                    ],
-                    "US" => [
-                        "DHL_EXPRESS_USA_INC",
-                        "FEDERAL_EXPRESS_CORP",
-                        "UNITED_STATES_POSTAL_SERVICE",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
+                "validIf" => [
+                    "country" => [
+                        "UK" => [
+                            "BUSINESS_POST",
+                            "DHL_AIRWAYS_INC",
+                            "DHL_UK",
+                            "PARCELFORCE",
+                            "DPD",
+                            "TNT_LOGISTICS_CORPORATION",
+                            "TNT",
+                            "YODEL",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ],
+                        "US" => [
+                            "DHL_EXPRESS_USA_INC",
+                            "FEDERAL_EXPRESS_CORP",
+                            "UNITED_STATES_POSTAL_SERVICE",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ]
                     ]
                 ]
             ],
@@ -447,25 +453,27 @@ class FulfillmentInboundShipment
         "NonPartneredSmallParcelDataInput" => [
             "CarrierName" => [
                 "required",
-                "validIn" => [
-                    "UK" => [
-                        "BUSINESS_POST",
-                        "DHL_AIRWAYS_INC",
-                        "DHL_UK",
-                        "PARCELFORCE",
-                        "DPD",
-                        "TNT_LOGISTICS_CORPORATION",
-                        "TNT",
-                        "YODEL",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
-                    ],
-                    "US" => [
-                        "DHL_EXPRESS_USA_INC",
-                        "FEDERAL_EXPRESS_CORP",
-                        "UNITED_STATES_POSTAL_SERVICE",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
+                "validIf" => [
+                    "country" => [
+                        "UK" => [
+                            "BUSINESS_POST",
+                            "DHL_AIRWAYS_INC",
+                            "DHL_UK",
+                            "PARCELFORCE",
+                            "DPD",
+                            "TNT_LOGISTICS_CORPORATION",
+                            "TNT",
+                            "YODEL",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ],
+                        "US" => [
+                            "DHL_EXPRESS_USA_INC",
+                            "FEDERAL_EXPRESS_CORP",
+                            "UNITED_STATES_POSTAL_SERVICE",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ]
                     ]
                 ],
             ],
@@ -488,25 +496,27 @@ class FulfillmentInboundShipment
         "NonPartneredSmallParcelPackageOutput" => [
             "CarrierName" => [
                 "required",
-                "validIn" => [
-                    "UK" => [
-                        "BUSINESS_POST",
-                        "DHL_AIRWAYS_INC",
-                        "DHL_UK",
-                        "PARCELFORCE",
-                        "DPD",
-                        "TNT_LOGISTICS_CORPORATION",
-                        "TNT",
-                        "YODEL",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
-                    ],
-                    "US" => [
-                        "DHL_EXPRESS_USA_INC",
-                        "FEDERAL_EXPRESS_CORP",
-                        "UNITED_STATES_POSTAL_SERVICE",
-                        "UNITED_PARCEL_SERVICE_INC",
-                        "OTHER"
+                "validIf" => [
+                    "country" => [
+                        "UK" => [
+                            "BUSINESS_POST",
+                            "DHL_AIRWAYS_INC",
+                            "DHL_UK",
+                            "PARCELFORCE",
+                            "DPD",
+                            "TNT_LOGISTICS_CORPORATION",
+                            "TNT",
+                            "YODEL",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ],
+                        "US" => [
+                            "DHL_EXPRESS_USA_INC",
+                            "FEDERAL_EXPRESS_CORP",
+                            "UNITED_STATES_POSTAL_SERVICE",
+                            "UNITED_PARCEL_SERVICE_INC",
+                            "OTHER"
+                        ]
                     ]
                 ],
             ],
@@ -698,15 +708,17 @@ class FulfillmentInboundShipment
         ],
         "PartneredSmallParcelDataInput" => [
             "CarrierName" => [
-                "validIn" => [
-                    "FR" => "UNITED_PARCEL_SERVICE_INC",
-                    "IT" => "UNITED_PARCEL_SERVICE_INC",
-                    "ES" => "UNITED_PARCEL_SERVICE_INC",
-                    "UK" => "UNITED_PARCEL_SERVICE_INC",
-                    "US" => "UNITED_PARCEL_SERVICE_INC",
-                    "DE" => [
-                        "DHL_STANDARD",
-                        "UNITED_PARCEL_SERVICE_INC"
+                "validIf" => [
+                    "country" => [
+                        "FR" => "UNITED_PARCEL_SERVICE_INC",
+                        "IT" => "UNITED_PARCEL_SERVICE_INC",
+                        "ES" => "UNITED_PARCEL_SERVICE_INC",
+                        "UK" => "UNITED_PARCEL_SERVICE_INC",
+                        "US" => "UNITED_PARCEL_SERVICE_INC",
+                        "DE" => [
+                            "DHL_STANDARD",
+                            "UNITED_PARCEL_SERVICE_INC"
+                        ]
                     ]
                 ]
             ],
@@ -839,7 +851,7 @@ class FulfillmentInboundShipment
         ],
         "TransportDetailInput" => [
             "PartneredSmallParcelData" => [
-                "format" => "ParneredSmallParcelDataInput",
+                "format" => "PartneredSmallParcelDataInput",
                 "requiredIfNotSet" => [
                     "NonPartneredSmallParcelData",
                     "PartneredLtlData",

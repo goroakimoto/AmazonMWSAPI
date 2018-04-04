@@ -63,9 +63,11 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
             "maximumLength" => 64
         ],
         "CODSettings" => [
-            "validIn" => [
-                "CN",
-                "JP"
+            "validIf" => [
+                "country" => [
+                    "CN",
+                    "JP"
+                ]
             ]
         ],
         "Items" => [
@@ -76,8 +78,10 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
             "requiredIf" => [
                 "ShippingSpeedCategory" => "ScheduledDelivery"
             ],
-            "validIn" => [
-                "JP"
+            "validIf" => [
+                "country" => [
+                    "JP"
+                ]
             ]
         ],
         "SellerId" => [

@@ -188,36 +188,6 @@ trait APIParameters
 
     }
 
-    protected static function setVersionDateParameter()
-    {
-
-        self::setParameterByKey("Version", static::getVersionDate());
-
-    }
-
-    protected static function findRequiredParameters()
-    {
-
-        $parameters = static::getParameters();
-
-        return static::recursiveArrayFilterReturnArray("required", $parameters, true);
-
-    }
-
-    protected static function getRequiredParameters($parent = null)
-    {
-
-        if (!$parent)
-        {
-
-            return static::$requiredParameters;
-
-        }
-
-        return self::$requiredParameters;
-
-    }
-
     protected static function setRequiredParameter($parameter, $value = null, $isArray = false)
     {
 
@@ -231,6 +201,13 @@ trait APIParameters
             static::$requiredParameters[$parameter] = $value;
 
         }
+
+    }
+
+    protected static function setVersionDateParameter()
+    {
+
+        self::setParameterByKey("Version", static::getVersionDate());
 
     }
 
@@ -261,6 +238,7 @@ trait APIParameters
     protected static function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $callback = false, $class = "static")
     {
 
+
         foreach ($array as $key => $value)
         {
 
@@ -268,6 +246,11 @@ trait APIParameters
             {
 
                 $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, call_user_func_array([$class, $method], [$value, $key, $arg]));
+
+                if($method == "oneIsSet"){
+                    // Helpers::dd($value);
+                    Helpers::dd($array);
+                }
 
                 if ($removeEmptyArrays && !(bool)$array[$key])
                 {
@@ -278,9 +261,20 @@ trait APIParameters
 
             } elseif (!call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
+                if ($method == "oneIsSet") {
+                    Helpers::dd($value);
+                    Helpers::dd($key);
+                }
+
                 unset($array[$key]);
 
             } elseif (!(bool)$value && $value !== 0) {
+
+                if ($method == "oneIsSet") {
+                    // Never gets run
+                    Helpers::dd("Howdy!");
+                    Helpers::dd($key);
+                }
 
                 unset($array[$key]);
 
@@ -291,6 +285,29 @@ trait APIParameters
         unset($value);
 
         return $array;
+
+    }
+
+    protected static function findRequiredParameters()
+    {
+
+        $parameters = static::getParameters();
+
+        return static::recursiveArrayFilterReturnArray("required", $parameters, true);
+
+    }
+
+    protected static function getRequiredParameters($parent = null)
+    {
+
+        if (!$parent)
+        {
+
+            return static::$requiredParameters;
+
+        }
+
+        return self::$requiredParameters;
 
     }
 
@@ -335,7 +352,8 @@ trait APIParameters
 
             static::getParameters(),
 
-            function ($v, $k) {
+            function ($v, $k)
+            {
 
 
                 return is_array($v) && array_key_exists("format", $v) && $v["format"] === "date";
@@ -491,10 +509,14 @@ trait APIParameters
             foreach($value as $key => $val)
             {
 
-                if($parentParameterKey)
+                if($parentParameterKey && $incrementor)
                 {
 
                     $parameterKey = "$parentParameterKey.$parameter.$incrementor.$x";
+
+                } elseif($parentParameterKey) {
+
+                    $parameterKey = "$parentParameterKey.$parameter";
 
                 } else {
 
@@ -519,7 +541,7 @@ trait APIParameters
 
                         } else {
 
-                            static::setParameterByKey($parameterKey . "." . $newParameter, $v);
+                            static::setParameterByKey($parameterKey . "." . $key . "." . $newParameter, $v);
 
                         }
 
@@ -572,9 +594,10 @@ trait APIParameters
             if(static::getIncrementorByKey($parameter))
             {
 
-                static::incrementParameter($parameter, $value);
+                static::incrementParameter($parameter, $value, $parentParameter);
 
             } elseif(is_array($value)) {
+
 
                 foreach ($value as $parameterSubKey => $subKeyValue)
                 {
@@ -666,6 +689,7 @@ trait APIParameters
         $parentRequiredParameters = array_flip(static::getRequiredParameters(true));
 
         $requiredParameters = static::findRequiredParameters();
+        // Helpers::dd($requiredParameters);
 
         foreach($parentRequiredParameters as $parameter => $value)
         {
@@ -706,13 +730,13 @@ trait APIParameters
 
     }
 
-    protected static function validWith($v, $k)
+    protected static function validWith($v, $k, $arg)
     {
 
         if (is_array($v) && array_key_exists("validWith", $v))
         {
 
-            static::ensureParameterValuesAreValid($k, $v["validWith"]);
+            static::ensureParameterValuesAreValidWith($k, $v["validWith"]);
 
             return true;
 
@@ -722,7 +746,23 @@ trait APIParameters
 
     }
 
-    protected static function required($v, $k, $parameterToCheck)
+    protected static function validIf($v, $k)
+    {
+
+        if(is_array($v) && array_key_exists("validIf", $v))
+        {
+
+            static::ensureParameterValuesAreValidIf($k, $v{"validIf"});
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+    protected static function required($v, $k)
     {
 
         if (is_array($v) && in_array("required", $v))
@@ -806,19 +846,31 @@ trait APIParameters
 
     }
 
-    protected static function oneOrTheOtherIsSet($v, $k)
+    protected static function oneIsSet($v, $k)
     {
 
         if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
         {
+            Helpers::dd($k);
+            // Helpers::dd($v);
 
-            static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+            // if(is_array($v["requiredIfNotSet"]))
+            // {
 
-            return true;
+            //     static::ensureOnlyOneIsSet($k, $v["requiredIfNotSet"]);
+
+            // } else {
+
+            //     static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+
+            // }
+
+            return false;
 
         }
 
-        return false;
+        return true;
+
     }
 
     protected static function withIncompatibilities($v, $k)
@@ -916,12 +968,22 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreValid()
+    protected static function testParametersAreValidWith()
     {
 
         $parameters = static::getParameters();
 
-        $validWithParameters = static::recursiveArrayFilterReturnArray("validWith", $parameters, false);
+        $validWithParameters = static::recursiveArrayFilterReturnArray("validWith", $parameters, true);
+        // Helpers::dd($validWithParameters);
+
+    }
+
+    protected static function testParametersAreValidIf()
+    {
+
+        $parameters = static::getParameters();
+
+        $validIfParameters = static::recursiveArrayFilterReturnArray("validIf", $parameters, false);
 
     }
 
@@ -975,8 +1037,6 @@ trait APIParameters
 
         $dateParameters = static::getDateParameters();
 
-        Helpers::dd($dateParameters);
-
         $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreInProperFormat", $dateParameters, false);
 
     }
@@ -1008,12 +1068,14 @@ trait APIParameters
 
     }
 
-    protected static function testOneOrTheOtherIsSet()
+    protected static function testOneIsSet()
     {
 
         $parameters = static::getParameters();
+        // Helpers::dd($parameters);
 
-        $rangeWithinParameters = static::recursiveArrayFilterReturnArray("oneOrTheOtherIsSet", $parameters, false);
+        $oneIsSetParameters = static::recursiveArrayFilterReturnArray("oneIsSet", $parameters, true);
+        Helpers::dd($oneIsSetParameters);
 
     }
 
@@ -1022,7 +1084,7 @@ trait APIParameters
 
         $parameters = static::getParameters();
 
-        $rangeWithinParameters = static::recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
+        $withIncompatibilitiesParameters = static::recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
 
     }
 
@@ -1030,8 +1092,6 @@ trait APIParameters
     {
 
         static::resetCurlParameters();
-
-        // static::combineParentParametersWithChild();
 
         static::$parameters = static::combineFormatWithParameters(static::$parameters);
 
@@ -1093,7 +1153,9 @@ trait APIParameters
         Helpers::dd(static::getCurlParameters());
         // Helpers::dd(static::getParameters());
 
-        static::ensureRequiredParametersAreSet();
+        static::testOneIsSet();
+
+        // static::ensureRequiredParametersAreSet();
 
         static::ensureSetParametersAreAllowed();
 
@@ -1101,7 +1163,9 @@ trait APIParameters
 
         static::testParametersWithIncompatibilities();
 
-        static::testParametersAreValid();
+        static::testParametersAreValidWith();
+
+        static::testParametersAreValidIf();
 
         static::testParametersAreWithinGivenRange();
 
@@ -1120,8 +1184,6 @@ trait APIParameters
         static::testDateTimesAreInProperFormat();
 
         static::testDatesNotOutsideInterval();
-
-        static::testOneOrTheOtherIsSet();
 
         // static::testGreaterThan();
 

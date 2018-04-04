@@ -105,19 +105,23 @@ class Orders
             "NumberOfItemsUnshipped",
             "PaymentExecutionDetail" => [
                 "format" => "PaymentExecutionDetailItem",
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ],
             "PaymentMethod" => [
-                "validIn" => [
-                    "CN" => [
-                        "COD"
-                    ],
-                    "JP" => [
-                        "COD",
-                        "CVS"
+                "validIf" => [
+                    "country" => [
+                        "CN" => [
+                            "COD"
+                        ],
+                        "JP" => [
+                            "COD",
+                            "CVS"
+                        ]
                     ]
                 ],
                 "validWith" => "Other"
@@ -159,15 +163,17 @@ class Orders
                 ]
             ],
             "CbaDisplayShippingLabel" => [
-                "validIn" => [
-                    "US" => [
-                        "CBA"
-                    ],
-                    "UK" => [
-                        "CBA"
-                    ],
-                    "DE" => [
-                        "CBA"
+                "validIf" => [
+                    "country" => [
+                        "US" => [
+                            "CBA"
+                        ],
+                        "UK" => [
+                            "CBA"
+                        ],
+                        "DE" => [
+                            "CBA"
+                        ]
                     ]
                 ]
             ],
@@ -310,15 +316,17 @@ class Orders
             ],
             "PaymentMethod" => [
                 "required",
-                "validIn" => [
-                    "CN" => [
-                        "COD",
-                        "GC"
-                    ],
-                    "JP" => [
-                        "COD",
-                        "GC",
-                        "PointsAccount"
+                "validIf" => [
+                    "country" => [
+                        "CN" => [
+                            "COD",
+                            "GC"
+                        ],
+                        "JP" => [
+                            "COD",
+                            "GC",
+                            "PointsAccount"
+                        ]
                     ]
                 ]
             ]

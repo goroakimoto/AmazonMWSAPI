@@ -43,8 +43,6 @@ class AmazonClient
 
         static::setMerchantId();
 
-        static::setMarketplaceId();
-
         static::setAwsAccessKey();
 
         static::setSecretKey();
@@ -55,13 +53,6 @@ class AmazonClient
     {
 
         static::$amazonMerchantID = getenv("AMAZON_MERCHANTID");
-
-    }
-
-    private static function setMarketplaceId()
-    {
-
-        static::$amazonMarketplaceID = getenv("AMAZON_MARKETPLACEID");
 
     }
 
@@ -83,13 +74,6 @@ class AmazonClient
     {
 
         return static::$amazonMerchantID;
-
-    }
-
-    public static function getMarketplaceId()
-    {
-
-        return static::$amazonMarketplaceID;
 
     }
 

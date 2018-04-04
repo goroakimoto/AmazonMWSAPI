@@ -375,7 +375,7 @@ class Finances
             "StoreName"
         ],
         "PerformanceBondRefundEvent" => [
-            "MarketplaceCOuntryCode" => [
+            "MarketplaceCountryCode" => [
                 "length" => 2
             ],
             "Amount" => [

@@ -22,18 +22,20 @@ class CreateInboundShipmentPlan extends FulfillmentInboundShipment
         "ShipToCountryCode" => [
             "incompatibleWith" => "ShipToCountrySubdivisionCode",
             "maximumLength" => 2,
-            "validIn" => [
-                "North America" => [
-                    "CA",
-                    "MX",
-                    "US"
-                ],
-                "Europe" => [
-                    "DE",
-                    "ES",
-                    "FR",
-                    "GB",
-                    "IT"
+            "validIf" => [
+                "region" => [
+                    "North America" => [
+                        "CA",
+                        "MX",
+                        "US"
+                    ],
+                    "Europe" => [
+                        "DE",
+                        "ES",
+                        "FR",
+                        "GB",
+                        "IT"
+                    ]
                 ]
             ]
         ],
@@ -74,7 +76,7 @@ class CreateInboundShipmentPlan extends FulfillmentInboundShipment
             "CountryCode" => "IN"
         ],
         "LabelPrepPreference" => "SELLER_LABEL",
-        "ShipToCountryCode" => "US",
+        "ShipToCountryCode" => "US"
     ];
 
 }

@@ -60,41 +60,51 @@ class FulfillmentOutboundShipment
         ],
         "CODSettings" => [
             "IsCODRequired" => [
-                "validIn" => [
-                    "CN" => [
-                        "true"
-                    ],
-                    "JP" => [
-                        "true"
+                "validIf" => [
+                    "country" => [
+                        "CN" => [
+                            "true"
+                        ],
+                        "JP" => [
+                            "true"
+                        ]
                     ]
                 ]
             ],
             "CODCharge" => [
                 "format" => "Currency",
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ],
             "CODChargeTax" => [
                 "format" => "Currency",
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ],
             "ShippingCharge" => [
                 "format" => "Currency",
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ],
             "ShippingChargeTax" => [
                 "format" => "Currency",
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ]
         ],
@@ -128,16 +138,20 @@ class FulfillmentOutboundShipment
                 "requiredIfSet" => [
                     "IsCODRequired" => "true"
                 ],
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ],
             "PerUnitTax" => [
                 "format" => "Currency",
-                "validIn" => [
-                    "CN",
-                    "JP"
+                "validIf" => [
+                    "country" => [
+                        "CN",
+                        "JP"
+                    ]
                 ]
             ]
         ],

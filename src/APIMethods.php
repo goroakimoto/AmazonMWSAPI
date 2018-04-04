@@ -32,7 +32,14 @@ trait APIMethods
     public static function getCountry()
     {
 
-        return self::$country;
+        return getenv("AMAZON_COUNTRY");
+
+    }
+
+    public static function getCountryCode()
+    {
+
+        return self::$marketplaceTypes[static::getCountry()]["countryCode"];
 
     }
 
@@ -46,7 +53,14 @@ trait APIMethods
     public static function getMarketplaceId()
     {
 
-        return self::$marketplaceTypes[static::getCountry()]["MarketplaceId"];
+        return self::$marketplaceTypes[static::getCountry()]["marketplaceId"];
+
+    }
+
+    public static function getRegion()
+    {
+
+        return self::$marketplaceTypes[static::getCountry()]["region"];
 
     }
 
