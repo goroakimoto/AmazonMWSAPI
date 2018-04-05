@@ -2,9 +2,6 @@
 
 namespace AmazonMWSAPI\Orders;
 
-use \DateTime;
-use \DateTimeZone;
-
 class ListOrders extends Orders
 {
 

@@ -65,7 +65,7 @@ class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
     ];
 
     protected static $example = [
-        "DisplayableOrderId" => "       12345678",
+        "DisplayableOrderId" => "12345678",
         "SellerFulfillmentOrderId" => "113-8652632-9749050",
         "DestinationAddress" => [
             "Name" => "Ben Parker",
@@ -89,6 +89,22 @@ class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
                 "PerUnitTax" => [
                     "CurrencyCode" => "USD",
                     "Value" => "0.12"
+                ]
+            ],
+            [
+                "SellerFulfillmentOrderItemId" => "M180",
+                "Quantity" => 10,
+                "PerUnitDeclaredValue" => [
+                    "CurrencyCode" => "USD",
+                    "Value" => "10.99"
+                ],
+                "PerUnitPrice" => [
+                    "CurrencyCode" => "USD",
+                    "Value" => "10.99"
+                ],
+                "PerUnitTax" => [
+                    "CurrencyCode" => "USD",
+                    "Value" => "0.66"
                 ]
             ]
         ]

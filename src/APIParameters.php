@@ -235,22 +235,17 @@ trait APIParameters
 
     }
 
-    protected static function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $callback = false, $class = "static")
+    protected static function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $lookingFor = "key", $callback = false, $class = "static")
     {
-
 
         foreach ($array as $key => $value)
         {
 
-            if (is_array($value))
+            if (is_array($value) && $lookingFor === "value")
             {
 
-                $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, call_user_func_array([$class, $method], [$value, $key, $arg]));
+                $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
 
-                if($method == "oneIsSet"){
-                    // Helpers::dd($value);
-                    Helpers::dd($array);
-                }
 
                 if ($removeEmptyArrays && !(bool)$array[$key])
                 {
@@ -259,22 +254,22 @@ trait APIParameters
 
                 }
 
-            } elseif (!call_user_func_array([$class, $method], [$value, $key, $arg])) {
+            } elseif(is_array($value) && $lookingFor === "key" && !call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
-                if ($method == "oneIsSet") {
-                    Helpers::dd($value);
-                    Helpers::dd($key);
+                $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
+
+
+                if ($removeEmptyArrays && !(bool)$array[$key]) {
+
+                    unset($array[$key]);
+
                 }
+
+            } elseif (!call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
                 unset($array[$key]);
 
             } elseif (!(bool)$value && $value !== 0) {
-
-                if ($method == "oneIsSet") {
-                    // Never gets run
-                    Helpers::dd("Howdy!");
-                    Helpers::dd($key);
-                }
 
                 unset($array[$key]);
 
@@ -288,12 +283,36 @@ trait APIParameters
 
     }
 
+    protected static function recursiveArrayFilterUnsetParameter($method, $array, $arg, $callback = false, $class = "static")
+    {
+
+
+        foreach ($array as $key => $value)
+        {
+
+            if(is_array($value) && !call_user_func_array([$class, $method], [$value, $key, $arg]))
+            {
+
+                $array[$key] = static::recursiveArrayFilterUnsetParameter($method, $value, $arg, call_user_func_array([$class, $method], [$value, $key, $arg]));
+
+            } elseif (call_user_func_array([$class, $method], [$value, $key, $arg])) {
+
+                unset($array[$key]);
+
+            }
+
+        }
+
+        return $array;
+
+    }
+
     protected static function findRequiredParameters()
     {
 
         $parameters = static::getParameters();
 
-        return static::recursiveArrayFilterReturnArray("required", $parameters, true);
+        return static::recursiveArrayFilterReturnArray("required", $parameters, true, null, "value");
 
     }
 
@@ -500,9 +519,7 @@ trait APIParameters
         if($notIncremented)
         {
 
-            $parameterKey = "$parameter";
-
-            static::setParameterByKey($parameterKey, $value);
+            static::setParameterByKey($parameter, $value);
 
         } elseif (is_array($value)) {
 
@@ -541,7 +558,12 @@ trait APIParameters
 
                         } else {
 
-                            static::setParameterByKey($parameterKey . "." . $key . "." . $newParameter, $v);
+                            // Helpers::dd($newParameter);
+
+                            // static::setParameterByKey($parameterKey . "." . $key . "." . $newParameter, $v);
+
+                            // For Recommendations\ListRecommendations
+                            static::setParameterByKey($parameterKey . "." . $newParameter, $v);
 
                         }
 
@@ -557,6 +579,10 @@ trait APIParameters
                     // to increment properly
                     // This is included only to allow for further testing
                     // to ensure it is a non-breaking change.
+
+                    // $x++ needs to be incremented at this point
+                    // for FulfillmentOutboundShipment\CreateFulfillmentOrder->
+                    // NotificationEmailList.member.{#}
 
                     // $x++;
 
@@ -689,7 +715,6 @@ trait APIParameters
         $parentRequiredParameters = array_flip(static::getRequiredParameters(true));
 
         $requiredParameters = static::findRequiredParameters();
-        // Helpers::dd($requiredParameters);
 
         foreach($parentRequiredParameters as $parameter => $value)
         {
@@ -851,25 +876,44 @@ trait APIParameters
 
         if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
         {
-            Helpers::dd($k);
-            // Helpers::dd($v);
 
-            // if(is_array($v["requiredIfNotSet"]))
-            // {
+            if(is_array($v["requiredIfNotSet"]))
+            {
 
-            //     static::ensureOnlyOneIsSet($k, $v["requiredIfNotSet"]);
+                static::ensureOnlyOneIsSet($k, $v["requiredIfNotSet"]);
 
-            // } else {
+            } else {
 
-            //     static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+                static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
 
-            // }
+            }
 
-            return false;
+            return true;
 
         }
 
-        return true;
+        return false;
+
+    }
+
+    protected static function removeConditionallyRequiredParameters($v, $k, $parameter)
+    {
+
+        if($k === "PartneredLtlData" && $k === $parameter){
+
+            // Helpers::dd($parameter);
+            // Helpers::dd($k);
+            // Helpers::dd($v);
+
+        }
+        if($k === $parameter)
+        {
+
+            return true;
+
+        }
+
+        return false;
 
     }
 
@@ -974,7 +1018,6 @@ trait APIParameters
         $parameters = static::getParameters();
 
         $validWithParameters = static::recursiveArrayFilterReturnArray("validWith", $parameters, true);
-        // Helpers::dd($validWithParameters);
 
     }
 
@@ -1072,10 +1115,10 @@ trait APIParameters
     {
 
         $parameters = static::getParameters();
-        // Helpers::dd($parameters);
 
         $oneIsSetParameters = static::recursiveArrayFilterReturnArray("oneIsSet", $parameters, true);
-        Helpers::dd($oneIsSetParameters);
+
+        static::$requiredParameters = static::removeConditionallyRequiredParametersNotUsed($oneIsSetParameters, static::$requiredParameters);
 
     }
 
@@ -1085,6 +1128,36 @@ trait APIParameters
         $parameters = static::getParameters();
 
         $withIncompatibilitiesParameters = static::recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
+
+    }
+
+    protected static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
+    {
+
+        foreach($arrayToRemoveConditionallyRequiredParameters as $parameter => $value)
+        {
+
+            if(is_array($value) && !array_key_exists("requiredIfNotSet", $value))
+            {
+
+                static::removeConditionallyRequiredParametersNotUsed($value, $requiredParameters);
+
+            } elseif(is_array($value) && array_key_exists("requiredIfNotSet", $value)) {
+
+                $matchingCurlParameters = static::searchCurlParameters($parameter);
+
+                if(!$matchingCurlParameters)
+                {
+
+                    $requiredParameters = static::recursiveArrayFilterUnsetParameter("removeConditionallyRequiredParameters", $requiredParameters, $parameter);
+
+                }
+
+            }
+
+        }
+
+        return $requiredParameters;
 
     }
 
@@ -1155,7 +1228,7 @@ trait APIParameters
 
         static::testOneIsSet();
 
-        // static::ensureRequiredParametersAreSet();
+        static::ensureRequiredParametersAreSet();
 
         static::ensureSetParametersAreAllowed();
 
@@ -1167,23 +1240,23 @@ trait APIParameters
 
         static::testParametersAreValidIf();
 
-        static::testParametersAreWithinGivenRange();
+        // static::testParametersAreWithinGivenRange();
 
-        static::testParametersAreNoLongerThanMaximum();
+        // static::testParametersAreNoLongerThanMaximum();
 
-        static::testParametersAreNoShorterThanMinimum();
+        // static::testParametersAreNoShorterThanMinimum();
 
-        static::testParameterCountIsLessThanMaximum();
+        // static::testParameterCountIsLessThanMaximum();
 
-        static::testDatesAreEarlierThan();
+        // static::testDatesAreEarlierThan();
 
-        static::testDatesAreLaterThan();
+        // static::testDatesAreLaterThan();
 
-        static::testDatesAreInProperFormat();
+        // static::testDatesAreInProperFormat();
 
-        static::testDateTimesAreInProperFormat();
+        // static::testDateTimesAreInProperFormat();
 
-        static::testDatesNotOutsideInterval();
+        // static::testDatesNotOutsideInterval();
 
         // static::testGreaterThan();
 

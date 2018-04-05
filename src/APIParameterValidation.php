@@ -15,6 +15,8 @@ trait APIParameterValidation
     {
 
         $matchingParameters = static::searchCurlParameters($parameterToCheck);
+        // Helpers::dd($parameterToCheck);
+        // Helpers::dd($matchingParameters);
 
         if(empty($matchingParameters))
         {
@@ -383,6 +385,57 @@ trait APIParameterValidation
 
             } elseif(array_key_exists("country", $validParameterValues)) {
 
+                $sellerCountry = static::getCountry();
+
+                if(is_numeric(current($validParameterValues["country"])))
+                {
+
+                    if (!in_array($setParameter, $validParameterValues["country"])) {
+
+                        $exception = "The value for $parameterToCheck must be one of the following: ";
+
+                        $exception .= Helpers::arrayToString($validParameterValues["country"]);
+
+                        $exception .= "Please correct and try again.";
+
+                        throw new Exception($exception);
+
+                    }
+                } elseif(isset($validParameterValues["country"][$sellerCountry])) {
+
+                    if(is_array($validParameterValues["country"][$sellerCountry]))
+                    {
+
+                        if(!in_array($setParameter, $validParameterValues["country"][$sellerCountry]))
+                        {
+
+                            $exception = "The value for $parameterToCheck must be one of the following: ";
+
+                            $exception .= Helpers::arrayToString($validParameterValues["country"][$sellerCountry]);
+
+                            $exception .= "Please correct and try again.";
+
+                            throw new Exception($exception);
+
+                        }
+
+                    } elseif($setParameter !== $validParameterValues["country"][$sellerCountry]) {
+
+                        $exception = "The value for $parameterToCheck must be the following: ";
+
+                        $exception .= $validParameterValues["country"][$sellerCountry];
+
+                        $exception .= "Please correct and try again.";
+
+                        throw new Exception($exception);
+
+                    }
+
+                }
+
+            } elseif(array_key_exists("RecommendationCategory", $validParameterValues)) {
+
+                Helpers::dd($validParameterValues);
 
             }
 
@@ -425,8 +478,6 @@ trait APIParameterValidation
 
         }
 
-        // Helpers::dd($requiredParameters);
-
         foreach ($requiredParameters as $key => $parameter)
         {
 
@@ -440,8 +491,6 @@ trait APIParameterValidation
                 if($parentKey)
                 {
 
-                    // Helpers::dd($parentKey);
-
                     static::requireParameterToBeSet($parentKey);
 
                 } else {
@@ -449,6 +498,7 @@ trait APIParameterValidation
                     static::requireParameterToBeSet($key);
 
                 }
+
             }
 
         }

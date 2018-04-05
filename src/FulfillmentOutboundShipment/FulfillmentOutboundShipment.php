@@ -108,7 +108,7 @@ class FulfillmentOutboundShipment
                 ]
             ]
         ],
-        "CreateFulfillmnetOrderItem" => [
+        "CreateFulfillmentOrderItem" => [
             "SellerSKU" => [
                 "maximumLength" => 50,
                 "required"

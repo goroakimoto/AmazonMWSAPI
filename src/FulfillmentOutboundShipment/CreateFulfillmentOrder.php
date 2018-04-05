@@ -15,7 +15,9 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];
     protected static $parameters = [
-        "MarketplaceId",
+        "MarketplaceId" => [
+            "notIncremented"
+        ],
         "SellerFulfillmentOrderId" => [
             "maximumLength" => 40,
             "required"
@@ -63,6 +65,7 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
             "maximumLength" => 64
         ],
         "CODSettings" => [
+            "format" => "CODSettings",
             "validIf" => [
                 "country" => [
                     "CN",
@@ -86,6 +89,46 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
         ],
         "SellerId" => [
             "required"
+        ]
+    ];
+    protected static $example = [
+        "SellerFulfillmentOrderId" => "1234567890",
+        "DisplayableOrderId" => "123456",
+        "DisplayableOrderDateTime" => "now",
+        "DisplayableOrderComment" => "Sent this morning",
+        "ShippingSpeedCategory" => "Standard",
+        "DestinationAddress" => [
+            "Name" => "Ben Parker",
+            "Line1" => "123 Main St",
+            "City" => "New York",
+            "StateOrProvinceCode" => "NY",
+            "CountryCode" => "US"
+        ],
+        "CODSettings" => [
+            "CODCharge" => [
+                "CurrencyCode" => "USD",
+                "Value" => "2.99"
+            ]
+        ],
+        "NotificationEmailList" => [
+            "joe@example.com",
+            "bob@example.com"
+        ],
+        "Items" => [
+            [
+                "SellerSKU" => "M150",
+                "SellerFulfillmentOrderItemId" => "1",
+                "Quantity" => 2,
+                "PerUnitPrice" => [
+                    "CurrencyCode" => "USD",
+                    "Value" => "4.95"
+                ]
+            ],
+            [
+                "SellerSKU" => "M180",
+                "SellerFulfillmentOrderItemId" => "2",
+                "Quantity" => 10
+            ]
         ]
     ];
 
