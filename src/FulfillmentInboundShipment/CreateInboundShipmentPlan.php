@@ -64,8 +64,10 @@ class CreateInboundShipmentPlan extends FulfillmentInboundShipment
                 "SellerSKU" => "SKU2",
                 "Quantity" => 1,
                 "PrepDetailsList" => [
-                    "PrepInstruction" => "Taping",
-                    "PrepOwner" => "AMAZON"
+                    [
+                        "PrepInstruction" => "Taping",
+                        "PrepOwner" => "AMAZON"
+                    ]
                 ]
             ]
         ],

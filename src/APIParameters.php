@@ -489,7 +489,7 @@ trait APIParameters
 
     }
 
-    public static function incrementParameter($parameter, $value, $parentParameterKey = null, $x = 1)
+    public static function incrementParameter($parameter, $value, $parentParameter = null)
     {
 
         $parameters = static::getParameters();
@@ -521,81 +521,52 @@ trait APIParameters
 
             static::setParameterByKey($parameter, $value);
 
-        } elseif (is_array($value)) {
+        } elseif(is_array($value)) {
 
             foreach($value as $key => $val)
             {
 
-                if($parentParameterKey && $incrementor)
+                if($parentParameter && $incrementor)
                 {
-
-                    $parameterKey = "$parentParameterKey.$parameter.$incrementor.$x";
-
-                } elseif($parentParameterKey) {
-
-                    $parameterKey = "$parentParameterKey.$parameter";
-
-                } else {
-
-                    $parameterKey = "$parameter.$incrementor.$x";
-
-                }
-
-                if(is_array($val))
-                {
-
-                    $y = 1;
-
-                    foreach($val as $newParameter => $v)
-                    {
-
-                        if(is_array($v))
-                        {
-
-                            static::incrementParameter($newParameter, $v, $parameterKey, $y);
-
-                            $y++;
-
-                        } else {
-
-                            // Helpers::dd($newParameter);
-
-                            // static::setParameterByKey($parameterKey . "." . $key . "." . $newParameter, $v);
-
-                            // For Recommendations\ListRecommendations
-                            static::setParameterByKey($parameterKey . "." . $newParameter, $v);
-
-                        }
-
-                    }
-
-                    $x++;
-
-                } else {
-
-                    // $x++; Must be commented out to allow
-                    // FulfillmentInboundShipment\CreateInboundShipment->
-                    // InboundShipmentItems.member.{#}.PrepDetailsList.member.{#}
-                    // to increment properly
-                    // This is included only to allow for further testing
-                    // to ensure it is a non-breaking change.
-
-                    // $x++ needs to be incremented at this point
-                    // for FulfillmentOutboundShipment\CreateFulfillmentOrder->
-                    // NotificationEmailList.member.{#}
-
-                    // $x++;
 
                     if(is_numeric($key))
                     {
 
-                        static::setParameterByKey("$parameterKey", $val);
+                        $key++;
+                        static::incrementParameter($key, $val, "$parentParameter.$parameter.$incrementor.$key");
 
                     } else {
 
-                        static::setParameterByKey("$parameterKey.$key", $val);
+                        static::incrementParameter($key, $val, "$parentParameter.$parameter.$incrementor");
 
                     }
+
+                } elseif($parentParameter) {
+
+                    if(is_numeric($parameter)) {
+
+                        if(is_array($val))
+                        {
+
+                            static::incrementParameter($key, $val, "$parentParameter");
+
+                        } else{
+
+                            static::incrementParameter($key, $val, "$parentParameter.$key");
+
+                        }
+
+                    } else {
+
+                        static::setParameterByKey("$parentParameter.$parameter.$key", $val);
+
+                    }
+
+                } elseif($incrementor) {
+
+                    $key++;
+
+                    static::incrementParameter($key, $val, "$parameter.$incrementor.$key");
 
                 }
 
@@ -603,9 +574,16 @@ trait APIParameters
 
         } else {
 
-            $parameterKey = "$parameter.$incrementor.$x";
+            if($parentParameter)
+            {
 
-            static::setParameterByKey($parameterKey, $value);
+                static::setParameterByKey($parentParameter, $value);
+
+            } else {
+
+                static::setParameterByKey($parameter, $value);
+
+            }
 
         }
 

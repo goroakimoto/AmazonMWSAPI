@@ -425,7 +425,7 @@ trait APIParameterValidation
 
                         $exception .= $validParameterValues["country"][$sellerCountry];
 
-                        $exception .= "Please correct and try again.";
+                        $exception .= "Please correct and try a gain.";
 
                         throw new Exception($exception);
 
@@ -435,7 +435,7 @@ trait APIParameterValidation
 
             } elseif(array_key_exists("RecommendationCategory", $validParameterValues)) {
 
-                Helpers::dd($validParameterValues);
+                // Helpers::dd($validParameterValues);
 
             }
 

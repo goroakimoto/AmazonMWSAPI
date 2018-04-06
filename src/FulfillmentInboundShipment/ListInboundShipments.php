@@ -45,7 +45,9 @@ class ListInboundShipments extends FulfillmentInboundShipment
         ]
     ];
     protected static $example = [
-        "ShipmentStatusList" => "WORKING"
+        "ShipmentStatusList" => [
+            "WORKING"
+        ]
     ];
 
 }

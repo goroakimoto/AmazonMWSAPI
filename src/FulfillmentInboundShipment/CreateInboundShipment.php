@@ -51,8 +51,10 @@ class CreateInboundShipment extends FulfillmentInboundShipment
                 "QuantityShipped" => 5,
                 "ReleaseDate" => "2018-01-05",
                 "PrepDetailsList" => [
-                    "PrepInstruction" => "Labeling",
-                    "PrepOwner" => "SELLER"
+                    [
+                        "PrepInstruction" => "Labeling",
+                        "PrepOwner" => "SELLER"
+                    ]
                 ]
             ],
             [
@@ -60,8 +62,14 @@ class CreateInboundShipment extends FulfillmentInboundShipment
                 "QuantityShipped" => 2,
                 "ReleaseDate" => "2018-01-05",
                 "PrepDetailsList" => [
-                    "PrepInstruction" => "Labeling",
-                    "PrepOwner" => "SELLER"
+                    [
+                        "PrepInstruction" => "Labeling",
+                        "PrepOwner" => "SELLER"
+                    ],
+                    [
+                        "PrepInstruction" => "Polybagging",
+                        "PrepOwner" => "SELLER"
+                    ]
                 ]
             ]
         ]

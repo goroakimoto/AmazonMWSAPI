@@ -37,5 +37,23 @@ class ListRecommendations extends Recommendations
             "required"
         ]
     ];
+    protected static $example = [
+        "RecommendationCategory" => "Inventory",
+        "CategoryQueryList" => [
+            [
+                "RecommendationCategory" => "ListingQuality",
+                "FilterOptions" => [
+                    "QualitySet=Defect",
+                    "ListingStatus=Active"
+                ]
+            ],
+            [
+                "RecommendationCategory" => "Selection",
+                "FilterOptions" => [
+                    "IncludeCommonRecommendations=false"
+                ]
+            ]
+        ]
+    ];
 
 }
