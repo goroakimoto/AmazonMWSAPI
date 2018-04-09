@@ -2,6 +2,9 @@
 
 namespace AmazonMWSAPI\Helpers;
 
+use AmazonMWSAPI\AmazonClient;
+
+
 class Helpers
 {
 
@@ -63,6 +66,86 @@ class Helpers
         }
 
         return $newString;
+
+    }
+
+    public static function startClock($print = true)
+    {
+
+        $startTime = microtime(true);
+
+        if ($print) {
+
+            echo "Start Time: " . date("Y/m/d H:i:s") . "<br>";
+
+        }
+
+        return $startTime;
+
+    }
+
+    public static function endClock($startTime, $print = true)
+    {
+
+        $endTime = microtime(true);
+
+        $executionTime = ($endTime - $startTime) / 60;
+
+        if ($print) {
+
+            echo "Execution time: $executionTime mins";
+
+            echo "End Time: " . date('Y-m-d H:i:s') . "<br>";
+
+        }
+
+        return $executionTime;
+
+    }
+
+    protected static function performance($objectToNewUp, $parameters, $iterations)
+    {
+
+        $totalTime = 0;
+
+        for ($x = 0; $x < $iterations; $x++) {
+            $startIteration = startClock(false);
+
+            new $objectToNewUp($parameters);
+
+            $endIteration = endClock($startIteration, false);
+
+            $totalTime += $endIteration;
+
+        }
+
+        static::dd("Average is: " . $totalTime / $iterations);
+
+    }
+
+    public static function test($objectToNewUp, $parameters, $iterations = 1)
+    {
+
+        static::dd(
+
+            static::performance($objectToNewUp, $parameters, $iterations)
+
+        );
+
+    }
+
+    public static function testAPI($objectToNewUp, $parameters, $iterations = 1)
+    {
+
+        static::ddXml(
+
+            AmazonClient::amazonCurl(
+
+                static::performance($objectToNewUp, $parameters, $iterations)
+
+            )
+
+        );
 
     }
 

@@ -18,7 +18,7 @@ trait APIParameterValidation
         // Helpers::dd($parameterToCheck);
         // Helpers::dd($matchingParameters);
 
-        if(empty($matchingParameters))
+        if (empty($matchingParameters))
         {
 
             throw new Exception("$parameterToCheck must be set to complete this request. Please correct and try again.");
@@ -32,7 +32,7 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($dateToEnsureInterval);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
             $baseDateResults = static::searchCurlParametersReturnResults($baseDate);
@@ -41,7 +41,7 @@ trait APIParameterValidation
 
             $formattedInterval = new DateInterval($interval);
 
-            if($direction !== "earlier")
+            if ($direction !== "earlier")
             {
 
                 $adjustedDate = $date->add($formattedInterval);
@@ -54,7 +54,7 @@ trait APIParameterValidation
 
             $dateToEnsure = new DateTime(end($matchingParameters));
 
-            if($dateToEnsure > $adjustedDate && $direction === "earlier")
+            if ($dateToEnsure > $adjustedDate && $direction === "earlier")
             {
 
                 $exceptionNotice = "$dateToEnsureInterval must be earlier than ";
@@ -64,7 +64,7 @@ trait APIParameterValidation
 
                 throw new Exception($exceptionNotice);
 
-            } elseif($adjustedDate > $dateToEnsure && $direction === "later")
+            } elseif ($adjustedDate > $dateToEnsure && $direction === "later")
             {
 
                 $exceptionNotice = "$dateToEnsureInterval must be later than ";
@@ -86,7 +86,7 @@ trait APIParameterValidation
 
         $matchingLaterDateParameters = static::searchCurlParametersReturnResults($laterDate);
 
-        if(
+        if (
             !empty($matchingEarlierDateParameters) &&
             !empty($matchingLaterDateParameters)
         ){
@@ -95,7 +95,7 @@ trait APIParameterValidation
             $lateDate = new DateTime(end($matchingLaterDateParameters));
             $difference = $earlyDate->diff($lateDate);
 
-            if($difference->format('%a') > $intervalInDays)
+            if ($difference->format('%a') > $intervalInDays)
             {
 
                 throw new Exception("These dates: $earlierDate, $laterDate are greater than $intervalInDays days apart. Please correct and try again.");
@@ -111,7 +111,7 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
             if (!preg_match("/^\d{4}-\d{2}-\d{2}T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z$/", end($matchingParameters)))
@@ -150,7 +150,7 @@ trait APIParameterValidation
         foreach ($dependentParameters as $parameter)
         {
 
-            if(!in_array($parameter, static::getCurlParameters()))
+            if (!in_array($parameter, static::getCurlParameters()))
             {
 
                 $dependentParameter = "The following must all be set: ";
@@ -174,7 +174,7 @@ trait APIParameterValidation
 
         $matchingSecondParameters = static::searchCurlParametersReturnResults($secondParameter);
 
-        if(
+        if (
             (
                 empty($matchingFirstParameters) && empty($matchingSecondParameters)
             ) || (
@@ -193,14 +193,14 @@ trait APIParameterValidation
 
         $matchingFirstParameter = static::searchCurlParametersReturnResults($firstParameter);
 
-        if(!empty($matchingFirstParameter)){
+        if (!empty($matchingFirstParameter)){
 
-            foreach($otherParameters as $conditionallyRequiredParameter)
+            foreach ($otherParameters as $conditionallyRequiredParameter)
             {
 
                 $matchingOtherParameter = static::searchCurlParametersReturnResults($conditionallyRequiredParameter);
 
-                if(!empty($matchingOtherParameter))
+                if (!empty($matchingOtherParameter))
                 {
 
                     $exception = "Only one of the following must be set: $firstParameter, ";
@@ -224,16 +224,16 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            if(is_array($restrictedParameters))
+            if (is_array($restrictedParameters))
             {
 
-                foreach($restrictedParameters as $restricted)
+                foreach ($restrictedParameters as $restricted)
                 {
 
-                    if(!empty(static::searchCurlParametersReturnResults($restricted)))
+                    if (!empty(static::searchCurlParametersReturnResults($restricted)))
                     {
 
                         throw new Exception("$restricted cannot be set at the same time as $parameterToCheck. Please correct and try again.");
@@ -244,7 +244,7 @@ trait APIParameterValidation
 
             } else {
 
-                if(!empty(static::searchCurlParametersReturnResults($restrictedParameters)))
+                if (!empty(static::searchCurlParametersReturnResults($restrictedParameters)))
                 {
 
                     throw new Exception("$restrictedParameters cannot be set at the same time as $parameterToCheck. Please correct and try again.");
@@ -262,12 +262,12 @@ trait APIParameterValidation
 
         $matchingParameter = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameter))
+        if (!empty($matchingParameter))
         {
 
             // Helpers::dd($matchingParameter);
 
-            if(!array_key_exists($parameterToCheck, $matchingParameter))
+            if (!array_key_exists($parameterToCheck, $matchingParameter))
             {
                 $parameters = static::getParameters();
 
@@ -296,15 +296,15 @@ trait APIParameterValidation
                 $validParameterValue = [];
                 $dependentParameters = [];
 
-                foreach($validParameterValues as $key => $value)
+                foreach ($validParameterValues as $key => $value)
                 {
 
-                    if(is_array($value))
+                    if (is_array($value))
                     {
 
                         $validParameterValue[] = $key;
 
-                        if(array_key_exists("dependentOn", $value))
+                        if (array_key_exists("dependentOn", $value))
                         {
 
                             $dependentParameters[] = $key;
@@ -321,7 +321,7 @@ trait APIParameterValidation
 
                 $parameterValue = end($matchingParameter);
 
-                if(!in_array($parameterValue, $validParameterValue))
+                if (!in_array($parameterValue, $validParameterValue))
                 {
 
                     $exception = "The value for $parameterToCheck must be one of the following: ";
@@ -334,7 +334,7 @@ trait APIParameterValidation
 
                 }
 
-                if(!empty($dependentParameters))
+                if (!empty($dependentParameters))
                 {
 
                     static::ensureAllAreSet($dependentParameters);
@@ -347,99 +347,176 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureParameterValuesAreValidIf($parameterToCheck, $validParameterValues = null)
+    public static function ensureParameterValuesAreValidif ($parameterToCheck, $validParameterValues = null)
     {
 
         $matchingParameter = static::searchCurlParametersReturnResults($parameterToCheck);
-        // Helpers::dd($parameterToCheck);
-        // Helpers::dd($matchingParameter);
-        // Helpers::dd($validParameterValues);
 
         if (!empty($matchingParameter))
         {
 
             $setParameter = end($matchingParameter);
 
-            if(array_key_exists("region", $validParameterValues))
+            if (array_key_exists("region", $validParameterValues))
             {
 
-                $sellerRegion = static::getRegion();
+                static::ensureRegionValue($setParameter, $validParameterValues);
 
-                if(array_key_exists($sellerRegion, $validParameterValues["region"]))
-                {
+            } elseif (array_key_exists("country", $validParameterValues)) {
 
-                    if(!in_array($setParameter, $validParameterValues["region"][$sellerRegion]))
-                    {
+                static::ensureCountryValues($setParameter, $validParameterValues);
 
-                        $exception = "The value for $parameterToCheck must be one of the following: ";
+            } elseif (array_key_exists("RecommendationCategory", $validParameterValues)) {
 
-                        $exception .= Helpers::arrayToString($validParameterValues["region"][$sellerRegion]);
+                $recommendationCategories = static::searchCurlParametersReturnResults("RecommendationCategory");
 
-                        $exception .= "Please correct and try again.";
+                $parameter = "RecommendationCategory";
 
-                        throw new Exception($exception);
-
-                    }
-
-                }
-
-            } elseif(array_key_exists("country", $validParameterValues)) {
-
-                $sellerCountry = static::getCountry();
-
-                if(is_numeric(current($validParameterValues["country"])))
-                {
-
-                    if (!in_array($setParameter, $validParameterValues["country"])) {
-
-                        $exception = "The value for $parameterToCheck must be one of the following: ";
-
-                        $exception .= Helpers::arrayToString($validParameterValues["country"]);
-
-                        $exception .= "Please correct and try again.";
-
-                        throw new Exception($exception);
-
-                    }
-                } elseif(isset($validParameterValues["country"][$sellerCountry])) {
-
-                    if(is_array($validParameterValues["country"][$sellerCountry]))
-                    {
-
-                        if(!in_array($setParameter, $validParameterValues["country"][$sellerCountry]))
-                        {
-
-                            $exception = "The value for $parameterToCheck must be one of the following: ";
-
-                            $exception .= Helpers::arrayToString($validParameterValues["country"][$sellerCountry]);
-
-                            $exception .= "Please correct and try again.";
-
-                            throw new Exception($exception);
-
-                        }
-
-                    } elseif($setParameter !== $validParameterValues["country"][$sellerCountry]) {
-
-                        $exception = "The value for $parameterToCheck must be the following: ";
-
-                        $exception .= $validParameterValues["country"][$sellerCountry];
-
-                        $exception .= "Please correct and try a gain.";
-
-                        throw new Exception($exception);
-
-                    }
-
-                }
-
-            } elseif(array_key_exists("RecommendationCategory", $validParameterValues)) {
-
-                // Helpers::dd($validParameterValues);
+                static::ensureParameterAtASpecificLevel($parameter, $recommendationCategories, $parameterToCheck, $matchingParameter, $validParameterValues);
 
             }
 
         }
+
+    }
+
+    protected static function ensureRegionValue($setParameter, $validParameterValues)
+    {
+
+        $sellerRegion = static::getRegion();
+
+        if (array_key_exists($sellerRegion, $validParameterValues["region"])) {
+
+            if (!in_array($setParameter, $validParameterValues["region"][$sellerRegion])) {
+
+                $exception = "The value for $parameterToCheck must be one of the following: ";
+
+                $exception .= Helpers::arrayToString($validParameterValues["region"][$sellerRegion]);
+
+                $exception .= "Please correct and try again.";
+
+                throw new Exception($exception);
+
+            }
+
+        }
+
+    }
+
+    protected static function ensureCountryValues($setParameter, $validParameterValues)
+    {
+
+        $sellerCountry = static::getCountry();
+
+        if (is_numeric(current($validParameterValues["country"]))) {
+
+            if (!in_array($setParameter, $validParameterValues["country"])) {
+
+                $exception = "The value for $parameterToCheck must be one of the following: ";
+
+                $exception .= Helpers::arrayToString($validParameterValues["country"]);
+
+                $exception .= "Please correct and try again.";
+
+                throw new Exception($exception);
+
+            }
+        } elseif (isset($validParameterValues["country"][$sellerCountry])) {
+
+            if (is_array($validParameterValues["country"][$sellerCountry])) {
+
+                if (!in_array($setParameter, $validParameterValues["country"][$sellerCountry])) {
+
+                    $exception = "The value for $parameterToCheck must be one of the following: ";
+
+                    $exception .= Helpers::arrayToString($validParameterValues["country"][$sellerCountry]);
+
+                    $exception .= "Please correct and try again.";
+
+                    throw new Exception($exception);
+
+                }
+
+            } elseif ($setParameter !== $validParameterValues["country"][$sellerCountry]) {
+
+                $exception = "The value for $parameterToCheck must be the following: ";
+
+                $exception .= $validParameterValues["country"][$sellerCountry];
+
+                $exception .= "Please correct and try a gain.";
+
+                throw new Exception($exception);
+
+            }
+
+        }
+
+    }
+
+    protected static function ensureParameterAtASpecificLevel($parameterToCheck, $arrayToCheck, $subParameter, $matchingParameter, $validParameterValues)
+    {
+
+        array_filter(
+
+            $arrayToCheck,
+
+            function($v, $k) use ($parameterToCheck, $validParameterValues, $matchingParameter, $subParameter){
+
+                $level = explode(".", $k);
+
+                $temporary = array_pop($level);
+
+                $level = implode(".", $level);
+
+                if ($level) {
+
+                    $levelArray = static::levelArray($matchingParameter, $level, $subParameter);
+
+                    static::ensureLevelArrayValues($levelArray, $parameterToCheck, $v, $validParameterValues);
+
+                }
+
+            }, ARRAY_FILTER_USE_BOTH
+
+        );
+
+    }
+
+    protected static function levelArray($matchingParameter, $level, $subParameter)
+    {
+
+        return array_filter(
+
+            $matchingParameter,
+
+            function ($v, $k) use ($level, $subParameter) {
+
+                return strpos($k, "$level.$subParameter") !== false;
+
+            },
+
+            ARRAY_FILTER_USE_BOTH
+
+        );
+
+    }
+
+    protected static function ensureLevelArrayValues($levelArray, $parameterToCheck, $value, $validParameterValues)
+    {
+
+        return array_filter(
+
+            $levelArray,
+
+            function ($v, $k) use ($parameterToCheck, $value, $validParameterValues) {
+
+                static::ensureParameterValuesAreValidWith($k, $validParameterValues[$parameterToCheck][$value]);
+
+            },
+
+            ARRAY_FILTER_USE_BOTH
+
+        );
 
     }
 
@@ -452,12 +529,12 @@ trait APIParameterValidation
 
         }
 
-        foreach($parameters as $parameterToCheck => $value)
+        foreach ($parameters as $parameterToCheck => $value)
         {
 
             $inArray = static::searchCurlParameters($parameterToCheck, static::getAllowedParameters());
 
-            if(!$inArray)
+            if (!$inArray)
             {
 
                 throw new Exception("The $parameterToCheck parameter is not allowed. Please correct and try again.");
@@ -471,7 +548,7 @@ trait APIParameterValidation
     public static function ensureRequiredParametersAreSet($requiredParameters = null, $parentKey = null)
     {
 
-        if(!$requiredParameters)
+        if (!$requiredParameters)
         {
 
             $requiredParameters = static::$requiredParameters;
@@ -481,14 +558,14 @@ trait APIParameterValidation
         foreach ($requiredParameters as $key => $parameter)
         {
 
-            if(is_array($parameter))
+            if (is_array($parameter))
             {
 
                 static::ensureRequiredParametersAreSet($parameter, $key);
 
             } else {
 
-                if($parentKey)
+                if ($parentKey)
                 {
 
                     static::requireParameterToBeSet($parentKey);
@@ -510,10 +587,10 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            if(
+            if (
                 end($matchingParameters) < $min ||
                 end($matchingParameters) > $max
             ){
@@ -565,10 +642,10 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            if(strlen(end($matchingParameters)) > $max)
+            if (strlen(end($matchingParameters)) > $max)
             {
 
                 throw new Exception("$parameterToCheck must be shorter than $max characters. Please correct and try again.");
@@ -601,10 +678,10 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            if(count($matchingParameters) > $maxCount)
+            if (count($matchingParameters) > $maxCount)
             {
 
                 throw new Exception("$parameterToCheck must have less than $maxCount values. Please correct and try again.");
@@ -620,10 +697,10 @@ trait APIParameterValidation
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            if(empty(preg_match($format, end($matchingParameters))))
+            if (empty(preg_match($format, end($matchingParameters))))
             {
 
                 throw new Exception("$parameterToCheck does not match the format: $format. Please correct and try again.");

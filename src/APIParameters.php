@@ -254,7 +254,7 @@ trait APIParameters
 
                 }
 
-            } elseif(is_array($value) && $lookingFor === "key" && !call_user_func_array([$class, $method], [$value, $key, $arg])) {
+            } elseif (is_array($value) && $lookingFor === "key" && !call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
                 $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
 
@@ -290,7 +290,7 @@ trait APIParameters
         foreach ($array as $key => $value)
         {
 
-            if(is_array($value) && !call_user_func_array([$class, $method], [$value, $key, $arg]))
+            if (is_array($value) && !call_user_func_array([$class, $method], [$value, $key, $arg]))
             {
 
                 $array[$key] = static::recursiveArrayFilterUnsetParameter($method, $value, $arg, call_user_func_array([$class, $method], [$value, $key, $arg]));
@@ -333,7 +333,7 @@ trait APIParameters
     protected static function getIncrementorByKey($parameterToCheck)
     {
 
-        if(array_key_exists($parameterToCheck, static::$incrementors))
+        if (array_key_exists($parameterToCheck, static::$incrementors))
         {
 
             return static::$incrementors[$parameterToCheck];
@@ -388,7 +388,7 @@ trait APIParameters
     public static function getParametersWithFormat($parameters = null)
     {
 
-        if(!$parameters)
+        if (!$parameters)
         {
 
             $parameters = static::getParameters();
@@ -422,7 +422,7 @@ trait APIParameters
         foreach ($array as $key => $value)
         {
 
-            if(array_key_exists($key, $parametersWithFormats) && $value["format"] !== "dateTime" && $value["format"] !== "date")
+            if (array_key_exists($key, $parametersWithFormats) && $value["format"] !== "dateTime" && $value["format"] !== "date")
             {
 
                 $format = $value["format"];
@@ -435,7 +435,7 @@ trait APIParameters
 
                 unset($array[$key]["format"]);
 
-                if(is_array($array[$key]))
+                if (is_array($array[$key]))
                 {
 
                     $array[$key] = static::combineFormatWithParameters($array[$key], $key, $dataType);
@@ -453,15 +453,15 @@ trait APIParameters
     public static function setParameterByKey($key, $value)
     {
 
-        if(isset($value))
+        if (isset($value))
         {
 
-            if(array_key_exists($key, static::getDateTimeParameters()) && !in_array($key, self::$curlParameters))
+            if (array_key_exists($key, static::getDateTimeParameters()) && !in_array($key, self::$curlParameters))
             {
 
                 static::setDateParameter($key, $value);
 
-            } elseif(array_key_exists($key, static::getDateParameters()) && !in_array($key, self::$curlParameters)) {
+            } elseif (array_key_exists($key, static::getDateParameters()) && !in_array($key, self::$curlParameters)) {
 
                 static::setDateParameter($key, $value);
 
@@ -478,7 +478,7 @@ trait APIParameters
     protected static function notIncremented($v, $k, $arg)
     {
 
-        if(is_array($v) && in_array("notIncremented", $v) && $k === $arg)
+        if (is_array($v) && in_array("notIncremented", $v) && $k === $arg)
         {
 
             return true;
@@ -498,12 +498,12 @@ trait APIParameters
 
         $incrementor = static::getIncrementorByKey($parameter);
 
-        if(is_array($incrementor))
+        if (is_array($incrementor))
         {
 
             $calledClass = Helpers::getCalledClass(get_called_class());
 
-            if(array_key_exists($calledClass, $incrementor))
+            if (array_key_exists($calledClass, $incrementor))
             {
 
                 $incrementor = $incrementor[$calledClass];
@@ -516,20 +516,20 @@ trait APIParameters
 
         }
 
-        if($notIncremented)
+        if ($notIncremented)
         {
 
             static::setParameterByKey($parameter, $value);
 
-        } elseif(is_array($value)) {
+        } elseif (is_array($value)) {
 
-            foreach($value as $key => $val)
+            foreach ($value as $key => $val)
             {
 
-                if($parentParameter && $incrementor)
+                if ($parentParameter && $incrementor)
                 {
 
-                    if(is_numeric($key))
+                    if (is_numeric($key))
                     {
 
                         $key++;
@@ -541,11 +541,11 @@ trait APIParameters
 
                     }
 
-                } elseif($parentParameter) {
+                } elseif ($parentParameter) {
 
-                    if(is_numeric($parameter)) {
+                    if (is_numeric($parameter)) {
 
-                        if(is_array($val))
+                        if (is_array($val))
                         {
 
                             static::incrementParameter($key, $val, "$parentParameter");
@@ -562,7 +562,7 @@ trait APIParameters
 
                     }
 
-                } elseif($incrementor) {
+                } elseif ($incrementor) {
 
                     $key++;
 
@@ -574,7 +574,7 @@ trait APIParameters
 
         } else {
 
-            if($parentParameter)
+            if ($parentParameter)
             {
 
                 static::setParameterByKey($parentParameter, $value);
@@ -595,18 +595,18 @@ trait APIParameters
         foreach ($parametersToSet as $parameter => $value)
         {
 
-            if(static::getIncrementorByKey($parameter))
+            if (static::getIncrementorByKey($parameter))
             {
 
                 static::incrementParameter($parameter, $value, $parentParameter);
 
-            } elseif(is_array($value)) {
+            } elseif (is_array($value)) {
 
 
                 foreach ($value as $parameterSubKey => $subKeyValue)
                 {
 
-                    if(is_array($subKeyValue))
+                    if (is_array($subKeyValue))
                     {
 
                         static::setPassedParameters($subKeyValue, $parameter . "." . $parameterSubKey);
@@ -621,7 +621,7 @@ trait APIParameters
 
             } else {
 
-                if($parentParameter)
+                if ($parentParameter)
                 {
                     static::setParameterByKey($parentParameter . "." . $parameter, $value);
 
@@ -646,7 +646,7 @@ trait APIParameters
 
         $last = last($explodedKey);
 
-        if(strpos($k, ".") !== false || strpos($parameterToCheck, ".") !== false)
+        if (strpos($k, ".") !== false || strpos($parameterToCheck, ".") !== false)
         {
 
             return strpos($parameterToCheck, $k) !== false || strpos($k, $parameterToCheck) !== false;
@@ -662,7 +662,7 @@ trait APIParameters
     public static function searchCurlParameters($parameterToCheck, $parameters = null)
     {
 
-        if(!$parameters)
+        if (!$parameters)
         {
 
             $parameters = static::getCurlParameters();
@@ -676,7 +676,7 @@ trait APIParameters
     public static function searchCurlParametersReturnResults($parameterToCheck, $parameters = null)
     {
 
-        if(!$parameters)
+        if (!$parameters)
         {
 
             $parameters = static::getCurlParameters();
@@ -694,7 +694,7 @@ trait APIParameters
 
         $requiredParameters = static::findRequiredParameters();
 
-        foreach($parentRequiredParameters as $parameter => $value)
+        foreach ($parentRequiredParameters as $parameter => $value)
         {
 
             static::setRequiredParameter($parameter, $value);
@@ -704,7 +704,7 @@ trait APIParameters
         foreach ($requiredParameters as $parameter => $value)
         {
 
-            if(is_array($value))
+            if (is_array($value))
             {
 
                 static::setRequiredParameter($parameter, $value, true);
@@ -749,13 +749,13 @@ trait APIParameters
 
     }
 
-    protected static function validIf($v, $k)
+    protected static function validif ($v, $k)
     {
 
-        if(is_array($v) && array_key_exists("validIf", $v))
+        if (is_array($v) && array_key_exists("validIf", $v))
         {
 
-            static::ensureParameterValuesAreValidIf($k, $v{"validIf"});
+            static::ensureParameterValuesAreValidif ($k, $v{"validIf"});
 
             return true;
 
@@ -855,7 +855,7 @@ trait APIParameters
         if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
         {
 
-            if(is_array($v["requiredIfNotSet"]))
+            if (is_array($v["requiredIfNotSet"]))
             {
 
                 static::ensureOnlyOneIsSet($k, $v["requiredIfNotSet"]);
@@ -877,14 +877,7 @@ trait APIParameters
     protected static function removeConditionallyRequiredParameters($v, $k, $parameter)
     {
 
-        if($k === "PartneredLtlData" && $k === $parameter){
-
-            // Helpers::dd($parameter);
-            // Helpers::dd($k);
-            // Helpers::dd($v);
-
-        }
-        if($k === $parameter)
+        if ($k === $parameter)
         {
 
             return true;
@@ -999,7 +992,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreValidIf()
+    protected static function testParametersAreValidif ()
     {
 
         $parameters = static::getParameters();
@@ -1112,19 +1105,19 @@ trait APIParameters
     protected static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
     {
 
-        foreach($arrayToRemoveConditionallyRequiredParameters as $parameter => $value)
+        foreach ($arrayToRemoveConditionallyRequiredParameters as $parameter => $value)
         {
 
-            if(is_array($value) && !array_key_exists("requiredIfNotSet", $value))
+            if (is_array($value) && !array_key_exists("requiredIfNotSet", $value))
             {
 
                 static::removeConditionallyRequiredParametersNotUsed($value, $requiredParameters);
 
-            } elseif(is_array($value) && array_key_exists("requiredIfNotSet", $value)) {
+            } elseif (is_array($value) && array_key_exists("requiredIfNotSet", $value)) {
 
                 $matchingCurlParameters = static::searchCurlParameters($parameter);
 
-                if(!$matchingCurlParameters)
+                if (!$matchingCurlParameters)
                 {
 
                     $requiredParameters = static::recursiveArrayFilterUnsetParameter("removeConditionallyRequiredParameters", $requiredParameters, $parameter);
@@ -1190,7 +1183,7 @@ trait APIParameters
 
         static::setVersionDateParameter();
 
-        if($parametersToSet)
+        if ($parametersToSet)
         {
 
             static::setPassedParameters($parametersToSet);
@@ -1201,7 +1194,7 @@ trait APIParameters
 
     public static function verifyParameters()
     {
-        Helpers::dd(static::getCurlParameters());
+        // Helpers::dd(static::getCurlParameters());
         // Helpers::dd(static::getParameters());
 
         static::testOneIsSet();
@@ -1216,7 +1209,7 @@ trait APIParameters
 
         static::testParametersAreValidWith();
 
-        static::testParametersAreValidIf();
+        static::testParametersAreValidif ();
 
         // static::testParametersAreWithinGivenRange();
 

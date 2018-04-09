@@ -92,7 +92,7 @@ trait AmazonClientCurl
         foreach ($parameters as $key => $val)
         {
 
-            if($key === "FeedContent")
+            if ($key === "FeedContent")
             {
 
                 continue;
