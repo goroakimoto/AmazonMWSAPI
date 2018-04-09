@@ -1194,7 +1194,7 @@ trait APIParameters
 
     public static function verifyParameters()
     {
-        // Helpers::dd(static::getCurlParameters());
+        Helpers::dd(static::getCurlParameters());
         // Helpers::dd(static::getParameters());
 
         static::testOneIsSet();
@@ -1211,23 +1211,23 @@ trait APIParameters
 
         static::testParametersAreValidif ();
 
-        // static::testParametersAreWithinGivenRange();
+        static::testParametersAreWithinGivenRange();
 
-        // static::testParametersAreNoLongerThanMaximum();
+        static::testParametersAreNoLongerThanMaximum();
 
-        // static::testParametersAreNoShorterThanMinimum();
+        static::testParametersAreNoShorterThanMinimum();
 
-        // static::testParameterCountIsLessThanMaximum();
+        static::testParameterCountIsLessThanMaximum();
 
-        // static::testDatesAreEarlierThan();
+        static::testDatesAreEarlierThan();
 
-        // static::testDatesAreLaterThan();
+        static::testDatesAreLaterThan();
 
-        // static::testDatesAreInProperFormat();
+        static::testDatesAreInProperFormat();
 
-        // static::testDateTimesAreInProperFormat();
+        static::testDateTimesAreInProperFormat();
 
-        // static::testDatesNotOutsideInterval();
+        static::testDatesNotOutsideInterval();
 
         // static::testGreaterThan();
 

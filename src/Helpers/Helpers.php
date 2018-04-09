@@ -103,6 +103,13 @@ class Helpers
 
     }
 
+    protected static function newUpObject($objectToNewUp, $parameters)
+    {
+
+        return new $objectToNewUp($parameters);
+
+    }
+
     protected static function performance($objectToNewUp, $parameters, $iterations)
     {
 
@@ -111,7 +118,7 @@ class Helpers
         for ($x = 0; $x < $iterations; $x++) {
             $startIteration = startClock(false);
 
-            new $objectToNewUp($parameters);
+            static::newUpObject($objectToNewUp, $parameters);
 
             $endIteration = endClock($startIteration, false);
 
@@ -123,29 +130,60 @@ class Helpers
 
     }
 
-    public static function test($objectToNewUp, $parameters, $iterations = 1)
+    public static function test($objectToNewUp, $parameters, $testPerformance = false, $iterations = 1)
     {
 
-        static::dd(
+        if($testPerformance)
+        {
 
-            static::performance($objectToNewUp, $parameters, $iterations)
-
-        );
-
-    }
-
-    public static function testAPI($objectToNewUp, $parameters, $iterations = 1)
-    {
-
-        static::ddXml(
-
-            AmazonClient::amazonCurl(
+            static::dd(
 
                 static::performance($objectToNewUp, $parameters, $iterations)
 
-            )
+            );
 
-        );
+        } else {
+
+            static::dd(
+
+                static::newUpObject($objectToNewUp, $parameters)
+
+            );
+
+        }
+
+
+    }
+
+    public static function testAPI($objectToNewUp, $parameters, $testPerformance = false, $iterations = 1)
+    {
+
+        if($testPerformance)
+        {
+
+            static::ddXml(
+
+                AmazonClient::amazonCurl(
+
+                    static::performance($objectToNewUp, $parameters, $iterations)
+
+                )
+
+            );
+
+        } else {
+
+            static::ddXml(
+
+                AmazonClient::amazonCurl(
+
+                    static::newUpObject($objectToNewUp, $parameters)
+
+                )
+
+            );
+
+        }
 
     }
 
