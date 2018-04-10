@@ -484,14 +484,14 @@ trait APIParameterValidation
 
             $matchingParameter,
 
-            function ($v, $k) use ($level, $subParameter)
+            function ($k) use ($level, $subParameter)
             {
 
                 return strpos($k, "$level.$subParameter") !== false;
 
             },
 
-            ARRAY_FILTER_USE_BOTH
+            ARRAY_FILTER_USE_KEY
 
         );
 
@@ -739,53 +739,6 @@ trait APIParameterValidation
             }
 
         }
-
-    }
-
-    protected static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
-    {
-
-        if(!$arrayToCheck)
-        {
-
-            $arrayToCheck = static::getCurlParameters();
-
-        }
-
-        $level = static::getLevel($parameterToCheck);
-
-        if($level)
-        {
-
-            $siblingParameters = array_filter(
-
-                $arrayToCheck,
-
-                function($v, $k) use ($level)
-                {
-
-                    return strpos($k, $level) !== false;
-
-                },
-
-                ARRAY_FILTER_USE_BOTH
-
-            );
-
-            return $siblingParameters;
-
-        }
-
-    }
-
-    protected static function getLevel($parameterToCheck)
-    {
-
-        $level = explode(".", $parameterToCheck);
-
-        $temporary = array_pop($level);
-
-        return implode(".", $level);
 
     }
 

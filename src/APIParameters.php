@@ -999,6 +999,50 @@ trait APIParameters
 
     }
 
+    protected static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
+    {
+
+        if (!$arrayToCheck) {
+
+            $arrayToCheck = static::getCurlParameters();
+
+        }
+
+        $level = static::getLevel($parameterToCheck);
+
+        if ($level) {
+
+            $siblingParameters = array_filter(
+
+                $arrayToCheck,
+
+                function ($k) use ($level) {
+
+                    return strpos($k, $level) !== false;
+
+                },
+
+                ARRAY_FILTER_USE_KEY
+
+            );
+
+            return $siblingParameters;
+
+        }
+
+    }
+
+    protected static function getLevel($parameterToCheck)
+    {
+
+        $level = explode(".", $parameterToCheck);
+
+        $temporary = array_pop($level);
+
+        return implode(".", $level);
+
+    }
+
     protected static function testParametersAreValidWith()
     {
 
