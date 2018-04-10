@@ -755,7 +755,7 @@ trait APIParameters
         if (is_array($v) && array_key_exists("validIf", $v))
         {
 
-            static::ensureParameterValuesAreValidif ($k, $v{"validIf"});
+            static::ensureParameterValuesAreValidif($k, $v{"validIf"});
 
             return true;
 
@@ -983,6 +983,22 @@ trait APIParameters
 
     }
 
+    protected static function divisorOf($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("divisorOf", $v))
+        {
+
+            static::ensureDivisorOf($k, $v["divisorOf"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function testParametersAreValidWith()
     {
 
@@ -1099,6 +1115,15 @@ trait APIParameters
         $parameters = static::getParameters();
 
         $withIncompatibilitiesParameters = static::recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
+
+    }
+
+    protected static function testDivisorOf()
+    {
+
+        $parameters = static::getParameters();
+
+        $divisorOf = static::recursiveArrayFilterReturnArray("divisorOf", $parameters, false);
 
     }
 
@@ -1228,6 +1253,8 @@ trait APIParameters
         static::testDateTimesAreInProperFormat();
 
         static::testDatesNotOutsideInterval();
+
+        static::testDivisorOf();
 
         // static::testGreaterThan();
 

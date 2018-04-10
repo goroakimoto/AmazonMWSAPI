@@ -49,6 +49,7 @@ class CreateInboundShipment extends FulfillmentInboundShipment
             [
                 "SellerSKU" => "M150",
                 "QuantityShipped" => 5,
+                "QuantityInCase" => 10,
                 "ReleaseDate" => "2018-01-05",
                 "PrepDetailsList" => [
                     [
@@ -60,6 +61,7 @@ class CreateInboundShipment extends FulfillmentInboundShipment
             [
                 "SellerSKU" => "M180",
                 "QuantityShipped" => 2,
+                "QuantityInCase" => 4,
                 "ReleaseDate" => "2018-01-05",
                 "PrepDetailsList" => [
                     [
