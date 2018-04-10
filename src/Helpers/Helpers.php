@@ -51,9 +51,11 @@ class Helpers
 
         $newString = "";
 
-        foreach ($array as $value) {
+        foreach ($array as $value)
+        {
 
-            if ($value === end($array)) {
+            if ($value === end($array))
+            {
 
                 $newString .= "$value. ";
 
@@ -74,7 +76,8 @@ class Helpers
 
         $startTime = microtime(true);
 
-        if ($print) {
+        if ($print)
+        {
 
             echo "Start Time: " . date("Y/m/d H:i:s") . "<br>";
 
@@ -91,7 +94,8 @@ class Helpers
 
         $executionTime = ($endTime - $startTime) / 60;
 
-        if ($print) {
+        if ($print)
+        {
 
             echo "Execution time: $executionTime mins";
 
@@ -115,7 +119,9 @@ class Helpers
 
         $totalTime = 0;
 
-        for ($x = 0; $x < $iterations; $x++) {
+        for ($x = 0; $x < $iterations; $x++)
+        {
+
             $startIteration = startClock(false);
 
             static::newUpObject($objectToNewUp, $parameters);
@@ -136,7 +142,8 @@ class Helpers
         if($testPerformance)
         {
 
-            static::dd(
+            static::dd
+            (
 
                 static::performance($objectToNewUp, $parameters, $iterations)
 
@@ -144,7 +151,8 @@ class Helpers
 
         } else {
 
-            static::dd(
+            static::dd
+            (
 
                 static::newUpObject($objectToNewUp, $parameters)
 
@@ -161,9 +169,11 @@ class Helpers
         if($testPerformance)
         {
 
-            static::ddXml(
+            static::ddXml
+            (
 
-                AmazonClient::amazonCurl(
+                AmazonClient::amazonCurl
+                (
 
                     static::performance($objectToNewUp, $parameters, $iterations)
 
@@ -173,9 +183,11 @@ class Helpers
 
         } else {
 
-            static::ddXml(
+            static::ddXml
+            (
 
-                AmazonClient::amazonCurl(
+                AmazonClient::amazonCurl
+                (
 
                     static::newUpObject($objectToNewUp, $parameters)
 
