@@ -733,6 +733,22 @@ trait APIParameters
 
     }
 
+    protected static function requiredIf($v, $k, $arg)
+    {
+
+        if (is_array($v) && array_key_exists("requiredIf", $v))
+        {
+
+            static::ensureRequiredIfParametersAreSet($k, $v["requiredIf"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function validWith($v, $k, $arg)
     {
 
@@ -1043,6 +1059,15 @@ trait APIParameters
 
     }
 
+    protected static function testRequiredIfParametersAreSet()
+    {
+
+        $parameters = static::getParameters();
+
+        $requiredIfParameters = static::recursiveArrayFilterReturnArray("requiredIf", $parameters, true);
+
+    }
+
     protected static function testParametersAreValidWith()
     {
 
@@ -1309,6 +1334,8 @@ trait APIParameters
         static::testOneIsSet();
 
         static::ensureRequiredParametersAreSet();
+
+        static::testRequiredIfParametersAreSet();
 
         static::ensureSetParametersAreAllowed();
 

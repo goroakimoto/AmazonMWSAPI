@@ -613,6 +613,21 @@ trait APIParameterValidation
         }
 
     }
+    public static function ensureRequiredIfParametersAreSet($parameterToCheck, $requiredIf)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if (!empty($matchingParameters))
+        {
+
+            Helpers::dd($parameterToCheck);
+            Helpers::dd($matchingParameters);
+            Helpers::dd($requiredIf);
+
+        }
+
+    }
 
     public static function ensureParameterIsInRange($parameterToCheck, $min, $max)
     {
