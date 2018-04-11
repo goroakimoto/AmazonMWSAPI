@@ -204,7 +204,7 @@ class FulfillmentInboundShipment
                     "WORKING",
                     "SHIPPED",
                     "CANCELLED" => [
-                        "onlyIfOperationIs" => "UpdateInboundShipment"
+                        "ifOperationIs" => "UpdateInboundShipment"
                     ]
                 ]
             ],

@@ -107,13 +107,6 @@ class Helpers
 
     }
 
-    protected static function newUpObject($objectToNewUp, $parameters)
-    {
-
-        return new $objectToNewUp($parameters);
-
-    }
-
     protected static function performance($objectToNewUp, $parameters, $iterations)
     {
 
@@ -124,7 +117,7 @@ class Helpers
 
             $startIteration = startClock(false);
 
-            static::newUpObject($objectToNewUp, $parameters);
+            new $objectToNewUp($parameters);
 
             $endIteration = endClock($startIteration, false);
 
@@ -154,7 +147,7 @@ class Helpers
             static::dd
             (
 
-                static::newUpObject($objectToNewUp, $parameters)
+                new $objectToNewUp($parameters)
 
             );
 
@@ -189,7 +182,7 @@ class Helpers
                 AmazonClient::amazonCurl
                 (
 
-                    static::newUpObject($objectToNewUp, $parameters)
+                    new $objectToNewUp($parameters)
 
                 )
 

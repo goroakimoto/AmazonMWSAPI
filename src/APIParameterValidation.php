@@ -15,8 +15,6 @@ trait APIParameterValidation
     {
 
         $matchingParameters = static::searchCurlParameters($parameterToCheck);
-        // Helpers::dd($parameterToCheck);
-        // Helpers::dd($matchingParameters);
 
         if (empty($matchingParameters))
         {
@@ -264,21 +262,53 @@ trait APIParameterValidation
         if (!empty($matchingParameter))
         {
 
+
             if (!array_key_exists($parameterToCheck, $matchingParameter))
             {
                 $parameters = static::getParameters();
 
-                foreach ($matchingParameter as $parameter => $value)
+                $ifOperationIsParameters = static::searchCurlParametersReturnResults("ifOperationIs", $parameters);
+
+                if(static::getNestedParameterKey($parameterToCheck, $ifOperationIsParameters))
                 {
 
-                    $explodedKey = explode(".", $parameter);
+                    $validKey = static::getNestedParameterKey($parameterToCheck, $ifOperationIsParameters);
 
-                    $lastValue = end($explodedKey);
+                    $value = end($matchingParameter);
 
-                    $parentParameter = prev($explodedKey);
+                    if(key(static::getNestedParameterKey("validWith", $ifOperationIsParameters)) === $value)
+                    {
 
-                    $matchingParameter = static::searchCurlParametersReturnResults($parentParameter);
+                        $validOperation = static::getNestedParameterValue("ifOperationIs", $ifOperationIsParameters);
 
+                        if(Helpers::getCalledClass(get_called_class()) !== $validOperation)
+                        {
+
+                            throw new Exception("$value is only valid when called from $validOperation. Please correct and try again.");
+
+                        }
+
+                    }
+
+                } else {
+
+                    foreach ($matchingParameter as $parameter => $value)
+                    {
+
+                        if(!in_array($value, $validParameterValues))
+                        {
+
+                            $exception = "The value for $parameterToCheck must be one of the following: ";
+
+                            $exception .= Helpers::arrayToString($validParameterValues);
+
+                            $exception .= "Please correct and try again.";
+
+                            throw new Exception($exception);
+
+                        }
+
+                    }
                 }
 
             } else {
@@ -376,15 +406,17 @@ trait APIParameterValidation
 
         $sellerRegion = static::getRegion();
 
-        if (array_key_exists($sellerRegion, $validParameterValues["region"]))
+        $parameter = "region";
+
+        if (array_key_exists($sellerRegion, $validParameterValues[$parameter]))
         {
 
-            if (!in_array($setParameter, $validParameterValues["region"][$sellerRegion]))
+            if (!in_array($setParameter, $validParameterValues[$parameter][$sellerRegion]))
             {
 
                 $exception = "The value for $parameterToCheck must be one of the following: ";
 
-                $exception .= Helpers::arrayToString($validParameterValues["region"][$sellerRegion]);
+                $exception .= Helpers::arrayToString($validParameterValues[$parameter][$sellerRegion]);
 
                 $exception .= "Please correct and try again.";
 
@@ -401,32 +433,34 @@ trait APIParameterValidation
 
         $sellerCountry = static::getCountry();
 
-        if (is_numeric(current($validParameterValues["country"])))
+        $parameter = "country";
+
+        if (is_numeric(current($validParameterValues[$parameter])))
         {
 
-            if (!in_array($setParameter, $validParameterValues["country"]))
+            if (!in_array($setParameter, $validParameterValues[$parameter]))
             {
 
                 $exception = "The value for $parameterToCheck must be one of the following: ";
 
-                $exception .= Helpers::arrayToString($validParameterValues["country"]);
+                $exception .= Helpers::arrayToString($validParameterValues[$parameter]);
 
                 $exception .= "Please correct and try again.";
 
                 throw new Exception($exception);
 
             }
-        } elseif (isset($validParameterValues["country"][$sellerCountry])) {
+        } elseif (isset($validParameterValues[$parameter][$sellerCountry])) {
 
-            if (is_array($validParameterValues["country"][$sellerCountry]))
+            if (is_array($validParameterValues[$parameter][$sellerCountry]))
             {
 
-                if (!in_array($setParameter, $validParameterValues["country"][$sellerCountry]))
+                if (!in_array($setParameter, $validParameterValues[$parameter][$sellerCountry]))
                 {
 
                     $exception = "The value for $parameterToCheck must be one of the following: ";
 
-                    $exception .= Helpers::arrayToString($validParameterValues["country"][$sellerCountry]);
+                    $exception .= Helpers::arrayToString($validParameterValues[$parameter][$sellerCountry]);
 
                     $exception .= "Please correct and try again.";
 
@@ -434,11 +468,11 @@ trait APIParameterValidation
 
                 }
 
-            } elseif ($setParameter !== $validParameterValues["country"][$sellerCountry]) {
+            } elseif ($setParameter !== $validParameterValues[$parameter][$sellerCountry]) {
 
                 $exception = "The value for $parameterToCheck must be the following: ";
 
-                $exception .= $validParameterValues["country"][$sellerCountry];
+                $exception .= $validParameterValues[$parameter][$sellerCountry];
 
                 $exception .= "Please correct and try a gain.";
 

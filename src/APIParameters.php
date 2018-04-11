@@ -1200,6 +1200,46 @@ trait APIParameters
         return $requiredParameters;
 
     }
+    protected static function getNestedParameterKey($parameterToFind, $arrayToCheck)
+    {
+
+        if(is_array($arrayToCheck))
+        {
+
+            if(!array_key_exists($parameterToFind, $arrayToCheck))
+            {
+
+                return static::getNestedParameterKey($parameterToFind, end($arrayToCheck));
+
+            } else {
+
+                return end($arrayToCheck);
+
+            }
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+    protected static function getNestedParameterValue($parameterToFind, $arrayToCheck)
+    {
+
+        if(!array_key_exists($parameterToFind, $arrayToCheck))
+        {
+
+            return static::getNestedParameterValue($parameterToFind, end($arrayToCheck));
+
+        } else {
+
+            return end($arrayToCheck);
+
+        }
+
+    }
 
     public static function setParameters($parametersToSet = null)
     {
@@ -1278,7 +1318,7 @@ trait APIParameters
 
         static::testParametersAreValidWith();
 
-        static::testParametersAreValidif ();
+        static::testParametersAreValidif();
 
         static::testParametersAreWithinGivenRange();
 
@@ -1300,7 +1340,7 @@ trait APIParameters
 
         static::testDivisorOf();
 
-        // static::testGreaterThan();
+        // static::test();
 
     }
 
