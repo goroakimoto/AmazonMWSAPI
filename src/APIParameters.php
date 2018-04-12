@@ -1031,6 +1031,22 @@ trait APIParameters
 
     }
 
+    protected static function length($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("length", $v))
+        {
+
+            static::ensureLength($k, $v["length"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
     {
 
@@ -1211,12 +1227,22 @@ trait APIParameters
         $divisorOf = static::recursiveArrayFilterReturnArray("divisorOf", $parameters, false);
 
     }
+
     protected static function testGreaterThan()
     {
 
         $parameters = static::getParameters();
 
         $greaterThan = static::recursiveArrayFilterReturnArray("greaterThan", $parameters, false);
+    }
+
+    protected static function testLength()
+    {
+
+        $parameters = static::getParameters();
+
+        $length = static::recursiveArrayFilterReturnArray("length", $parameters, false);
+
     }
 
     protected static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
@@ -1392,7 +1418,7 @@ trait APIParameters
 
         static::testDivisorOf();
 
-        // static::testLength();
+        static::testLength();
 
     }
 

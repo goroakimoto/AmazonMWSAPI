@@ -845,4 +845,28 @@ trait APIParameterValidation
 
     }
 
+    public static function ensureLength($parameterToCheck, $length)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if(!empty($matchingParameters))
+        {
+
+            foreach($matchingParameters as $parameter => $value)
+            {
+
+                if(strlen($value) !== $length)
+                {
+
+                    throw new Exception("$parameterToCheck must be $length character(s). Please correct and try again.");
+
+                }
+            }
+
+
+        }
+
+    }
+
 }
