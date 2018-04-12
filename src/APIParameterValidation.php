@@ -826,4 +826,23 @@ trait APIParameterValidation
 
     }
 
+    public static function ensureGreaterThan($parameterToCheck, $greaterThan)
+    {
+
+        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+
+        if(!empty($matchingParameters))
+        {
+
+            if(end($matchingParameters) <= $greaterThan)
+            {
+
+                throw new Exception("$parameterToCheck must be greater than $greaterThan. Please correct and try again.");
+
+            }
+
+        }
+
+    }
+
 }

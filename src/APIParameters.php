@@ -1015,6 +1015,22 @@ trait APIParameters
 
     }
 
+    protected static function greaterThan($v, $k)
+    {
+
+        if (is_array($v) && array_key_exists("greaterThan", $v))
+        {
+
+            static::ensureGreaterThan($k, $v["greaterThan"]);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     protected static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
     {
 
@@ -1195,6 +1211,13 @@ trait APIParameters
         $divisorOf = static::recursiveArrayFilterReturnArray("divisorOf", $parameters, false);
 
     }
+    protected static function testGreaterThan()
+    {
+
+        $parameters = static::getParameters();
+
+        $greaterThan = static::recursiveArrayFilterReturnArray("greaterThan", $parameters, false);
+    }
 
     protected static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
     {
@@ -1365,9 +1388,11 @@ trait APIParameters
 
         static::testDatesNotOutsideInterval();
 
+        static::testGreaterThan();
+
         static::testDivisorOf();
 
-        // static::test();
+        // static::testLength();
 
     }
 
