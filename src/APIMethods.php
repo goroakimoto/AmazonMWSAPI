@@ -5,9 +5,6 @@ namespace AmazonMWSAPI;
 trait APIMethods
 {
 
-    private static $signatureMethod = 'HmacSHA256';
-    private static $signatureVersion = "2";
-
     protected static function setMethod($method)
     {
 

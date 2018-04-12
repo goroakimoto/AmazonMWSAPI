@@ -141,7 +141,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureAllAreSet($dependentParameters)
+    public static function ensureAllParametersAreSet($dependentParameters)
     {
 
         $dependentParametersCopy = $dependentParameters;
@@ -166,7 +166,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureOneOrTheOtherIsSet($firstParameter, $secondParameter)
+    public static function ensureOneParameterOrTheOtherIsSet($firstParameter, $secondParameter)
     {
 
         $matchingFirstParameters = static::searchCurlParametersReturnResults($firstParameter);
@@ -184,7 +184,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureOnlyOneIsSet($firstParameter, $otherParameters)
+    public static function ensureOnlyOneParameterIsSet($firstParameter, $otherParameters)
     {
 
         $matchingFirstParameter = static::searchCurlParametersReturnResults($firstParameter);
@@ -358,7 +358,7 @@ trait APIParameterValidation
                 if (!empty($dependentParameters))
                 {
 
-                    static::ensureAllAreSet($dependentParameters);
+                    static::ensureAllParametersAreSet($dependentParameters);
 
                 }
 
@@ -584,6 +584,7 @@ trait APIParameterValidation
         {
 
             $requiredParameters = static::$requiredParameters;
+            Helpers::dd($requiredParameters);
 
         }
 
@@ -593,12 +594,23 @@ trait APIParameterValidation
             if (is_array($parameter))
             {
 
+                $incremented = static::incrementParameter($key);
+
+                if($incremented)
+                {
+
+                    $key = "$key.$incremented";
+
+                }
+
                 static::ensureRequiredParametersAreSet($parameter, $key);
 
             } else {
 
                 if ($parentKey)
                 {
+
+                    Helpers::dd($parentKey);
 
                     static::requireParameterToBeSet($parentKey);
 
@@ -613,6 +625,7 @@ trait APIParameterValidation
         }
 
     }
+
     public static function ensureRequiredIfParametersAreSet($parameterToCheck, $requiredIf)
     {
 
@@ -793,7 +806,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureDivisorOf($divisor, $divisorOf)
+    public static function ensureParameterIsAnEvenDivisorOf($divisor, $divisorOf)
     {
 
         $matchingParameters = static::searchCurlParametersReturnResults($divisor);
@@ -826,7 +839,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureGreaterThan($parameterToCheck, $greaterThan)
+    public static function ensureParameterIsGreaterThan($parameterToCheck, $greaterThan)
     {
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
@@ -845,7 +858,7 @@ trait APIParameterValidation
 
     }
 
-    public static function ensureLength($parameterToCheck, $length)
+    public static function ensureParameterIsThisLength($parameterToCheck, $length)
     {
 
         $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);

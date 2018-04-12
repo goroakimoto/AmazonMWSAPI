@@ -5,6 +5,8 @@ namespace AmazonMWSAPI;
 trait APIProperties
 {
 
+    protected static $signatureMethod = 'HmacSHA256';
+    protected static $signatureVersion = "2";
     protected static $orderNumberFormat = "/^[0-9]{3}\-[0-9]{7}\-[0-9]{7}$/";
     protected static $marketplaceTypes = [
         "US" => [

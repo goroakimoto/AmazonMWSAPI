@@ -175,7 +175,7 @@ trait APIParameters
     protected static function setMarketplaceIdParameter()
     {
 
-        static::incrementParameter("MarketplaceId", self::getMarketplaceId());
+        static::incrementParameterWithValue("MarketplaceId", self::getMarketplaceId());
 
     }
 
@@ -188,19 +188,63 @@ trait APIParameters
 
     }
 
-    protected static function setRequiredParameter($parameter, $value = null, $isArray = false)
+    protected static function setEachRequiredParentParameter()
     {
 
-        if (!$isArray)
-        {
+        $parentRequiredParameters = array_flip(static::getRequiredParameters(true));
 
-            static::$requiredParameters[$parameter] = $value;
+        foreach ($parentRequiredParameters as $parameter => $value) {
 
-        } else {
-
-            static::$requiredParameters[$parameter] = $value;
+            static::setRequiredParameter($parameter, $value);
 
         }
+
+    }
+
+    protected static function setEachRequiredParameter($requiredParameters = null)
+    {
+
+        if(!$requiredParameters)
+        {
+
+            $requiredParameters = static::findRequiredParameters();
+            Helpers::dd($requiredParameters);
+
+        }
+
+        foreach ($requiredParameters as $parameter => $value) {
+
+            if (is_array($value)) {
+
+
+                $incremented = static::incrementParameter($parameter);
+
+                Helpers::dd($parameter);
+                if ($incremented) {
+
+                    $parameter = "$parameter.$incremented";
+
+                }
+
+                Helpers::dd($value);
+                Helpers::dd($parameter);
+
+                // static::setRequiredParameter($parameter, $value);
+
+            } else {
+
+                static::setRequiredParameter($parameter, $value);
+
+            }
+
+        }
+
+    }
+
+    protected static function setRequiredParameter($parameter, $value = null)
+    {
+
+        static::$requiredParameters[$parameter] = $value;
 
     }
 
@@ -333,7 +377,7 @@ trait APIParameters
     protected static function getIncrementorByKey($parameterToCheck)
     {
 
-        if (array_key_exists($parameterToCheck, static::$incrementors))
+        if (is_string($parameterToCheck) && array_key_exists($parameterToCheck, static::$incrementors))
         {
 
             return static::$incrementors[$parameterToCheck];
@@ -489,22 +533,16 @@ trait APIParameters
 
     }
 
-    public static function incrementParameter($parameter, $value, $parentParameter = null)
+    protected static function assembleIncrementor($parameter)
     {
-
-        $parameters = static::getParameters();
-
-        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
 
         $incrementor = static::getIncrementorByKey($parameter);
 
-        if (is_array($incrementor))
-        {
+        if (is_array($incrementor)) {
 
             $calledClass = Helpers::getCalledClass(get_called_class());
 
-            if (array_key_exists($calledClass, $incrementor))
-            {
+            if (array_key_exists($calledClass, $incrementor)) {
 
                 $incrementor = $incrementor[$calledClass];
 
@@ -515,6 +553,42 @@ trait APIParameters
             }
 
         }
+
+        return $incrementor;
+
+    }
+
+    public static function incrementParameter($parameter, $parentParameter = null)
+    {
+
+        $parameters = static::getParameters();
+
+        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
+
+        $incrementor = static::assembleIncrementor($parameter);
+
+        if ($notIncremented) {
+
+            return false;
+
+        } elseif($incrementor) {
+
+            return $incrementor;
+
+        }
+
+        return false;
+
+    }
+
+    public static function incrementParameterWithValue($parameter, $value, $parentParameter = null)
+    {
+
+        $parameters = static::getParameters();
+
+        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
+
+        $incrementor = static::assembleIncrementor($parameter);
 
         if ($notIncremented)
         {
@@ -533,11 +607,11 @@ trait APIParameters
                     {
 
                         $key++;
-                        static::incrementParameter($key, $val, "$parentParameter.$parameter.$incrementor.$key");
+                        static::incrementParameterWithValue($key, $val, "$parentParameter.$parameter.$incrementor.$key");
 
                     } else {
 
-                        static::incrementParameter($key, $val, "$parentParameter.$parameter.$incrementor");
+                        static::incrementParameterWithValue($key, $val, "$parentParameter.$parameter.$incrementor");
 
                     }
 
@@ -548,11 +622,11 @@ trait APIParameters
                         if (is_array($val))
                         {
 
-                            static::incrementParameter($key, $val, "$parentParameter");
+                            static::incrementParameterWithValue($key, $val, "$parentParameter");
 
                         } else{
 
-                            static::incrementParameter($key, $val, "$parentParameter.$key");
+                            static::incrementParameterWithValue($key, $val, "$parentParameter.$key");
 
                         }
 
@@ -566,7 +640,7 @@ trait APIParameters
 
                     $key++;
 
-                    static::incrementParameter($key, $val, "$parameter.$incrementor.$key");
+                    static::incrementParameterWithValue($key, $val, "$parameter.$incrementor.$key");
 
                 }
 
@@ -598,7 +672,7 @@ trait APIParameters
             if (static::getIncrementorByKey($parameter))
             {
 
-                static::incrementParameter($parameter, $value, $parentParameter);
+                static::incrementParameterWithValue($parameter, $value, $parentParameter);
 
             } elseif (is_array($value)) {
 
@@ -690,32 +764,9 @@ trait APIParameters
     protected static function combineRequiredParameters()
     {
 
-        $parentRequiredParameters = array_flip(static::getRequiredParameters(true));
+        static::setEachRequiredParentParameter();
 
-        $requiredParameters = static::findRequiredParameters();
-
-        foreach ($parentRequiredParameters as $parameter => $value)
-        {
-
-            static::setRequiredParameter($parameter, $value);
-
-        }
-
-        foreach ($requiredParameters as $parameter => $value)
-        {
-
-            if (is_array($value))
-            {
-
-                static::setRequiredParameter($parameter, $value, true);
-
-            } else {
-
-                static::setRequiredParameter($parameter, $value);
-
-            }
-
-        }
+        static::setEachRequiredParameter();
 
     }
 
@@ -874,11 +925,11 @@ trait APIParameters
             if (is_array($v["requiredIfNotSet"]))
             {
 
-                static::ensureOnlyOneIsSet($k, $v["requiredIfNotSet"]);
+                static::ensureOnlyOneParameterIsSet($k, $v["requiredIfNotSet"]);
 
             } else {
 
-                static::ensureOneOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+                static::ensureOneParameterOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
 
             }
 
@@ -1005,7 +1056,7 @@ trait APIParameters
         if (is_array($v) && array_key_exists("divisorOf", $v))
         {
 
-            static::ensureDivisorOf($k, $v["divisorOf"]);
+            static::ensureParameterIsAnEvenDivisorOf($k, $v["divisorOf"]);
 
             return true;
 
@@ -1021,7 +1072,7 @@ trait APIParameters
         if (is_array($v) && array_key_exists("greaterThan", $v))
         {
 
-            static::ensureGreaterThan($k, $v["greaterThan"]);
+            static::ensureParameterIsGreaterThan($k, $v["greaterThan"]);
 
             return true;
 
@@ -1037,7 +1088,7 @@ trait APIParameters
         if (is_array($v) && array_key_exists("length", $v))
         {
 
-            static::ensureLength($k, $v["length"]);
+            static::ensureParameterIsThisLength($k, $v["length"]);
 
             return true;
 
