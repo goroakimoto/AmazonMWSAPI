@@ -201,7 +201,7 @@ trait APIParameters
 
     }
 
-    protected static function setEachRequiredParameter($requiredParameters = null)
+    protected static function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
     {
 
         if(!$requiredParameters)
@@ -225,11 +225,12 @@ trait APIParameters
                     $parameter = "$parameter.$incremented";
 
                 }
+                //Get MatchingParameter for $parameter and get key and then add to required
 
                 Helpers::dd($value);
                 Helpers::dd($parameter);
 
-                // static::setRequiredParameter($parameter, $value);
+                static::setEachRequiredParameter($parameter, $value);
 
             } else {
 
