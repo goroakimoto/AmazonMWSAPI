@@ -616,14 +616,49 @@ trait APIParameterValidation
     public static function ensureRequiredIfParametersAreSet($parameterToCheck, $requiredIf)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $requiredIfKey = key($requiredIf);
 
-        if (!empty($matchingParameters))
+        $requiredIfParameters = static::searchCurlParametersReturnResults($requiredIfKey);
+
+        $requiredIfParameterValue = end($requiredIfParameters);
+
+        $requiredIfValue = end($requiredIf);
+
+        if ($requiredIfKey === "notIn")
         {
 
-            Helpers::dd($parameterToCheck);
-            Helpers::dd($matchingParameters);
-            Helpers::dd($requiredIf);
+            $sellerCountry = static::getCountry();
+
+            if ($sellerCountry !== $requiredIfValue)
+            {
+
+                static::requireParameterToBeSet($parameterToCheck);
+
+            }
+
+        } elseif ($requiredIfKey === "destinationCountryIsNot") {
+
+            $sellerCountry = static::getCountry();
+
+            $destinationAddress = static::searchCurlParametersReturnResults("DestinationAddress");
+
+            $destinationAddressCountry = static::searchCurlParametersReturnResults("Country", $destinationAddress);
+
+            if ($sellerCountry !== end($destinationAddressCountry))
+            {
+
+                static::requireParameterToBeSet($parameterToCheck);
+
+            }
+
+        } else {
+
+            if ($requiredIfParameterValue === $requiredIfValue)
+            {
+
+                static::requireParameterToBeSet($parameterToCheck);
+
+            }
 
         }
 

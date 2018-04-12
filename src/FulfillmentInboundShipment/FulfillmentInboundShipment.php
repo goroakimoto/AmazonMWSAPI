@@ -190,9 +190,6 @@ class FulfillmentInboundShipment
                 ]
             ],
             "AreCasesRequired" => [
-                "requiredIf" =>[
-                    "AreCasesRequired" => "true"
-                ],
                 "validWith" => [
                     "false",
                     "true"
@@ -278,7 +275,11 @@ class FulfillmentInboundShipment
             ],
             "QuantityReceived",
             "QuantityInCase" => [
-                "divisorOf" => "QuantityShipped"
+                "divisorOf" => "QuantityShipped",
+                "greaterThan" => 0,
+                "requiredIf" => [
+                    "AreCasesRequired" => "true"
+                ]
             ],
             "PrepDetailsList" => [
                 "format" => "PrepDetails"

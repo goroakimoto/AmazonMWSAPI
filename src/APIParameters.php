@@ -23,12 +23,12 @@ trait APIParameters
     // minimumLength
     // notIncremented
     // notFartherApartThan
-    // !onlyIfOperationIs
+    // ifOperationIs
     // rangeWithin
     // required
     // !requiredIf
     // requiredIfNotSet
-    // !validIf
+    // validIf
     // validWith
     // parent - Key => value || value
 
