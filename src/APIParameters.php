@@ -204,7 +204,7 @@ trait APIParameters
     protected static function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
     {
 
-        if(!$requiredParameters)
+        if (!$requiredParameters)
         {
 
             $requiredParameters = static::findRequiredParameters();
@@ -212,31 +212,10 @@ trait APIParameters
 
         }
 
-        foreach ($requiredParameters as $parameter => $value) {
-
-            if (is_array($value)) {
-
-
-                $incremented = static::incrementParameter($parameter);
-
-                Helpers::dd($parameter);
-                if ($incremented) {
-
-                    $parameter = "$parameter.$incremented";
-
-                }
-                //Get MatchingParameter for $parameter and get key and then add to required
-
-                Helpers::dd($value);
-                Helpers::dd($parameter);
-
-                static::setEachRequiredParameter($parameter, $value);
-
-            } else {
+        foreach ($requiredParameters as $parameter => $value)
+        {
 
                 static::setRequiredParameter($parameter, $value);
-
-            }
 
         }
 
@@ -246,6 +225,26 @@ trait APIParameters
     {
 
         static::$requiredParameters[$parameter] = $value;
+
+    }
+
+    protected static function determineIfParameterShouldBeRequired($parameter, $subParameter = null)
+    {
+
+        Helpers::dd($parameter);
+        Helpers::dd($subParameter);
+
+        if(substr_count($parameter, ".") > 0)
+        {
+            $explodedParameter = explode(".", $parameter);
+            array_pop($explodedParameter);
+            Helpers::dd($explodedParameter);
+
+            //Find $parent of $parameter, check $parameter to see if it's required.
+            //If it is, add entire original $parameter to $requiredParameters
+            //If no, recurse with the $parent as the new $parameter
+            //and find the new $parent. Check if new $parameter is required.
+        }
 
     }
 
@@ -559,29 +558,6 @@ trait APIParameters
 
     }
 
-    public static function incrementParameter($parameter, $parentParameter = null)
-    {
-
-        $parameters = static::getParameters();
-
-        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
-
-        $incrementor = static::assembleIncrementor($parameter);
-
-        if ($notIncremented) {
-
-            return false;
-
-        } elseif($incrementor) {
-
-            return $incrementor;
-
-        }
-
-        return false;
-
-    }
-
     public static function incrementParameterWithValue($parameter, $value, $parentParameter = null)
     {
 
@@ -633,6 +609,12 @@ trait APIParameters
 
                     } else {
 
+                        Helpers::dd("IncrementArrayParentParameter:");
+                        Helpers::dd($parentParameter);
+                        Helpers::dd($parameter);
+                        Helpers::dd($key);
+                        Helpers::dd($val);
+
                         static::setParameterByKey("$parentParameter.$parameter.$key", $val);
 
                     }
@@ -652,9 +634,19 @@ trait APIParameters
             if ($parentParameter)
             {
 
+                Helpers::dd("IncrementParentParameter:");
+                Helpers::dd($parentParameter);
+                Helpers::dd($parameter);
+                Helpers::dd($value);
+                static::determineIfParameterShouldBeRequired($parentParameter, $parameter);
+
                 static::setParameterByKey($parentParameter, $value);
 
             } else {
+
+                Helpers::dd("IncrementParameter:");
+                Helpers::dd($parameter);
+                Helpers::dd($value);
 
                 static::setParameterByKey($parameter, $value);
 
@@ -688,6 +680,11 @@ trait APIParameters
 
                     } else {
 
+                        Helpers::dd("ParameterSubKey:");
+                        Helpers::dd($parameter);
+                        Helpers::dd($parameterSubKey);
+                        Helpers::dd($subKeyValue);
+
                         static::setParameterByKey($parameter . "." . $parameterSubKey, $subKeyValue);
 
                     }
@@ -698,9 +695,19 @@ trait APIParameters
 
                 if ($parentParameter)
                 {
+
+                    Helpers::dd("ParentParameter:");
+                    Helpers::dd($parentParameter);
+                    Helpers::dd($parameter);
+                    Helpers::dd($value);
+
                     static::setParameterByKey($parentParameter . "." . $parameter, $value);
 
                 } else {
+
+                    Helpers::dd("Parameter:");
+                    Helpers::dd($parameter);
+                    Helpers::dd($value);
 
                     static::setParameterByKey($parameter, $value);
 
@@ -712,7 +719,7 @@ trait APIParameters
 
     }
 
-    protected static function searchParameters($v, $k, $parameterToCheck)
+    protected static function searchForParameter($v, $k, $parameterToCheck)
     {
 
         $explodedKey = explode(".", $k);
@@ -734,7 +741,7 @@ trait APIParameters
 
     }
 
-    public static function searchCurlParameters($parameterToCheck, $parameters = null)
+    public static function searchParameters($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters)
@@ -744,11 +751,11 @@ trait APIParameters
 
         }
 
-        return static::recursiveArrayFilterReturnBoolean("searchParameters", $parameters, $parameterToCheck);
+        return static::recursiveArrayFilterReturnBoolean("searchForParameter", $parameters, $parameterToCheck);
 
     }
 
-    public static function searchCurlParametersReturnResults($parameterToCheck, $parameters = null)
+    public static function searchParametersReturnResults($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters)
@@ -758,7 +765,7 @@ trait APIParameters
 
         }
 
-        return static::recursiveArrayFilterReturnArray("searchParameters", $parameters, true, $parameterToCheck);
+        return static::recursiveArrayFilterReturnArray("searchForParameter", $parameters, true, $parameterToCheck);
 
     }
 
@@ -1310,7 +1317,7 @@ trait APIParameters
 
             } elseif (is_array($value) && array_key_exists("requiredIfNotSet", $value)) {
 
-                $matchingCurlParameters = static::searchCurlParameters($parameter);
+                $matchingCurlParameters = static::searchParameters($parameter);
 
                 if (!$matchingCurlParameters)
                 {
@@ -1329,10 +1336,10 @@ trait APIParameters
     protected static function getNestedParameterKey($parameterToFind, $arrayToCheck)
     {
 
-        if(is_array($arrayToCheck))
+        if (is_array($arrayToCheck))
         {
 
-            if(!array_key_exists($parameterToFind, $arrayToCheck))
+            if (!array_key_exists($parameterToFind, $arrayToCheck))
             {
 
                 return static::getNestedParameterKey($parameterToFind, end($arrayToCheck));
@@ -1354,7 +1361,7 @@ trait APIParameters
     protected static function getNestedParameterValue($parameterToFind, $arrayToCheck)
     {
 
-        if(!array_key_exists($parameterToFind, $arrayToCheck))
+        if (!array_key_exists($parameterToFind, $arrayToCheck))
         {
 
             return static::getNestedParameterValue($parameterToFind, end($arrayToCheck));
@@ -1375,6 +1382,12 @@ trait APIParameters
         static::$parameters = static::combineFormatWithParameters(static::$parameters);
 
         static::combineRequiredParameters();
+
+        if ($parametersToSet) {
+
+            static::setPassedParameters($parametersToSet);
+
+        }
 
         static::combineRequiredAndAllowedParameters();
 
@@ -1418,12 +1431,7 @@ trait APIParameters
 
         static::setVersionDateParameter();
 
-        if ($parametersToSet)
-        {
 
-            static::setPassedParameters($parametersToSet);
-
-        }
 
     }
 

@@ -14,7 +14,7 @@ trait APIParameterValidation
     public static function requireParameterToBeSet($parameterToCheck)
     {
 
-        $matchingParameters = static::searchCurlParameters($parameterToCheck);
+        $matchingParameters = static::searchParameters($parameterToCheck);
 
         if (empty($matchingParameters))
         {
@@ -28,12 +28,12 @@ trait APIParameterValidation
     public static function ensureIntervalBetweenDates($dateToEnsureInterval, $baseDate = "Timestamp", $direction = "earlier", $interval = "PT2M")
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($dateToEnsureInterval);
+        $matchingParameters = static::searchParametersReturnResults($dateToEnsureInterval);
 
         if (!empty($matchingParameters))
         {
 
-            $baseDateResults = static::searchCurlParametersReturnResults($baseDate);
+            $baseDateResults = static::searchParametersReturnResults($baseDate);
 
             $date = new DateTime(end($baseDateResults));
 
@@ -79,9 +79,9 @@ trait APIParameterValidation
     public static function ensureDatesNotOutsideInterval($earlierDate, $laterDate, $intervalInDays)
     {
 
-        $matchingEarlierDateParameters = static::searchCurlParametersReturnResults($earlierDate);
+        $matchingEarlierDateParameters = static::searchParametersReturnResults($earlierDate);
 
-        $matchingLaterDateParameters = static::searchCurlParametersReturnResults($laterDate);
+        $matchingLaterDateParameters = static::searchParametersReturnResults($laterDate);
 
         if (
             !empty($matchingEarlierDateParameters) &&
@@ -106,7 +106,7 @@ trait APIParameterValidation
     public static function ensureDateTimesAreInProperFormat($parameterToCheck)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -125,7 +125,7 @@ trait APIParameterValidation
     public static function ensureDatesAreInProperFormat($parameterToCheck)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -169,9 +169,9 @@ trait APIParameterValidation
     public static function ensureOneParameterOrTheOtherIsSet($firstParameter, $secondParameter)
     {
 
-        $matchingFirstParameters = static::searchCurlParametersReturnResults($firstParameter);
+        $matchingFirstParameters = static::searchParametersReturnResults($firstParameter);
 
-        $matchingSecondParameters = static::searchCurlParametersReturnResults($secondParameter);
+        $matchingSecondParameters = static::searchParametersReturnResults($secondParameter);
 
         if (
             (empty($matchingFirstParameters) && empty($matchingSecondParameters)) ||
@@ -187,7 +187,7 @@ trait APIParameterValidation
     public static function ensureOnlyOneParameterIsSet($firstParameter, $otherParameters)
     {
 
-        $matchingFirstParameter = static::searchCurlParametersReturnResults($firstParameter);
+        $matchingFirstParameter = static::searchParametersReturnResults($firstParameter);
 
         if (!empty($matchingFirstParameter))
         {
@@ -195,7 +195,7 @@ trait APIParameterValidation
             foreach ($otherParameters as $conditionallyRequiredParameter)
             {
 
-                $matchingOtherParameter = static::searchCurlParametersReturnResults($conditionallyRequiredParameter);
+                $matchingOtherParameter = static::searchParametersReturnResults($conditionallyRequiredParameter);
 
                 if (!empty($matchingOtherParameter))
                 {
@@ -219,7 +219,7 @@ trait APIParameterValidation
     public static function ensureIncompatibleParametersNotSet($parameterToCheck, $restrictedParameters)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -230,7 +230,7 @@ trait APIParameterValidation
                 foreach ($restrictedParameters as $restricted)
                 {
 
-                    if (!empty(static::searchCurlParametersReturnResults($restricted)))
+                    if (!empty(static::searchParametersReturnResults($restricted)))
                     {
 
                         throw new Exception("$restricted cannot be set at the same time as $parameterToCheck. Please correct and try again.");
@@ -241,7 +241,7 @@ trait APIParameterValidation
 
             } else {
 
-                if (!empty(static::searchCurlParametersReturnResults($restrictedParameters)))
+                if (!empty(static::searchParametersReturnResults($restrictedParameters)))
                 {
 
                     throw new Exception("$restrictedParameters cannot be set at the same time as $parameterToCheck. Please correct and try again.");
@@ -257,7 +257,7 @@ trait APIParameterValidation
     public static function ensureParameterValuesAreValidWith($parameterToCheck, $validParameterValues = null)
     {
 
-        $matchingParameter = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameter = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameter))
         {
@@ -267,21 +267,21 @@ trait APIParameterValidation
             {
                 $parameters = static::getParameters();
 
-                $ifOperationIsParameters = static::searchCurlParametersReturnResults("ifOperationIs", $parameters);
+                $ifOperationIsParameters = static::searchParametersReturnResults("ifOperationIs", $parameters);
 
-                if(static::getNestedParameterKey($parameterToCheck, $ifOperationIsParameters))
+                if (static::getNestedParameterKey($parameterToCheck, $ifOperationIsParameters))
                 {
 
                     $validKey = static::getNestedParameterKey($parameterToCheck, $ifOperationIsParameters);
 
                     $value = end($matchingParameter);
 
-                    if(key(static::getNestedParameterKey("validWith", $ifOperationIsParameters)) === $value)
+                    if (key(static::getNestedParameterKey("validWith", $ifOperationIsParameters)) === $value)
                     {
 
                         $validOperation = static::getNestedParameterValue("ifOperationIs", $ifOperationIsParameters);
 
-                        if(Helpers::getCalledClass(get_called_class()) !== $validOperation)
+                        if (Helpers::getCalledClass(get_called_class()) !== $validOperation)
                         {
 
                             throw new Exception("$value is only valid when called from $validOperation. Please correct and try again.");
@@ -295,7 +295,7 @@ trait APIParameterValidation
                     foreach ($matchingParameter as $parameter => $value)
                     {
 
-                        if(!in_array($value, $validParameterValues))
+                        if (!in_array($value, $validParameterValues))
                         {
 
                             $exception = "The value for $parameterToCheck must be one of the following: ";
@@ -371,7 +371,7 @@ trait APIParameterValidation
     public static function ensureParameterValuesAreValidif($parameterToCheck, $validParameterValues = null)
     {
 
-        $matchingParameter = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameter = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameter))
         {
@@ -391,7 +391,7 @@ trait APIParameterValidation
 
                 $parameter = "RecommendationCategory";
 
-                $recommendationCategories = static::searchCurlParametersReturnResults($parameter);
+                $recommendationCategories = static::searchParametersReturnResults($parameter);
 
                 static::ensureParameterAtASpecificLevel($parameter, $recommendationCategories, $parameterToCheck, $matchingParameter, $validParameterValues);
 
@@ -564,7 +564,7 @@ trait APIParameterValidation
         foreach ($parameters as $parameterToCheck => $value)
         {
 
-            $inArray = static::searchCurlParameters($parameterToCheck, static::getAllowedParameters());
+            $inArray = static::searchParameters($parameterToCheck, static::getAllowedParameters());
 
             if (!$inArray)
             {
@@ -584,7 +584,6 @@ trait APIParameterValidation
         {
 
             $requiredParameters = static::$requiredParameters;
-            Helpers::dd($requiredParameters);
 
         }
 
@@ -594,23 +593,12 @@ trait APIParameterValidation
             if (is_array($parameter))
             {
 
-                $incremented = static::incrementParameter($key);
-
-                if($incremented)
-                {
-
-                    $key = "$key.$incremented";
-
-                }
-
                 static::ensureRequiredParametersAreSet($parameter, $key);
 
             } else {
 
                 if ($parentKey)
                 {
-
-                    Helpers::dd($parentKey);
 
                     static::requireParameterToBeSet($parentKey);
 
@@ -631,7 +619,7 @@ trait APIParameterValidation
 
         $requiredIfKey = key($requiredIf);
 
-        $requiredIfParameters = static::searchCurlParametersReturnResults($requiredIfKey);
+        $requiredIfParameters = static::searchParametersReturnResults($requiredIfKey);
 
         $requiredIfParameterValue = end($requiredIfParameters);
 
@@ -653,9 +641,9 @@ trait APIParameterValidation
 
             $sellerCountry = static::getCountry();
 
-            $destinationAddress = static::searchCurlParametersReturnResults("DestinationAddress");
+            $destinationAddress = static::searchParametersReturnResults("DestinationAddress");
 
-            $destinationAddressCountry = static::searchCurlParametersReturnResults("Country", $destinationAddress);
+            $destinationAddressCountry = static::searchParametersReturnResults("Country", $destinationAddress);
 
             if ($sellerCountry !== end($destinationAddressCountry))
             {
@@ -680,7 +668,7 @@ trait APIParameterValidation
     public static function ensureParameterIsInRange($parameterToCheck, $min, $max)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -701,7 +689,7 @@ trait APIParameterValidation
     public static function ensureParameterIsNotGreaterThanMaximum($parameterToCheck, $max)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters)) {
 
@@ -718,7 +706,7 @@ trait APIParameterValidation
     public static function ensureParameterIsNotLessThanMinimum($parameterToCheck, $min)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters)) {
 
@@ -735,7 +723,7 @@ trait APIParameterValidation
     public static function ensureParameterIsNoLongerThanMaximum($parameterToCheck, $max)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -754,7 +742,7 @@ trait APIParameterValidation
     public static function ensureParameterIsNoShorterThanMinimum($parameterToCheck, $min)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters)) {
 
@@ -771,7 +759,7 @@ trait APIParameterValidation
     public static function ensureParameterCountIsLessThanMaximum($parameterToCheck, $maxCount)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -790,7 +778,7 @@ trait APIParameterValidation
     public static function ensureParameterIsInFormat($parameterToCheck, $format)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
         if (!empty($matchingParameters))
         {
@@ -809,22 +797,22 @@ trait APIParameterValidation
     public static function ensureParameterIsAnEvenDivisorOf($divisor, $divisorOf)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($divisor);
+        $matchingParameters = static::searchParametersReturnResults($divisor);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            foreach($matchingParameters as $parameter => $value)
+            foreach ($matchingParameters as $parameter => $value)
             {
 
                 $siblings = static::getSiblingParameters($parameter);
 
-                $divisorOfParameters = static::searchCurlParametersReturnResults($divisorOf, $siblings);
+                $divisorOfParameters = static::searchParametersReturnResults($divisorOf, $siblings);
 
-                if(!empty($divisorOfParameters))
+                if (!empty($divisorOfParameters))
                 {
 
-                    if(end($divisorOfParameters) % $value !== 0)
+                    if (end($divisorOfParameters) % $value !== 0)
                     {
 
                         throw new Exception("$divisor must be a divisor of $divisorOf. Please correct and try again.");
@@ -842,12 +830,12 @@ trait APIParameterValidation
     public static function ensureParameterIsGreaterThan($parameterToCheck, $greaterThan)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            if(end($matchingParameters) <= $greaterThan)
+            if (end($matchingParameters) <= $greaterThan)
             {
 
                 throw new Exception("$parameterToCheck must be greater than $greaterThan. Please correct and try again.");
@@ -861,15 +849,15 @@ trait APIParameterValidation
     public static function ensureParameterIsThisLength($parameterToCheck, $length)
     {
 
-        $matchingParameters = static::searchCurlParametersReturnResults($parameterToCheck);
+        $matchingParameters = static::searchParametersReturnResults($parameterToCheck);
 
-        if(!empty($matchingParameters))
+        if (!empty($matchingParameters))
         {
 
-            foreach($matchingParameters as $parameter => $value)
+            foreach ($matchingParameters as $parameter => $value)
             {
 
-                if(strlen($value) !== $length)
+                if (strlen($value) !== $length)
                 {
 
                     throw new Exception("$parameterToCheck must be $length character(s). Please correct and try again.");
