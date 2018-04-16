@@ -201,6 +201,33 @@ trait APIParameters
 
     }
 
+    protected static function getNumberOfObjectsAtLevel($parameterToCheck, $arrayToCheck)
+    {
+
+        $count = [];
+
+        foreach ($arrayToCheck as $parameter)
+        {
+
+            $explodedParameter = explode(".", $parameter);
+
+            while (!is_numeric(end($explodedParameter)))
+            {
+
+                array_pop($explodedParameter);
+
+            }
+
+            $implodedParameter = implode(".", $explodedParameter);
+
+            $count[$implodedParameter] = 1;
+
+        }
+
+        return count($count);
+
+    }
+
     protected static function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
     {
 
@@ -208,14 +235,194 @@ trait APIParameters
         {
 
             $requiredParameters = static::findRequiredParameters();
-            Helpers::dd($requiredParameters);
 
         }
+
+        static::setRequiredParameters($requiredParameters);
 
         foreach ($requiredParameters as $parameter => $value)
         {
 
-                static::setRequiredParameter($parameter, $value);
+            static::setRequiredParameter($parameter, $value);
+
+        }
+
+    }
+
+    protected static function incrementRequiredParameter($parameter, $value, &$requiredParameters, $parentParameter = null)
+    {
+
+        $requiredArray = ["required"];
+
+        $parameters = static::getParameters();
+
+        $curlParameters = static::getCurlParameters();
+
+        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
+
+        $incrementor = static::assembleIncrementor($parameter);
+
+        if ($notIncremented)
+        {
+
+            static::setRequiredParameter($parameter, 1);
+
+        } elseif (is_array($value) && $value !== $requiredArray) {
+
+            $currentKey = 0;
+
+            foreach ($value as $key => $val)
+            {
+
+
+                if ($parentParameter && $incrementor)
+                {
+
+                    $numberOfObjects = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter.$incrementor", array_keys(static::searchParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters)));
+
+                    if (is_numeric($key))
+                    {
+
+                        $currentKey++;
+
+                    } else {
+
+                        if($numberOfObjects)
+                        {
+
+                            for ($x = 1; $x <= $numberOfObjects; $x++)
+                            {
+
+                                static::incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter.$parameter.$incrementor.$x");
+
+                            }
+
+                        }
+
+                    }
+
+                } elseif ($parentParameter) {
+
+                    if (is_numeric($parameter))
+                    {
+
+                        if (is_array($val) && $val !== $requiredArray)
+                        {
+
+                            static::incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter");
+
+                        } else {
+
+                            static::incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter.$key");
+
+                        }
+
+                    } else {
+
+                        if (!is_numeric($key))
+                        {
+
+                            static::setRequiredParameter("$parentParameter.$parameter.$key", 1);
+
+                        }
+
+                    }
+
+                } elseif ($incrementor) {
+
+                    $key++;
+
+                    static::incrementRequiredParameter($key, $val, $requiredParameters, "$parameter.$incrementor.$key");
+
+                }
+
+            }
+
+        } else {
+
+            if ($parentParameter)
+            {
+
+                static::setRequiredParameter($parentParameter, 1);
+
+            } else {
+
+                static::setRequiredParameter($parameter, 1);
+
+            }
+
+        }
+
+    }
+
+    protected static function setRequiredParameters($requiredParameters, $parentParameter = null)
+    {
+        $requiredArray = ["required"];
+
+        foreach ($requiredParameters as $parameter => $value)
+        {
+
+            if(static::getIncrementorByKey($parameter))
+            {
+
+                static::incrementRequiredParameter($parameter, $value, $requiredParameters , $parentParameter);
+
+            } elseif (is_array($value) && $value !== $requiredArray) {
+
+
+                foreach ($value as $parameterSubKey => $subKeyValue)
+                {
+
+                    if (is_array($subKeyValue) && $subKeyValue !== $requiredArray)
+                    {
+
+                        if($parentParameter)
+                        {
+
+                            static::setRequiredParameters($subKeyValue, "$parentParameter.$parameter.$parameterSubKey");
+
+                        } else {
+
+                            static::setRequiredParameters($subKeyValue, "$parameter.$parameterSubKey");
+
+                        }
+
+
+                    } else {
+
+                        if ($parentParameter)
+                        {
+
+                            // static::setRequiredParameter("$parentParameter.$parameter", 1);
+
+                        } elseif(!is_numeric($parameterSubKey)) {
+
+                            // static::setRequiredParameter("$parameter.$parameterSubKey", 1);
+                        }
+
+                    }
+
+                }
+
+            } else {
+
+                if ($parentParameter)
+                {
+
+                    if (!is_numeric($parameter))
+                    {
+
+                        // static::setRequiredParameter("$parentParameter.$parameter", 1);
+
+                    }
+
+                } else {
+
+                    // static::setRequiredParameter($parameter, 1);
+
+                }
+
+            }
 
         }
 
@@ -225,26 +432,6 @@ trait APIParameters
     {
 
         static::$requiredParameters[$parameter] = $value;
-
-    }
-
-    protected static function determineIfParameterShouldBeRequired($parameter, $subParameter = null)
-    {
-
-        Helpers::dd($parameter);
-        Helpers::dd($subParameter);
-
-        if(substr_count($parameter, ".") > 0)
-        {
-            $explodedParameter = explode(".", $parameter);
-            array_pop($explodedParameter);
-            Helpers::dd($explodedParameter);
-
-            //Find $parent of $parameter, check $parameter to see if it's required.
-            //If it is, add entire original $parameter to $requiredParameters
-            //If no, recurse with the $parent as the new $parameter
-            //and find the new $parent. Check if new $parameter is required.
-        }
 
     }
 
@@ -290,7 +477,6 @@ trait APIParameters
 
                 $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
 
-
                 if ($removeEmptyArrays && !(bool)$array[$key])
                 {
 
@@ -301,7 +487,6 @@ trait APIParameters
             } elseif (is_array($value) && $lookingFor === "key" && !call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
                 $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
-
 
                 if ($removeEmptyArrays && !(bool)$array[$key]) {
 
@@ -329,7 +514,6 @@ trait APIParameters
 
     protected static function recursiveArrayFilterUnsetParameter($method, $array, $arg, $callback = false, $class = "static")
     {
-
 
         foreach ($array as $key => $value)
         {
@@ -417,7 +601,6 @@ trait APIParameters
 
             function ($v, $k)
             {
-
 
                 return is_array($v) && array_key_exists("format", $v) && $v["format"] === "date";
 
@@ -594,26 +777,21 @@ trait APIParameters
 
                 } elseif ($parentParameter) {
 
-                    if (is_numeric($parameter)) {
+                    if (is_numeric($parameter))
+                    {
 
                         if (is_array($val))
                         {
 
                             static::incrementParameterWithValue($key, $val, "$parentParameter");
 
-                        } else{
+                        } else {
 
                             static::incrementParameterWithValue($key, $val, "$parentParameter.$key");
 
                         }
 
                     } else {
-
-                        Helpers::dd("IncrementArrayParentParameter:");
-                        Helpers::dd($parentParameter);
-                        Helpers::dd($parameter);
-                        Helpers::dd($key);
-                        Helpers::dd($val);
 
                         static::setParameterByKey("$parentParameter.$parameter.$key", $val);
 
@@ -634,19 +812,9 @@ trait APIParameters
             if ($parentParameter)
             {
 
-                Helpers::dd("IncrementParentParameter:");
-                Helpers::dd($parentParameter);
-                Helpers::dd($parameter);
-                Helpers::dd($value);
-                static::determineIfParameterShouldBeRequired($parentParameter, $parameter);
-
                 static::setParameterByKey($parentParameter, $value);
 
             } else {
-
-                Helpers::dd("IncrementParameter:");
-                Helpers::dd($parameter);
-                Helpers::dd($value);
 
                 static::setParameterByKey($parameter, $value);
 
@@ -669,23 +837,17 @@ trait APIParameters
 
             } elseif (is_array($value)) {
 
-
                 foreach ($value as $parameterSubKey => $subKeyValue)
                 {
 
                     if (is_array($subKeyValue))
                     {
 
-                        static::setPassedParameters($subKeyValue, $parameter . "." . $parameterSubKey);
+                        static::setPassedParameters($subKeyValue, "$parameter.$parameterSubKey");
 
                     } else {
 
-                        Helpers::dd("ParameterSubKey:");
-                        Helpers::dd($parameter);
-                        Helpers::dd($parameterSubKey);
-                        Helpers::dd($subKeyValue);
-
-                        static::setParameterByKey($parameter . "." . $parameterSubKey, $subKeyValue);
+                        static::setParameterByKey("$parameter.$parameterSubKey", $subKeyValue);
 
                     }
 
@@ -696,18 +858,9 @@ trait APIParameters
                 if ($parentParameter)
                 {
 
-                    Helpers::dd("ParentParameter:");
-                    Helpers::dd($parentParameter);
-                    Helpers::dd($parameter);
-                    Helpers::dd($value);
-
-                    static::setParameterByKey($parentParameter . "." . $parameter, $value);
+                    static::setParameterByKey("$parentParameter.$parameter", $value);
 
                 } else {
-
-                    Helpers::dd("Parameter:");
-                    Helpers::dd($parameter);
-                    Helpers::dd($value);
 
                     static::setParameterByKey($parameter, $value);
 
@@ -1381,13 +1534,13 @@ trait APIParameters
 
         static::$parameters = static::combineFormatWithParameters(static::$parameters);
 
-        static::combineRequiredParameters();
-
         if ($parametersToSet) {
 
             static::setPassedParameters($parametersToSet);
 
         }
+
+        static::combineRequiredParameters();
 
         static::combineRequiredAndAllowedParameters();
 
@@ -1430,8 +1583,6 @@ trait APIParameters
         static::setTimestampParameter();
 
         static::setVersionDateParameter();
-
-
 
     }
 

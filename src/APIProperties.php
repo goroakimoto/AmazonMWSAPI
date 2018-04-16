@@ -114,6 +114,7 @@ trait APIProperties
         "OrderStatus" => "Status",
         "PackageLabelsToPrint" => "member",
         "PackageList" => "member",
+        "PalletList" => "member",
         "PaymentMethod" => "Method",
         "PrepDetailsList" => "member",
         "ReportProcessingStatusList" => "Status",

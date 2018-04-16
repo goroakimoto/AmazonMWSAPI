@@ -262,7 +262,6 @@ trait APIParameterValidation
         if (!empty($matchingParameter))
         {
 
-
             if (!array_key_exists($parameterToCheck, $matchingParameter))
             {
                 $parameters = static::getParameters();
@@ -584,6 +583,7 @@ trait APIParameterValidation
         {
 
             $requiredParameters = static::$requiredParameters;
+            Helpers::dd($requiredParameters);
 
         }
 
@@ -864,7 +864,6 @@ trait APIParameterValidation
 
                 }
             }
-
 
         }
 
