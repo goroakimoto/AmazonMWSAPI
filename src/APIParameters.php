@@ -201,28 +201,31 @@ trait APIParameters
 
     }
 
-    protected static function getNumberOfObjectsAtLevel($parameterToCheck, $arrayToCheck)
+    protected static function getNumberOfObjectsAtLevel($parameterToCheck, $incrementor, $arrayToCheck)
     {
 
         $count = [];
+
+        Helpers::dd($parameterToCheck);
 
         foreach ($arrayToCheck as $parameter)
         {
 
             $explodedParameter = explode(".", $parameter);
 
-            while (!is_numeric(end($explodedParameter)))
-            {
+            $baseParameter = current($explodedParameter);
 
-                array_pop($explodedParameter);
+            $incrementorParameter = next($explodedParameter);
 
-            }
+            $numberParameter = next($explodedParameter);
 
-            $implodedParameter = implode(".", $explodedParameter);
+            $reconstructed = "$baseParameter.$incrementorParameter.$numberParameter";
 
-            $count[$implodedParameter] = 1;
+            $count[$reconstructed] = 1;
 
         }
+
+        Helpers::dd($count);
 
         return count($count);
 
@@ -274,11 +277,8 @@ trait APIParameters
             foreach ($value as $key => $val)
             {
 
-
                 if ($parentParameter && $incrementor)
                 {
-
-                    $numberOfObjects = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter.$incrementor", array_keys(static::searchParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters)));
 
                     if (is_numeric($key))
                     {
@@ -286,6 +286,10 @@ trait APIParameters
                         $currentKey++;
 
                     } else {
+
+                        $matchingParameters = static::searchParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
+
+                        $numberOfObjects = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
 
                         if($numberOfObjects)
                         {
@@ -330,9 +334,29 @@ trait APIParameters
 
                 } elseif ($incrementor) {
 
-                    $key++;
+                    $matchingParameters = static::searchParametersReturnResults("$parameter.$incrementor", $curlParameters);
 
-                    static::incrementRequiredParameter($key, $val, $requiredParameters, "$parameter.$incrementor.$key");
+                    $numberOfObjects = static::getNumberOfObjectsAtLevel($parameter, $incrementor, array_keys($matchingParameters));
+
+                    if(is_numeric($key))
+                    {
+
+                        $currentKey++;
+
+                    } else {
+
+                        if ($numberOfObjects)
+                        {
+
+                            for ($x = 1; $x <= $numberOfObjects; $x++) {
+
+                                static::incrementRequiredParameter($key, $val, $requiredParameters, "$parameter.$incrementor.$x");
+
+                            }
+
+                        }
+
+                    }
 
                 }
 
@@ -343,7 +367,7 @@ trait APIParameters
             if ($parentParameter)
             {
 
-                static::setRequiredParameter($parentParameter, 1);
+                static::setRequiredParameter("$parentParameter.$parameter", 1);
 
             } else {
 
@@ -369,7 +393,6 @@ trait APIParameters
 
             } elseif (is_array($value) && $value !== $requiredArray) {
 
-
                 foreach ($value as $parameterSubKey => $subKeyValue)
                 {
 
@@ -390,14 +413,18 @@ trait APIParameters
 
                     } else {
 
-                        if ($parentParameter)
+                        if ($parentParameter && !is_numeric($parameterSubKey))
                         {
 
-                            // static::setRequiredParameter("$parentParameter.$parameter", 1);
+                            static::setRequiredParameter("$parentParameter.$parameter.$parameterSubKey", 1);
+
+                        } elseif ($parentParameter) {
+
+                            static::setRequiredParameter("$parentParameter.$parameter", 1);
 
                         } elseif(!is_numeric($parameterSubKey)) {
 
-                            // static::setRequiredParameter("$parameter.$parameterSubKey", 1);
+                            static::setRequiredParameter("$parameter.$parameterSubKey", 1);
                         }
 
                     }
@@ -412,13 +439,13 @@ trait APIParameters
                     if (!is_numeric($parameter))
                     {
 
-                        // static::setRequiredParameter("$parentParameter.$parameter", 1);
+                        static::setRequiredParameter("$parentParameter.$parameter", 1);
 
                     }
 
                 } else {
 
-                    // static::setRequiredParameter($parameter, 1);
+                    static::setRequiredParameter($parameter, 1);
 
                 }
 
@@ -942,6 +969,8 @@ trait APIParameters
             static::getParameters()
 
         );
+
+        Helpers::dd(static::$allowedParameters);
 
     }
 
@@ -1595,41 +1624,41 @@ trait APIParameters
 
         static::ensureRequiredParametersAreSet();
 
-        static::testRequiredIfParametersAreSet();
+        // static::testRequiredIfParametersAreSet();
 
-        static::ensureSetParametersAreAllowed();
+        // static::ensureSetParametersAreAllowed();
 
-        static::ensureParameterIsInFormat("AmazonOrderId", self::getOrderNumberFormat());
+        // static::ensureParameterIsInFormat("AmazonOrderId", self::getOrderNumberFormat());
 
-        static::testParametersWithIncompatibilities();
+        // static::testParametersWithIncompatibilities();
 
-        static::testParametersAreValidWith();
+        // static::testParametersAreValidWith();
 
-        static::testParametersAreValidif();
+        // static::testParametersAreValidif();
 
-        static::testParametersAreWithinGivenRange();
+        // static::testParametersAreWithinGivenRange();
 
-        static::testParametersAreNoLongerThanMaximum();
+        // static::testParametersAreNoLongerThanMaximum();
 
-        static::testParametersAreNoShorterThanMinimum();
+        // static::testParametersAreNoShorterThanMinimum();
 
-        static::testParameterCountIsLessThanMaximum();
+        // static::testParameterCountIsLessThanMaximum();
 
-        static::testDatesAreEarlierThan();
+        // static::testDatesAreEarlierThan();
 
-        static::testDatesAreLaterThan();
+        // static::testDatesAreLaterThan();
 
-        static::testDatesAreInProperFormat();
+        // static::testDatesAreInProperFormat();
 
-        static::testDateTimesAreInProperFormat();
+        // static::testDateTimesAreInProperFormat();
 
-        static::testDatesNotOutsideInterval();
+        // static::testDatesNotOutsideInterval();
 
-        static::testGreaterThan();
+        // static::testGreaterThan();
 
-        static::testDivisorOf();
+        // static::testDivisorOf();
 
-        static::testLength();
+        // static::testLength();
 
     }
 
