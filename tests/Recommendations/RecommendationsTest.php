@@ -11,20 +11,44 @@ use AmazonMWSAPI\Recommendations\ListRecommendations;
 class RecommendationsTest extends TestCase
 {
 
+    public function setup()
+    {
+
+        parent::setup();
+
+        $this->testPerformance = false;
+
+        $this->iterations = 1;
+
+        $this->print = false;
+        $this->objectToNewUp = "\AmazonMWSAPI\Recommendations\\";
+
+    }
+
+    public function teardown()
+    {
+
+        unset($this->AmazonClient);
+
+    }
+
     public function testListRecommendations()
     {
 
-        $objectToNewUp = "\AmazonMWSAPI\Recommendations\ListRecommendations";
-
-        $testPerformance = false;
-
-        $iterations = 1;
+        $this->objectToNewUp .= "ListRecommendations";
 
         $example = ListRecommendations::$example;
 
-        $listRecommendation = Helpers::test($objectToNewUp, $example, $testPerformance, $iterations);
+        $listRecommendation = Helpers::test($this->objectToNewUp, $example, $this->print, $this->testPerformance, $this->iterations);
 
-        $listRecommendation->getCurlParameters();
+        $curlParameters = $listRecommendation->getCurlParameters();
+
+        $this->assertArrayHasKey("RecommendationCategory", $curlParameters);
+        $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.1.RecommendationCategory", $curlParameters);
+        $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.1.FilterOptions.FilterOption.1", $curlParameters);
+        $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.1.FilterOptions.FilterOption.2", $curlParameters);
+        $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.2.RecommendationCategory", $curlParameters);
+        $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.2.FilterOptions.FilterOption.1", $curlParameters);
 
     }
 

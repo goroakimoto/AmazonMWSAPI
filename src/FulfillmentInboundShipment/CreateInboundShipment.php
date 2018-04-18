@@ -30,7 +30,7 @@ class CreateInboundShipment extends FulfillmentInboundShipment
             "required"
         ]
     ];
-    protected static $example = [
+    public static $example = [
         "ShipmentId" => "1234567890",
         "InboundShipmentHeader" => [
             "ShipmentName" => "Blah",

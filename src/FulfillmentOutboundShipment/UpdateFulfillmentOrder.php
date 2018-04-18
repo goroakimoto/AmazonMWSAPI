@@ -64,7 +64,7 @@ class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
         ]
     ];
 
-    protected static $example = [
+    public static $example = [
         "DisplayableOrderId" => "12345678",
         "SellerFulfillmentOrderId" => "113-8652632-9749050",
         "DestinationAddress" => [

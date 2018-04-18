@@ -58,7 +58,7 @@ class CreateInboundShipmentPlan extends FulfillmentInboundShipment
             "required"
         ]
     ];
-    protected static $example = [
+    public static $example = [
         "InboundShipmentPlanRequestItems" => [
             [
                 "SellerSKU" => "SKU2",

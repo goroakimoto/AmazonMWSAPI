@@ -13,6 +13,13 @@
             <directory>./tests/</directory>
         </testsuite>
 
+        <testsuite name="api">
+            <directory>./tests/</directory>
+            <exclude>./tests/APIParameters</exclude>
+            <exclude>./tests/APIParameterValidation</exclude>
+            <exclude>./tests/Helper</exclude>
+        </testsuite>
+
         <testsuite name="APIParameters">
             <directory>./tests/APIParameters</directory>
         </testsuite>

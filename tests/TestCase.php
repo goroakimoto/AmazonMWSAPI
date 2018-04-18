@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
 
         $env->load();
 
-        AmazonClient::instance();
+        $this->AmazonClient = AmazonClient::instance();
 
     }
 
