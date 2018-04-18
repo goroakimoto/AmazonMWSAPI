@@ -5,15 +5,23 @@ namespace Tests\Setup;
 use Tests\TestCase;
 use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\AmazonClient;
+use AmazonMWSAPI\Feeds\Feeds;
 
 class SetupTest extends TestCase
 {
 
-    public function testAmazonAPIInformationHasBeenSet()
+    public function testAmazonCountryHasBeenSet()
     {
-        AmazonClient::instance();
-        $this->expectOutputString(AmazonClient::getMerchantId());
-        print getenv("AMAZON_MERCHANTID");
+
+        $this->assertEquals("US", Feeds::getCountryCode());
+
+    }
+
+    public function testAmazonMarketplaceIdHasBeenSet()
+    {
+
+        $this->assertEquals("ATVPDKIKX0DER" , Feeds::getMarketplaceId());
+
     }
 
 }

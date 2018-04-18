@@ -1,6 +1,6 @@
 <?php
-
 namespace AmazonMWSAPI\Recommendations;
+
 
 class ListRecommendations extends Recommendations
 {
@@ -37,7 +37,7 @@ class ListRecommendations extends Recommendations
             "required"
         ]
     ];
-    protected static $example = [
+    public static $example = [
         "RecommendationCategory" => "Inventory",
         "CategoryQueryList" => [
             [

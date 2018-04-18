@@ -11,13 +11,13 @@ trait APIParameters
 {
 
     // dependentOn
-    // !divisorOf
+    // divisorOf
     // earlierThan -- Timestamp default interval is "PT2M"
     // format
-    // !greaterThan
+    // greaterThan
     // incompatibleWith
     // laterThan -- Timestamp default interval is "PT2M"
-    // !length
+    // length
     // maximumLength
     // maximumCount
     // minimumLength
@@ -72,7 +72,7 @@ trait APIParameters
 
     }
 
-    protected static function getIncrementors()
+    public static function getIncrementors()
     {
 
         return static::$incrementors;
@@ -114,7 +114,7 @@ trait APIParameters
 
     }
 
-    protected static function resetCurlParameters()
+    public static function resetCurlParameters()
     {
 
         self::$curlParameters = [];
@@ -135,7 +135,7 @@ trait APIParameters
 
     }
 
-    protected static function setTimestampParameter()
+    public static function setTimestampParameter()
     {
 
         $date = new DateTime(date("Y-m-d H:i:s"));
@@ -144,42 +144,42 @@ trait APIParameters
 
     }
 
-    protected static function setAwsAccessKeyParameter()
+    public static function setAwsAccessKeyParameter()
     {
 
         self::setParameterByKey("AWSAccessKeyId", AmazonClient::getAwsAccessKey());
 
     }
 
-    protected static function setActionParameter()
+    public static function setActionParameter()
     {
 
         self::setParameterByKey("Action", Helpers::getCalledClass(get_called_class()));
 
     }
 
-    protected static function setMerchantIdParameter($key)
+    public static function setMerchantIdParameter($key)
     {
 
         self::setParameterByKey($key, AmazonClient::getMerchantId());
 
     }
 
-    protected static function setPurgeAndReplaceParameter()
+    public static function setPurgeAndReplaceParameter()
     {
 
         self::setParameterByKey("PurgeAndReplace", "false");
 
     }
 
-    protected static function setMarketplaceIdParameter()
+    public static function setMarketplaceIdParameter()
     {
 
         static::incrementParameterWithValue("MarketplaceId", self::getMarketplaceId());
 
     }
 
-    protected static function setDateParameter($parameter, $date, $format = "Y-m-d\TH:i:s\Z")
+    public static function setDateParameter($parameter, $date, $format = "Y-m-d\TH:i:s\Z")
     {
 
         $newDate = new DateTime($date);
@@ -188,7 +188,7 @@ trait APIParameters
 
     }
 
-    protected static function setEachRequiredParentParameter()
+    public static function setEachRequiredParentParameter()
     {
 
         $parentRequiredParameters = array_flip(static::getRequiredParameters(true));
@@ -201,12 +201,12 @@ trait APIParameters
 
     }
 
-    protected static function getNumberOfObjectsAtLevel($parameterToCheck, $incrementor, $arrayToCheck)
+    public static function getNumberOfObjectsAtLevel($parameterToCheck, $incrementor, $arrayToCheck)
     {
 
         $count = [];
 
-        Helpers::dd($parameterToCheck);
+        // Helpers::dd($parameterToCheck);
 
         foreach ($arrayToCheck as $parameter)
         {
@@ -225,13 +225,13 @@ trait APIParameters
 
         }
 
-        Helpers::dd($count);
+        // Helpers::dd($count);
 
         return count($count);
 
     }
 
-    protected static function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
+    public static function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
     {
 
         if (!$requiredParameters)
@@ -252,7 +252,7 @@ trait APIParameters
 
     }
 
-    protected static function incrementRequiredParameter($parameter, $value, &$requiredParameters, $parentParameter = null)
+    public static function incrementRequiredParameter($parameter, $value, &$requiredParameters, $parentParameter = null)
     {
 
         $requiredArray = ["required"];
@@ -379,7 +379,7 @@ trait APIParameters
 
     }
 
-    protected static function setRequiredParameters($requiredParameters, $parentParameter = null)
+    public static function setRequiredParameters($requiredParameters, $parentParameter = null)
     {
         $requiredArray = ["required"];
 
@@ -455,21 +455,21 @@ trait APIParameters
 
     }
 
-    protected static function setRequiredParameter($parameter, $value = null)
+    public static function setRequiredParameter($parameter, $value = null)
     {
 
         static::$requiredParameters[$parameter] = $value;
 
     }
 
-    protected static function setVersionDateParameter()
+    public static function setVersionDateParameter()
     {
 
         self::setParameterByKey("Version", static::getVersionDate());
 
     }
 
-    protected static function recursiveArrayFilterReturnBoolean($method, $array, $arg = null, $inArray = false, $class = "static")
+    public static function recursiveArrayFilterReturnBoolean($method, $array, $arg = null, $inArray = false, $class = "static")
     {
 
         foreach ($array as $key => $value)
@@ -493,7 +493,7 @@ trait APIParameters
 
     }
 
-    protected static function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $lookingFor = "key", $callback = false, $class = "static")
+    public static function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $lookingFor = "key", $callback = false, $class = "static")
     {
 
         foreach ($array as $key => $value)
@@ -539,7 +539,7 @@ trait APIParameters
 
     }
 
-    protected static function recursiveArrayFilterUnsetParameter($method, $array, $arg, $callback = false, $class = "static")
+    public static function recursiveArrayFilterUnsetParameter($method, $array, $arg, $callback = false, $class = "static")
     {
 
         foreach ($array as $key => $value)
@@ -562,7 +562,7 @@ trait APIParameters
 
     }
 
-    protected static function findRequiredParameters()
+    public static function findRequiredParameters()
     {
 
         $parameters = static::getParameters();
@@ -571,7 +571,7 @@ trait APIParameters
 
     }
 
-    protected static function getRequiredParameters($parent = null)
+    public static function getRequiredParameters($parent = null)
     {
 
         if (!$parent)
@@ -585,7 +585,7 @@ trait APIParameters
 
     }
 
-    protected static function getIncrementorByKey($parameterToCheck)
+    public static function getIncrementorByKey($parameterToCheck)
     {
 
         if (is_string($parameterToCheck) && array_key_exists($parameterToCheck, static::$incrementors))
@@ -729,7 +729,7 @@ trait APIParameters
 
     }
 
-    protected static function notIncremented($v, $k, $arg)
+    public static function notIncremented($v, $k, $arg)
     {
 
         if (is_array($v) && in_array("notIncremented", $v) && $k === $arg)
@@ -743,7 +743,7 @@ trait APIParameters
 
     }
 
-    protected static function assembleIncrementor($parameter)
+    public static function assembleIncrementor($parameter)
     {
 
         $incrementor = static::getIncrementorByKey($parameter);
@@ -899,14 +899,14 @@ trait APIParameters
 
     }
 
-    protected static function searchForParameter($v, $k, $parameterToCheck)
+    public static function searchForParameter($v, $k, $parameterToCheck)
     {
 
         $explodedKey = explode(".", $k);
 
         $parentParameter = $explodedKey[0];
 
-        $last = last($explodedKey);
+        $last = end($explodedKey);
 
         if (strpos($k, ".") !== false || strpos($parameterToCheck, ".") !== false)
         {
@@ -949,7 +949,7 @@ trait APIParameters
 
     }
 
-    protected static function combineRequiredParameters()
+    public static function combineRequiredParameters()
     {
 
         static::setEachRequiredParentParameter();
@@ -958,7 +958,7 @@ trait APIParameters
 
     }
 
-    protected static function combineRequiredAndAllowedParameters()
+    public static function combineRequiredAndAllowedParameters()
     {
 
         static::$allowedParameters = array_merge
@@ -970,11 +970,11 @@ trait APIParameters
 
         );
 
-        Helpers::dd(static::$allowedParameters);
+        // Helpers::dd(static::$allowedParameters);
 
     }
 
-    protected static function requiredIf($v, $k, $arg)
+    public static function requiredIf($v, $k, $arg)
     {
 
         if (is_array($v) && array_key_exists("requiredIf", $v))
@@ -990,7 +990,7 @@ trait APIParameters
 
     }
 
-    protected static function validWith($v, $k, $arg)
+    public static function validWith($v, $k, $arg)
     {
 
         if (is_array($v) && array_key_exists("validWith", $v))
@@ -1006,7 +1006,7 @@ trait APIParameters
 
     }
 
-    protected static function validif ($v, $k)
+    public static function validif ($v, $k)
     {
 
         if (is_array($v) && array_key_exists("validIf", $v))
@@ -1022,7 +1022,7 @@ trait APIParameters
 
     }
 
-    protected static function required($v, $k)
+    public static function required($v, $k)
     {
 
         if (is_array($v) && in_array("required", $v))
@@ -1040,7 +1040,7 @@ trait APIParameters
 
     }
 
-    protected static function countIsLessThanMaximum($v, $k)
+    public static function countIsLessThanMaximum($v, $k)
     {
 
         if (is_array($v) && array_key_exists("maximumCount", $v))
@@ -1056,7 +1056,7 @@ trait APIParameters
 
     }
 
-    protected static function noLongerThanMaximum($v, $k)
+    public static function noLongerThanMaximum($v, $k)
     {
 
         if (is_array($v) && array_key_exists("maximumLength", $v))
@@ -1072,7 +1072,7 @@ trait APIParameters
 
     }
 
-    protected static function noShorterThanMinimum($v, $k)
+    public static function noShorterThanMinimum($v, $k)
     {
 
         if (is_array($v) && array_key_exists("minimumLength", $v))
@@ -1088,7 +1088,7 @@ trait APIParameters
 
     }
 
-    protected static function areWithinRange($v, $k)
+    public static function areWithinRange($v, $k)
     {
 
         if (is_array($v) && array_key_exists("rangeWithin", $v))
@@ -1106,7 +1106,7 @@ trait APIParameters
 
     }
 
-    protected static function oneIsSet($v, $k)
+    public static function oneIsSet($v, $k)
     {
 
         if (is_array($v) && array_key_exists("requiredIfNotSet", $v))
@@ -1131,7 +1131,7 @@ trait APIParameters
 
     }
 
-    protected static function removeConditionallyRequiredParameters($v, $k, $parameter)
+    public static function removeConditionallyRequiredParameters($v, $k, $parameter)
     {
 
         if ($k === $parameter)
@@ -1145,7 +1145,7 @@ trait APIParameters
 
     }
 
-    protected static function withIncompatibilities($v, $k)
+    public static function withIncompatibilities($v, $k)
     {
 
         if (is_array($v) && array_key_exists("incompatibleWith", $v))
@@ -1161,7 +1161,7 @@ trait APIParameters
 
     }
 
-    protected static function datesNotOutsideInterval($v, $k)
+    public static function datesNotOutsideInterval($v, $k)
     {
 
         if (is_array($v) && array_key_exists("notFartherApartThan", $v))
@@ -1177,21 +1177,21 @@ trait APIParameters
 
     }
 
-    protected static function dateTimesAreInProperFormat($v, $k)
+    public static function dateTimesAreInProperFormat($v, $k)
     {
 
         static::ensureDateTimesAreInProperFormat($k);
 
     }
 
-    protected static function datesAreInProperFormat($v, $k)
+    public static function datesAreInProperFormat($v, $k)
     {
 
         static::ensureDatesAreInProperFormat($k);
 
     }
 
-    protected static function datesAreLaterThan($v, $k)
+    public static function datesAreLaterThan($v, $k)
     {
 
         if (is_array($v) && array_key_exists("laterThan", $v))
@@ -1207,7 +1207,7 @@ trait APIParameters
 
     }
 
-    protected static function datesAreEarlierThan($v, $k)
+    public static function datesAreEarlierThan($v, $k)
     {
 
         if (is_array($v) && array_key_exists("earlierThan", $v))
@@ -1240,7 +1240,7 @@ trait APIParameters
 
     }
 
-    protected static function divisorOf($v, $k)
+    public static function divisorOf($v, $k)
     {
 
         if (is_array($v) && array_key_exists("divisorOf", $v))
@@ -1256,7 +1256,7 @@ trait APIParameters
 
     }
 
-    protected static function greaterThan($v, $k)
+    public static function greaterThanParameters($v, $k)
     {
 
         if (is_array($v) && array_key_exists("greaterThan", $v))
@@ -1272,7 +1272,7 @@ trait APIParameters
 
     }
 
-    protected static function length($v, $k)
+    public static function length($v, $k)
     {
 
         if (is_array($v) && array_key_exists("length", $v))
@@ -1288,7 +1288,7 @@ trait APIParameters
 
     }
 
-    protected static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
+    public static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
     {
 
         if (!$arrayToCheck) {
@@ -1321,7 +1321,7 @@ trait APIParameters
 
     }
 
-    protected static function getLevel($parameterToCheck)
+    public static function getLevel($parameterToCheck)
     {
 
         $level = explode(".", $parameterToCheck);
@@ -1332,7 +1332,7 @@ trait APIParameters
 
     }
 
-    protected static function testRequiredIfParametersAreSet()
+    public static function testRequiredIfParametersAreSet()
     {
 
         $parameters = static::getParameters();
@@ -1341,7 +1341,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreValidWith()
+    public static function testParametersAreValidWith()
     {
 
         $parameters = static::getParameters();
@@ -1350,7 +1350,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreValidif ()
+    public static function testParametersAreValidif ()
     {
 
         $parameters = static::getParameters();
@@ -1359,7 +1359,7 @@ trait APIParameters
 
     }
 
-    protected static function testParameterCountIsLessThanMaximum()
+    public static function testParameterCountIsLessThanMaximum()
     {
 
         $parameters = static::getParameters();
@@ -1368,7 +1368,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreNoLongerThanMaximum()
+    public static function testParametersAreNoLongerThanMaximum()
     {
 
         $parameters = static::getParameters();
@@ -1377,7 +1377,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreNoShorterThanMinimum()
+    public static function testParametersAreNoShorterThanMinimum()
     {
 
         $parameters = static::getParameters();
@@ -1386,7 +1386,7 @@ trait APIParameters
 
     }
 
-    protected static function testDatesNotOutsideInterval()
+    public static function testDatesNotOutsideInterval()
     {
 
         $parameters = static::getParameters();
@@ -1395,7 +1395,7 @@ trait APIParameters
 
     }
 
-    protected static function testDateTimesAreInProperFormat()
+    public static function testDateTimesAreInProperFormat()
     {
 
         $dateTimeParameters = static::getDateTimeParameters();
@@ -1404,7 +1404,7 @@ trait APIParameters
 
     }
 
-    protected static function testDatesAreInProperFormat()
+    public static function testDatesAreInProperFormat()
     {
 
         $dateParameters = static::getDateParameters();
@@ -1413,7 +1413,7 @@ trait APIParameters
 
     }
 
-    protected static function testDatesAreLaterThan()
+    public static function testDatesAreLaterThan()
     {
 
         $parameters = static::getParameters();
@@ -1422,7 +1422,7 @@ trait APIParameters
 
     }
 
-    protected static function testDatesAreEarlierThan()
+    public static function testDatesAreEarlierThan()
     {
 
         $parameters = static::getParameters();
@@ -1431,7 +1431,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersAreWithinGivenRange()
+    public static function testParametersAreWithinGivenRange()
     {
 
         $parameters = static::getParameters();
@@ -1440,7 +1440,7 @@ trait APIParameters
 
     }
 
-    protected static function testOneIsSet()
+    public static function testOneIsSet()
     {
 
         $parameters = static::getParameters();
@@ -1451,7 +1451,7 @@ trait APIParameters
 
     }
 
-    protected static function testParametersWithIncompatibilities()
+    public static function testParametersWithIncompatibilities()
     {
 
         $parameters = static::getParameters();
@@ -1460,7 +1460,7 @@ trait APIParameters
 
     }
 
-    protected static function testDivisorOf()
+    public static function testDivisorOf()
     {
 
         $parameters = static::getParameters();
@@ -1469,15 +1469,15 @@ trait APIParameters
 
     }
 
-    protected static function testGreaterThan()
+    public static function testGreaterThan()
     {
 
         $parameters = static::getParameters();
 
-        $greaterThan = static::recursiveArrayFilterReturnArray("greaterThan", $parameters, false);
+        $greaterThan = static::recursiveArrayFilterReturnArray("greaterThanParameters", $parameters, false);
     }
 
-    protected static function testLength()
+    public static function testLength()
     {
 
         $parameters = static::getParameters();
@@ -1486,7 +1486,7 @@ trait APIParameters
 
     }
 
-    protected static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
+    public static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
     {
 
         foreach ($arrayToRemoveConditionallyRequiredParameters as $parameter => $value)
@@ -1515,7 +1515,7 @@ trait APIParameters
         return $requiredParameters;
 
     }
-    protected static function getNestedParameterKey($parameterToFind, $arrayToCheck)
+    public static function getNestedParameterKey($parameterToFind, $arrayToCheck)
     {
 
         if (is_array($arrayToCheck))
@@ -1540,7 +1540,7 @@ trait APIParameters
 
     }
 
-    protected static function getNestedParameterValue($parameterToFind, $arrayToCheck)
+    public static function getNestedParameterValue($parameterToFind, $arrayToCheck)
     {
 
         if (!array_key_exists($parameterToFind, $arrayToCheck))

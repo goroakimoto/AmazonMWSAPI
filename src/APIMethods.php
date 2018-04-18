@@ -2,6 +2,9 @@
 
 namespace AmazonMWSAPI;
 
+use AmazonMWSAPI\Helpers\Helpers;
+
+
 trait APIMethods
 {
 

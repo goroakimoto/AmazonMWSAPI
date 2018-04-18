@@ -54,16 +54,7 @@ class Helpers
         foreach ($array as $value)
         {
 
-            if ($value === end($array))
-            {
-
-                $newString .= "$value. ";
-
-            } else {
-
-                $newString .= "$value, ";
-
-            }
+            $newString .= $value === end($array) ? "$value. " : "$value, ";
 
         }
 
@@ -76,12 +67,7 @@ class Helpers
 
         $startTime = microtime(true);
 
-        if ($print)
-        {
-
-            echo "Start Time: " . date("Y/m/d H:i:s") . "<br>";
-
-        }
+        echo $print ? "Start Time: " . date("Y/m/d H:i:s") . "<br>" : "";
 
         return $startTime;
 
@@ -94,14 +80,7 @@ class Helpers
 
         $executionTime = ($endTime - $startTime) / 60;
 
-        if ($print)
-        {
-
-            echo "Execution time: $executionTime mins";
-
-            echo "End Time: " . date('Y-m-d H:i:s') . "<br>";
-
-        }
+        echo $print ? "End Time:" . date("Y-m-d H:i:s") . "<br>Execution time: $executionTime mins.<br>" : "";
 
         return $executionTime;
 
@@ -129,66 +108,36 @@ class Helpers
 
     }
 
-    public static function test($objectToNewUp, $parameters, $testPerformance = false, $iterations = 1)
+    public static function printTest($print, $object)
     {
 
-        if($testPerformance)
-        {
-
-            static::dd
-            (
-
-                static::performance($objectToNewUp, $parameters, $iterations)
-
-            );
-
-        } else {
-
-            static::dd
-            (
-
-                new $objectToNewUp($parameters)
-
-            );
-
-        }
-
+        return $print ? static::dd($object) : $object;
 
     }
 
-    public static function testAPI($objectToNewUp, $parameters, $testPerformance = false, $iterations = 1)
+    public static function test($objectToNewUp, $parameters, $print = false, $testPerformance = false, $iterations = 1)
     {
 
-        if($testPerformance)
-        {
+        return $testPerformance ?
 
-            static::ddXml
-            (
+            static::printTest($print, static::performance($objectToNewUp, $parameters, $iterations))
 
-                AmazonClient::amazonCurl
-                (
+            :
 
-                    static::performance($objectToNewUp, $parameters, $iterations)
+            static::printTest($print, new $objectToNewUp($parameters));
 
-                )
+    }
 
-            );
+    public static function testAPI($objectToNewUp, $parameters, $print = false, $testPerformance = false, $iterations = 1)
+    {
 
-        } else {
+        return $testPerformance ?
 
-            static::ddXml
-            (
+            static::printTest($print, AmazonClient::amazonCurl(static::performance($objectToNewUp, $parameters, $iterations)))
 
-                AmazonClient::amazonCurl
-                (
+            :
 
-                    new $objectToNewUp($parameters)
-
-                )
-
-            );
-
-        }
+            static::printTest($print, AmazonClient::amazonCurl(new $objectToNewUp($parameters)));
 
     }
 
