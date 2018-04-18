@@ -37,7 +37,7 @@ class ListRecommendations extends Recommendations
             "required"
         ]
     ];
-    public static $example = [
+    public static $exampleInventoryRecommendation = [
         "RecommendationCategory" => "Inventory",
         "CategoryQueryList" => [
             [

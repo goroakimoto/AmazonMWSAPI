@@ -37,7 +37,7 @@ class RecommendationsTest extends TestCase
 
         $this->objectToNewUp .= "ListRecommendations";
 
-        $example = ListRecommendations::$example;
+        $example = ListRecommendations::$exampleInventoryRecommendation;
 
         $listRecommendation = Helpers::test($this->objectToNewUp, $example, $this->print, $this->testPerformance, $this->iterations);
 
