@@ -154,7 +154,7 @@ trait APIParameters
     public static function setActionParameter()
     {
 
-        self::setParameterByKey("Action", Helpers::getCalledClass(get_called_class()));
+        self::setParameterByKey("Action", Helpers::getCalledClassNameOnly(get_called_class()));
 
     }
 
@@ -750,7 +750,7 @@ trait APIParameters
 
         if (is_array($incrementor)) {
 
-            $calledClass = Helpers::getCalledClass(get_called_class());
+            $calledClass = Helpers::getCalledClassNameOnly(get_called_class());
 
             if (array_key_exists($calledClass, $incrementor)) {
 

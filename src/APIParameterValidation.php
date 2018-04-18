@@ -280,7 +280,7 @@ trait APIParameterValidation
 
                         $validOperation = static::getNestedParameterValue("ifOperationIs", $ifOperationIsParameters);
 
-                        if (Helpers::getCalledClass(get_called_class()) !== $validOperation)
+                        if (Helpers::getCalledClassNameOnly(get_called_class()) !== $validOperation)
                         {
 
                             throw new Exception("$value is only valid when called from $validOperation. Please correct and try again.");

@@ -37,7 +37,7 @@ class Helpers
 
     }
 
-    public static function getCalledClass($calledClass)
+    public static function getCalledClassNameOnly($calledClass)
     {
 
         $fullClassName = explode("\\", $calledClass);
@@ -94,11 +94,11 @@ class Helpers
         for ($x = 0; $x < $iterations; $x++)
         {
 
-            $startIteration = startClock(false);
+            $startIteration = static::startClock(false);
 
             new $objectToNewUp($parameters);
 
-            $endIteration = endClock($startIteration, false);
+            $endIteration = static::endClock($startIteration, false);
 
             $totalTime += $endIteration;
 

@@ -1,17 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    backupGlobals="false"
-    bakupStaticAttributes="false"
-    bootstrap="vendor/autoload.php"
-    colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="ture"
-    convertWarningsToExceptions="true"
-    processIsolation="false"
-    stopOnFailure="false">
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
     <testsuites>
-        <testsuite name="AmazonMWSAPI">
+        <testsuite name="app">
             <directory>./tests/</directory>
         </testsuite>
+
+        <testsuite name="APIParameters">
+            <directory>./tests/APIParameters</directory>
+        </testsuite>
+
+        <testsuite name="APIParameterValidation">
+            <directory>./tests/APIParameterValidation</directory>
+        </testsuite>
+
+        <testsuite name="Feeds">
+            <directory>./tests/Feeds</directory>
+        </testsuite>
+
+        <testsuite name="Finances">
+            <directory>./tests/Finances</directory>
+        </testsuite>
+
+        <testsuite name="FulfillmentInboundShipment">
+            <directory>./tests/FulfillmentInboundShipment</directory>
+        </testsuite>
+
+        <testsuite name="FulfillmentInventory">
+            <directory>./tests/FulfillmentInventory</directory>
+        </testsuite>
+
+        <testsuite name="FulfillmentOutboundShipment">
+            <directory>./tests/FulfillmentOutboundShipment</directory>
+        </testsuite>
+
+        <testsuite name="Helper">
+            <directory>./tests/Helper</directory>
+        </testsuite>
+
+        <testsuite name="MerchantFulfillment">
+            <directory>./tests/MerchantFulfillment</directory>
+        </testsuite>
+
+        <testsuite name="Orders">
+            <directory>./tests/Orders</directory>
+        </testsuite>
+
+        <testsuite name="Products">
+            <directory>./tests/Products</directory>
+        </testsuite>
+
+        <testsuite name="Recommendations">
+            <directory>./tests/Recommendations</directory>
+        </testsuite>
+
+        <testsuite name="Reports">
+            <directory>./tests/Reports</directory>
+        </testsuite>
+
+        <testsuite name="Sellers">
+            <directory>./tests/Sellers</directory>
+        </testsuite>
+
+        <testsuite name="Setup">
+            <directory>./tests/Setup</directory>
+        </testsuite>
+
+        <testsuite name="Subscriptions">
+            <directory>./tests/Subscriptions</directory>
+        </testsuite>
+
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
