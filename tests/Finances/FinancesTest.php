@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Orders;
+namespace Tests\Finances;
 
 use Tests\TestCase;
-use AmazonMWSAPI\Orders;
+use AmazonMWSAPI\Finances;
 use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\AmazonClient;
 
-class OrdersTest extends TestCase
+class FinancesTest extends TestCase
 {
 
 
