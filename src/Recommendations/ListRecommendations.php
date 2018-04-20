@@ -61,10 +61,10 @@ class ListRecommendations extends Recommendations
         "RecommendationCategory" => "Inventory",
         "CategoryQueryList" => [
             [
-                // "RecommendationCategory" => "ListingQuality",
+                "RecommendationCategory" => "ListingQuality",
                 "FilterOptions" => [
-                    "QualitySet=Defect",
-                    "ListingStatus=Active"
+                    // "QualitySet=Defect",
+                    // "ListingStatus=Active"
                 ]
             ],
             [

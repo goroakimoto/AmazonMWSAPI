@@ -206,8 +206,6 @@ trait APIParameters
 
         $count = [];
 
-        // Helpers::dd($parameterToCheck);
-
         foreach ($arrayToCheck as $parameter)
         {
 
@@ -224,8 +222,6 @@ trait APIParameters
             $count[$reconstructed] = 1;
 
         }
-
-        // Helpers::dd($count);
 
         return count($count);
 
@@ -364,8 +360,26 @@ trait APIParameters
 
         } else {
 
-            if ($parentParameter)
+            if ($parentParameter && $incrementor)
             {
+
+                $matchingParameters = static::searchBackupParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
+
+                $numberOfObjects = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
+
+                if($numberOfObjects)
+                {
+
+                    for ($x = 1; $x <= $numberOfObjects; $x++)
+                    {
+
+                        static::setRequiredParameter("$parentParameter.$parameter.$incrementor.$x", 1);
+
+                    }
+
+                }
+
+            } elseif($parentParameter) {
 
                 static::setRequiredParameter("$parentParameter.$parameter", 1);
 
@@ -1643,7 +1657,7 @@ trait APIParameters
 
     public static function verifyParameters()
     {
-        // Helpers::dd(static::getCurlParameters());
+        Helpers::dd(static::getCurlParameters());
         // Helpers::dd(static::getParameters());
 
         static::testOneIsSet();

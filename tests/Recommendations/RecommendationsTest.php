@@ -22,6 +22,7 @@ class RecommendationsTest extends TestCase
         $this->iterations = 1;
 
         $this->print = false;
+
         $this->objectToNewUp = "\AmazonMWSAPI\Recommendations\\";
 
     }
@@ -53,10 +54,10 @@ class RecommendationsTest extends TestCase
 
     }
 
-    public function testFailingListRecommendations()
+    public function testRequiredParameterMissingFromListRecommendations()
     {
 
-        $this->expectException(RequiredException::class);
+        $this->expectException(\AmazonMWSAPI\Exception\RequiredException::class);
 
         $this->objectToNewUp .= "ListRecommendations";
 
