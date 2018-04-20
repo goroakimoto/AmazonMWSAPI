@@ -59,7 +59,9 @@ class FinancesTest extends TestCase
     public function testRequiredParameterMissingFromListFinancialEventGroups()
     {
 
-        $this->expectException(\AmazonMWSAPI\Exception\RequiredException::class);
+        $regex = '/must be set to complete this request/';
+
+        $this->expectOutputRegex($regex);
 
         $this->apiObject .= "ListFinancialEventGroups";
 

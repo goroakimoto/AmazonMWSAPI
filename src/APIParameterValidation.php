@@ -589,7 +589,7 @@ trait APIParameterValidation
         {
 
             $requiredParameters = static::$requiredParameters;
-            Helpers::dd($requiredParameters);
+            // Helpers::dd($requiredParameters);
 
         }
 
@@ -606,11 +606,26 @@ trait APIParameterValidation
                 if ($parentKey)
                 {
 
-                    static::requireParameterToBeSet($parentKey, true);
+                    try {
+
+                        static::requireParameterToBeSet($parentKey, true);
+
+                    } catch (RequiredException $e) {
+
+                        Helpers::dd($e->errorMessage());
+                    }
 
                 } else {
 
-                    static::requireParameterToBeSet($key);
+                    try{
+
+                        static::requireParameterToBeSet($key);
+
+                    } catch (RequiredException $e) {
+
+                        Helpers::dd($e->errorMessage());
+
+                    }
 
                 }
 

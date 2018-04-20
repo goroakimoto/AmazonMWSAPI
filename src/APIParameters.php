@@ -395,6 +395,7 @@ trait APIParameters
 
     public static function setRequiredParameters($requiredParameters, $parentParameter = null)
     {
+
         $requiredArray = ["required"];
 
         foreach ($requiredParameters as $parameter => $value)

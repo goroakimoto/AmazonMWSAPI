@@ -78,13 +78,15 @@ class FulfillmentInboundShipmentTest extends TestCase
     public function testRequiredParameterMissingFromCreateInboundShipment()
     {
 
-        $this->expectException(\AmazonMWSAPI\Exception\RequiredException::class);
+        $regex = '/must be set to complete this request/';
+
+        $this->expectOutputRegex($regex);
 
         $this->apiObject .= "CreateInboundShipment";
 
         $failingExample = CreateInboundShipment::$exampleCreateInboundShipmentFailing;
 
-        $$inboundShipment = Helpers::test(
+        $inboundShipment = Helpers::test(
             $this->apiObject,
             $failingExample,
             $this->print,

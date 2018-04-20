@@ -63,7 +63,9 @@ class RecommendationsTest extends TestCase
     public function testRequiredParameterMissingFromListRecommendations()
     {
 
-        $this->expectException(\AmazonMWSAPI\Exception\RequiredException::class);
+        $regex = '/must be set to complete this request/';
+
+        $this->expectOutputRegex($regex);
 
         $this->apiObject .= "ListRecommendations";
 
