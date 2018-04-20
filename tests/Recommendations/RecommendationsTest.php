@@ -34,14 +34,20 @@ class RecommendationsTest extends TestCase
 
     }
 
-    public function testListRecommendations()
+    public function testInventoryRecommendationInListRecommendations()
     {
 
         $this->objectToNewUp .= "ListRecommendations";
 
         $example = ListRecommendations::$exampleInventoryRecommendation;
 
-        $listRecommendation = Helpers::test($this->objectToNewUp, $example, $this->print, $this->testPerformance, $this->iterations);
+        $listRecommendation = Helpers::test(
+            $this->objectToNewUp,
+            $example,
+            $this->print,
+            $this->testPerformance,
+            $this->iterations
+        );
 
         $curlParameters = $listRecommendation->getCurlParameters();
 
@@ -63,7 +69,13 @@ class RecommendationsTest extends TestCase
 
         $failingExample = ListRecommendations::$exampleInventoryRecommendationFailing;
 
-        $listRecommendation = Helpers::test($this->objectToNewUp, $failingExample, $this->print, $this->testPerformance, $this->iterations);
+        $listRecommendation = Helpers::test(
+            $this->objectToNewUp,
+            $failingExample,
+            $this->print,
+            $this->testPerformance,
+            $this->iterations
+        );
 
     }
 

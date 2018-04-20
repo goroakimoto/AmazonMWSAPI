@@ -589,7 +589,7 @@ trait APIParameterValidation
         {
 
             $requiredParameters = static::$requiredParameters;
-            Helpers::dd($requiredParameters);
+            // Helpers::dd($requiredParameters);
 
         }
 
