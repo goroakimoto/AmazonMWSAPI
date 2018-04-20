@@ -287,7 +287,7 @@ trait APIParameters
 
                     } else {
 
-                        $matchingParameters = static::searchParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
+                        $matchingParameters = static::searchBackupParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
 
                         $numberOfObjects = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
 
@@ -334,7 +334,7 @@ trait APIParameters
 
                 } elseif ($incrementor) {
 
-                    $matchingParameters = static::searchParametersReturnResults("$parameter.$incrementor", $curlParameters);
+                    $matchingParameters = static::searchBackupParametersReturnResults("$parameter.$incrementor", $curlParameters);
 
                     $numberOfObjects = static::getNumberOfObjectsAtLevel($parameter, $incrementor, array_keys($matchingParameters));
 
@@ -899,13 +899,12 @@ trait APIParameters
 
     }
 
-    public static function searchForParameter($v, $k, $parameterToCheck)
+    public static function searchForBackupParameter($v, $k, $parameterToCheck)
     {
 
         $explodedKey = explode(".", $k);
 
         $parentParameter = $explodedKey[0];
-
         $last = end($explodedKey);
 
         if (strpos($k, ".") !== false || strpos($parameterToCheck, ".") !== false)
@@ -921,7 +920,34 @@ trait APIParameters
 
     }
 
+    public static function keyEqualsParameter($v, $k, $parameterToCheck)
+    {
+
+        if ($k === $parameterToCheck)
+        {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
     public static function searchParameters($parameterToCheck, $parameters = null)
+    {
+
+        if (!$parameters) {
+
+            $parameters = static::getCurlParameters();
+
+        }
+
+        return static::recursiveArrayFilterReturnBoolean("keyEqualsParameter", $parameters, $parameterToCheck);
+
+    }
+
+    public static function searchBackupParameters($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters)
@@ -931,13 +957,26 @@ trait APIParameters
 
         }
 
-        return static::recursiveArrayFilterReturnBoolean("searchForParameter", $parameters, $parameterToCheck);
+        return static::recursiveArrayFilterReturnBoolean("searchForBackupParameter", $parameters, $parameterToCheck);
 
     }
 
     public static function searchParametersReturnResults($parameterToCheck, $parameters = null)
     {
 
+        if (!$parameters) {
+
+            $parameters = static::getCurlParameters();
+
+        }
+
+        return static::recursiveArrayFilterReturnArray("keyEqualsParameter", $parameters, true, $parameterToCheck);
+
+    }
+
+    public static function searchBackupParametersReturnResults($parameterToCheck, $parameters = null)
+    {
+
         if (!$parameters)
         {
 
@@ -945,7 +984,7 @@ trait APIParameters
 
         }
 
-        return static::recursiveArrayFilterReturnArray("searchForParameter", $parameters, true, $parameterToCheck);
+        return static::recursiveArrayFilterReturnArray("searchForBackupParameter", $parameters, true, $parameterToCheck);
 
     }
 
@@ -1122,20 +1161,6 @@ trait APIParameters
                 static::ensureOneParameterOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
 
             }
-
-            return true;
-
-        }
-
-        return false;
-
-    }
-
-    public static function removeConditionallyRequiredParameters($v, $k, $parameter)
-    {
-
-        if ($k === $parameter)
-        {
 
             return true;
 
@@ -1499,12 +1524,12 @@ trait APIParameters
 
             } elseif (is_array($value) && array_key_exists("requiredIfNotSet", $value)) {
 
-                $matchingCurlParameters = static::searchParameters($parameter);
+                $matchingCurlParameters = static::searchBackupParameters($parameter);
 
                 if (!$matchingCurlParameters)
                 {
 
-                    $requiredParameters = static::recursiveArrayFilterUnsetParameter("removeConditionallyRequiredParameters", $requiredParameters, $parameter);
+                    $requiredParameters = static::recursiveArrayFilterUnsetParameter("keyEqualsParameter", $requiredParameters, $parameter);
 
                 }
 
@@ -1563,7 +1588,8 @@ trait APIParameters
 
         static::$parameters = static::combineFormatWithParameters(static::$parameters);
 
-        if ($parametersToSet) {
+        if ($parametersToSet)
+        {
 
             static::setPassedParameters($parametersToSet);
 

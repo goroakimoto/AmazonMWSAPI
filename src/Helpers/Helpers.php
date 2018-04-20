@@ -46,6 +46,13 @@ class Helpers
 
     }
 
+    public static function getAPIProperty($class, $property)
+    {
+
+        return $class::${$property};
+
+    }
+
     public static function arrayToString($array)
     {
 

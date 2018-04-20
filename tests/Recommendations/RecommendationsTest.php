@@ -7,6 +7,7 @@ use AmazonMWSAPI\Recommendations;
 use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\AmazonClient;
 use AmazonMWSAPI\Recommendations\ListRecommendations;
+use AmazonMWSAPI\Exception\{RequiredException};
 
 class RecommendationsTest extends TestCase
 {
@@ -49,6 +50,19 @@ class RecommendationsTest extends TestCase
         $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.1.FilterOptions.FilterOption.2", $curlParameters);
         $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.2.RecommendationCategory", $curlParameters);
         $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.2.FilterOptions.FilterOption.1", $curlParameters);
+
+    }
+
+    public function testFailingListRecommendations()
+    {
+
+        $this->expectException(RequiredException::class);
+
+        $this->objectToNewUp .= "ListRecommendations";
+
+        $failingExample = ListRecommendations::$exampleInventoryRecommendationFailing;
+
+        $listRecommendation = Helpers::test($this->objectToNewUp, $failingExample, $this->print, $this->testPerformance, $this->iterations);
 
     }
 
