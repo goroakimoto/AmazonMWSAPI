@@ -3,11 +3,10 @@
 namespace Tests\Finances;
 
 use Tests\TestCase;
-use AmazonMWSAPI\Finances;
-use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\AmazonClient;
-
+use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\Exception\RequiredException;
+use AmazonMWSAPI\Finances;
 use AmazonMWSAPI\Finances\ListFinancialEventGroups;
 
 class FinancesTest extends TestCase
@@ -24,7 +23,7 @@ class FinancesTest extends TestCase
 
         $this->print = false;
 
-        $this->objectToNewUp = "\AmazonMWSAPI\Finances\\";
+        $this->apiObject = "\AmazonMWSAPI\Finances\\";
 
     }
 
@@ -35,21 +34,22 @@ class FinancesTest extends TestCase
 
     }
 
-    public function testFinancialEventGroupsInListFinancialEventGroups()
+    public function testListFinancialEventGroups()
     {
 
-        $this->objectToNewUp .= "ListFinancialEventGroups";
+        $this->apiObject .= "ListFinancialEventGroups";
 
         $example = ListFinancialEventGroups::$exampleFinancialEventGroups;
 
-        $financialEventGroups = Helpers::test(
-            $this->objectToNewUp,
+        $listFinancialEventGroups = Helpers::test(
+            $this->apiObject,
             $example,
             $this->print,
-            $this->testPerformance
+            $this->testPerformance,
+            $this->iterations
         );
 
-        $curlParameters = $financialEventGroups->getCurlParameters();
+        $curlParameters = $listFinancialEventGroups->getCurlParameters();
 
         $this->assertArrayHasKey("FinancialEventGroupStartedBefore", $curlParameters);
         $this->assertArrayHasKey("FinancialEventGroupStartedAfter", $curlParameters);
@@ -61,12 +61,12 @@ class FinancesTest extends TestCase
 
         $this->expectException(\AmazonMWSAPI\Exception\RequiredException::class);
 
-        $this->objectToNewUp .= "ListFinancialEventGroups";
+        $this->apiObject .= "ListFinancialEventGroups";
 
         $failingExample = ListFinancialEventGroups::$exampleFinancialEventGroupsFailing;
 
         $listFinancialEventGroups = Helpers::test(
-            $this->objectToNewUp,
+            $this->apiObject,
             $failingExample,
             $this->print,
             $this->testPerformance,

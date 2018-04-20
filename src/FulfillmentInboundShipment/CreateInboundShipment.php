@@ -30,7 +30,7 @@ class CreateInboundShipment extends FulfillmentInboundShipment
             "required"
         ]
     ];
-    public static $example = [
+    public static $exampleCreateInboundShipment = [
         "ShipmentId" => "1234567890",
         "InboundShipmentHeader" => [
             "ShipmentName" => "Blah",
@@ -54,6 +54,53 @@ class CreateInboundShipment extends FulfillmentInboundShipment
                 "PrepDetailsList" => [
                     [
                         "PrepInstruction" => "Labeling",
+                        "PrepOwner" => "SELLER"
+                    ]
+                ]
+            ],
+            [
+                "SellerSKU" => "M180",
+                "QuantityShipped" => 2,
+                "QuantityInCase" => 4,
+                "ReleaseDate" => "2018-01-05",
+                "PrepDetailsList" => [
+                    [
+                        "PrepInstruction" => "Labeling",
+                        "PrepOwner" => "SELLER"
+                    ],
+                    [
+                        "PrepInstruction" => "Polybagging",
+                        "PrepOwner" => "SELLER"
+                    ]
+                ]
+            ]
+        ]
+    ];
+
+    public static $exampleCreateInboundShipmentFailing = [
+        "ShipmentId" => "1234567890",
+        "InboundShipmentHeader" => [
+            "ShipmentName" => "Blah",
+            "ShipFromAddress" => [
+                "Name" => "Ben Parker",
+                "AddressLine1" => "1234 Main St.",
+                "City" => "New York",
+                "CountryCode" => "US"
+            ],
+            "DestinationFulfillmentCenterId" => "987654321",
+            "LabelPrepPreference" => "SELLER_LABEL",
+            "AreCasesRequired" => "false",
+            "ShipmentStatus" => "WORKING",
+        ],
+        "InboundShipmentItems" => [
+            [
+                "SellerSKU" => "M150",
+                "QuantityShipped" => 5,
+                "QuantityInCase" => 10,
+                "ReleaseDate" => "2018-01-05",
+                "PrepDetailsList" => [
+                    [
+                        // "PrepInstruction" => "Labeling",
                         "PrepOwner" => "SELLER"
                     ]
                 ]

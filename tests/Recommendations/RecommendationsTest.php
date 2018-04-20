@@ -23,7 +23,7 @@ class RecommendationsTest extends TestCase
 
         $this->print = false;
 
-        $this->objectToNewUp = "\AmazonMWSAPI\Recommendations\\";
+        $this->apiObject = "\AmazonMWSAPI\Recommendations\\";
 
     }
 
@@ -37,12 +37,12 @@ class RecommendationsTest extends TestCase
     public function testInventoryRecommendationInListRecommendations()
     {
 
-        $this->objectToNewUp .= "ListRecommendations";
+        $this->apiObject .= "ListRecommendations";
 
         $example = ListRecommendations::$exampleInventoryRecommendation;
 
         $listRecommendation = Helpers::test(
-            $this->objectToNewUp,
+            $this->apiObject,
             $example,
             $this->print,
             $this->testPerformance,
@@ -65,12 +65,12 @@ class RecommendationsTest extends TestCase
 
         $this->expectException(\AmazonMWSAPI\Exception\RequiredException::class);
 
-        $this->objectToNewUp .= "ListRecommendations";
+        $this->apiObject .= "ListRecommendations";
 
         $failingExample = ListRecommendations::$exampleInventoryRecommendationFailing;
 
         $listRecommendation = Helpers::test(
-            $this->objectToNewUp,
+            $this->apiObject,
             $failingExample,
             $this->print,
             $this->testPerformance,
