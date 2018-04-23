@@ -12,12 +12,6 @@ abstract class FinancesTest extends TestCase
 
         parent::setUp();
 
-        $this->testPerformance = false;
-
-        $this->iterations = 1;
-
-        $this->print = false;
-
         $this->apiObject = "\AmazonMWSAPI\Finances\\";
 
     }

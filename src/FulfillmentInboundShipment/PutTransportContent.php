@@ -44,7 +44,7 @@ class PutTransportContent extends FulfillmentInboundShipment
             "required"
         ]
     ];
-    public static $example = [
+    public static $examplePutTransportContent = [
         "ShipmentId" => "1234567890",
         "IsPartnered" => "false",
         "ShipmentType" => "SP",
@@ -78,7 +78,6 @@ class PutTransportContent extends FulfillmentInboundShipment
                     ]
                 ]
             ],
-            // "NonPartneredSmallParcelData" => "1"
         ]
     ];
 

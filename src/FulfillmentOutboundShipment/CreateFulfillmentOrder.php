@@ -91,7 +91,7 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
             "required"
         ]
     ];
-    public static $example = [
+    public static $exampleCreateFilfillmentOrder = [
         "SellerFulfillmentOrderId" => "1234567890",
         "DisplayableOrderId" => "123456",
         "DisplayableOrderDateTime" => "now",

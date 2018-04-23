@@ -16,6 +16,14 @@ abstract class TestCase extends BaseTestCase
 
     protected $testObject;
 
+    protected $testPerformance;
+
+    protected $iterations;
+
+    protected $print;
+
+    protected $apiObject;
+
     public function setUp()
     {
 
@@ -24,6 +32,12 @@ abstract class TestCase extends BaseTestCase
         $env->load();
 
         $this->amazonClient = new AmazonClient();
+
+        $this->testPerformance = false;
+
+        $this->iterations = 1;
+
+        $this->print = false;
 
     }
 

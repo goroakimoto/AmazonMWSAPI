@@ -1,0 +1,48 @@
+<?php
+
+namespace Tests\FulfillmentInboundShipment;
+
+use AmazonMWSAPI\Helpers\Helpers;
+use AmazonMWSAPI\FulfillmentOutboundShipment\CreateFulfillmentOrder;
+use Tests\FulfillmentOutboundShipment\FulfillmentOutboundShipmentTest;
+
+class CreateFulfillmentOrderTest extends FulfillmentOutboundShipmentTest
+{
+
+    public function testCreateFulfillmentOrder()
+    {
+
+        $this->apiObject .= "CreateFulfillmentOrder";
+
+        $example = CreateFulfillmentOrder::$exampleCreateFilfillmentOrder;
+
+        $this->testObject = Helpers::test(
+            $this->apiObject,
+            $example,
+            $this->print,
+            $this->testPerformance,
+            $this->iterations
+        );
+
+        $curlParameters = $this->testObject->getCurlParameters();
+
+        $this->assertArrayHasKey("SellerFulfillmentOrderId", $curlParameters);
+        $this->assertArrayHasKey("DisplayableOrderId", $curlParameters);
+        $this->assertArrayHasKey("DisplayableOrderDateTime", $curlParameters);
+        $this->assertArrayHasKey("ShippingSpeedCategory", $curlParameters);
+        $this->assertArrayHasKey("DestinationAddress.Name", $curlParameters);
+        $this->assertArrayHasKey("DestinationAddress.Line1", $curlParameters);
+        $this->assertArrayHasKey("DestinationAddress.StateOrProvinceCode", $curlParameters);
+        $this->assertArrayHasKey("DestinationAddress.CountryCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.SellerSKU", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.SellerFulfillmentOrderItemId", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.Quantity", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.PerUnitPrice.CurrencyCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.PerUnitPrice.Value", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.SellerSKU", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.SellerFulfillmentOrderItemId", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.Quantity", $curlParameters);
+
+    }
+
+}

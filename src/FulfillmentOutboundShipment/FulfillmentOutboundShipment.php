@@ -673,7 +673,7 @@ class FulfillmentOutboundShipment
                 "required",
                 "validWith" => [
                     "KG",
-                    LB
+                    "LB"
                 ]
             ],
             "Value" => [
