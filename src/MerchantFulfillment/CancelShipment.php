@@ -10,7 +10,7 @@ class CancelShipment extends MerchantFulfillment
     protected static $restoreRateTime = 1;
     protected static $restoreRateTimePeriod = "second";
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_CancelShipment.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

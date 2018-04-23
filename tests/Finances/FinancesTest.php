@@ -59,7 +59,7 @@ class FinancesTest extends TestCase
     public function testRequiredParameterMissingFromListFinancialEventGroups()
     {
 
-        $regex = '/must be set to complete this request/';
+        $regex = '/FinancialEventGroupStartedAfter must be set to complete this request/';
 
         $this->expectOutputRegex($regex);
 

@@ -11,7 +11,7 @@ class GetLowestPricedOffersForASIN extends Products
     protected static $restoreRateTimePeriod = "second";
     protected static $hourlyRequestQuota = 200;
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetLowestPricedOffersForASIN.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

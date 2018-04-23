@@ -10,7 +10,7 @@ class ListInventorySupplyByNextToken extends FulfillmentInventory
     protected static $restoreRateTime = 1;
     protected static $restoreRatePeriod = "second";
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_ListInventorySupplyByNextToken.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

@@ -10,7 +10,7 @@ class GetServiceStatus extends MerchantFulfillment
     protected static $restoreRateTime = 5;
     protected static $restoreRateTimePeriod = "minute";
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MWS_GetServiceStatus.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

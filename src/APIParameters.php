@@ -32,8 +32,6 @@ trait APIParameters
     // validWith
     // parent - Key => value || value
 
-    private static $curlParameters = [];
-
     private static $requiredParameters = [
         "AWSAccessKeyId",
         "Action",
@@ -82,14 +80,7 @@ trait APIParameters
     public static function getParameterByKey($key)
     {
 
-        return self::$curlParameters[$key] ?? null;
-
-    }
-
-    public static function getCurlParameters()
-    {
-
-        return self::$curlParameters;
+        return static::$curlParameters[$key] ?? null;
 
     }
 
@@ -107,6 +98,26 @@ trait APIParameters
 
     }
 
+    public static function getCurlParameters()
+    {
+
+        return static::$curlParameters;
+
+    }
+
+    public static function getRequiredParameters($parent = null)
+    {
+
+        if (!$parent) {
+
+            return static::$requiredParameters;
+
+        }
+
+        return self::$requiredParameters;
+
+    }
+
     public static function unsetClassParameterByKey($key)
     {
 
@@ -117,7 +128,14 @@ trait APIParameters
     public static function resetCurlParameters()
     {
 
-        self::$curlParameters = [];
+        static::$curlParameters = [];
+
+    }
+
+    public static function resetRequiredParameters()
+    {
+
+        static::$requiredParameters = [];
 
     }
 
@@ -184,7 +202,7 @@ trait APIParameters
 
         $newDate = new DateTime($date);
 
-        self::$curlParameters[$parameter] = $newDate->format($format);
+        static::$curlParameters[$parameter] = $newDate->format($format);
 
     }
 
@@ -586,20 +604,6 @@ trait APIParameters
 
     }
 
-    public static function getRequiredParameters($parent = null)
-    {
-
-        if (!$parent)
-        {
-
-            return static::$requiredParameters;
-
-        }
-
-        return self::$requiredParameters;
-
-    }
-
     public static function getIncrementorByKey($parameterToCheck)
     {
 
@@ -725,18 +729,18 @@ trait APIParameters
         if (isset($value))
         {
 
-            if (array_key_exists($key, static::getDateTimeParameters()) && !in_array($key, self::$curlParameters))
+            if (array_key_exists($key, static::getDateTimeParameters()) && !in_array($key, static::getCurlParameters()))
             {
 
                 static::setDateParameter($key, $value);
 
-            } elseif (array_key_exists($key, static::getDateParameters()) && !in_array($key, self::$curlParameters)) {
+            } elseif (array_key_exists($key, static::getDateParameters()) && !in_array($key, static::getCurlParameters())) {
 
                 static::setDateParameter($key, $value);
 
             } else {
 
-                self::$curlParameters[$key] = $value;
+                static::$curlParameters[$key] = $value;
 
             }
 
@@ -1600,6 +1604,8 @@ trait APIParameters
     {
 
         static::resetCurlParameters();
+
+        static::resetRequiredParameters();
 
         static::$parameters = static::combineFormatWithParameters(static::$parameters);
 

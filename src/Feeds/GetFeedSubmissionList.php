@@ -11,7 +11,7 @@ class GetFeedSubmissionList extends Feeds
     protected static $restoreRateTimePeriod = "second";
     protected static $hourlyRequestQuota = 80;
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_GetFeedSubmissionList.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

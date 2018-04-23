@@ -10,7 +10,7 @@ class ListMarketplaceParticipationsByNextToken extends Sellers
     protected static $restoreRateTime = 1;
     protected static $restoreRateTimePeriod = "minute";
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/sellers/Sellers_ListMarketplaceParticipationsByNextToken.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

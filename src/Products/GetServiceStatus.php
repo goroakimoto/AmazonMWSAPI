@@ -10,7 +10,7 @@ class GetServiceStatus extends Products
     protected static $restoreRateTime = 5;
     protected static $restoreRateTimePeriod = "second";
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetServiceStatus.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

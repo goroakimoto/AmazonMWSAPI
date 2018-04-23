@@ -12,10 +12,12 @@ use AmazonMWSAPI\Exception\{RequiredException};
 class RecommendationsTest extends TestCase
 {
 
-    public function setup()
+    protected $amazonClient;
+
+    public function setUp()
     {
 
-        parent::setup();
+        parent::setUp();
 
         $this->testPerformance = false;
 
@@ -27,13 +29,6 @@ class RecommendationsTest extends TestCase
 
     }
 
-    public function teardown()
-    {
-
-        unset($this->AmazonClient);
-
-    }
-
     public function testInventoryRecommendationInListRecommendations()
     {
 
@@ -41,7 +36,7 @@ class RecommendationsTest extends TestCase
 
         $example = ListRecommendations::$exampleInventoryRecommendation;
 
-        $listRecommendation = Helpers::test(
+        $this->testObject = Helpers::test(
             $this->apiObject,
             $example,
             $this->print,
@@ -49,7 +44,7 @@ class RecommendationsTest extends TestCase
             $this->iterations
         );
 
-        $curlParameters = $listRecommendation->getCurlParameters();
+        $curlParameters = $this->testObject->getCurlParameters();
 
         $this->assertArrayHasKey("RecommendationCategory", $curlParameters);
         $this->assertArrayHasKey("CategoryQueryList.CategoryQuery.1.RecommendationCategory", $curlParameters);
@@ -63,7 +58,7 @@ class RecommendationsTest extends TestCase
     public function testRequiredParameterMissingFromListRecommendations()
     {
 
-        $regex = '/must be set to complete this request/';
+        $regex = '/CategoryQueryList.CategoryQuery.1.FilterOptions.FilterOption.1 must be set to complete this request/';
 
         $this->expectOutputRegex($regex);
 
@@ -71,7 +66,7 @@ class RecommendationsTest extends TestCase
 
         $failingExample = ListRecommendations::$exampleInventoryRecommendationFailing;
 
-        $listRecommendation = Helpers::test(
+        $this->testObject = Helpers::test(
             $this->apiObject,
             $failingExample,
             $this->print,

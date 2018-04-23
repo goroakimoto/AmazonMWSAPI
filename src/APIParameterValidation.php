@@ -617,7 +617,7 @@ trait APIParameterValidation
 
                 } else {
 
-                    try{
+                    try {
 
                         static::requireParameterToBeSet($key);
 

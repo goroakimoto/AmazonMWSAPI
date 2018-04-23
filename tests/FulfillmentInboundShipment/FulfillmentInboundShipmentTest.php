@@ -78,7 +78,7 @@ class FulfillmentInboundShipmentTest extends TestCase
     public function testRequiredParameterMissingFromCreateInboundShipment()
     {
 
-        $regex = '/must be set to complete this request/';
+        $regex = '/InboundShipmentItems.member.1.PrepDetailsList.member.1.PrepInstruction must be set to complete this request/';
 
         $this->expectOutputRegex($regex);
 

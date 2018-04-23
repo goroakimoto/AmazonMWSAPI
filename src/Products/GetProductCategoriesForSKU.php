@@ -11,7 +11,7 @@ class GetProductCategoriesForSKU extends Products
     protected static $restoreRateTimePeriod = "seconds";
     protected static $hourlyRequestQuota = 720;
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetProductCategoriesForSKU.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

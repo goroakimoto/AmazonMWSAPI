@@ -10,7 +10,7 @@ class GetInboundGuidanceForSKU extends FulfillmentInboundShipment
     protected static $restoreRateTime = 1;
     protected static $restoreRateTimePeriod = "second";
     protected static $method = "POST";
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "docs.developer.amazonservices.com/en_US/fba_inbound/FBAInbound_GetInboundGuidanceForSKU.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];

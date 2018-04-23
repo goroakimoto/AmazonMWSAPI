@@ -12,14 +12,27 @@ use AmazonMWSAPI\Exception\{RequiredException};
 abstract class TestCase extends BaseTestCase
 {
 
-    public function setup()
+    protected $amazonClient;
+
+    protected $testObject;
+
+    public function setUp()
     {
 
         $env = new Dotenv(__DIR__);
 
         $env->load();
 
-        $this->AmazonClient = AmazonClient::instance();
+        $this->amazonClient = new AmazonClient();
+
+    }
+
+    public function tearDown()
+    {
+
+        unset($this->amazonClient);
+
+        unset($this->testObject);
 
     }
 

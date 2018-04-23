@@ -13,7 +13,7 @@ class SubmitFeed extends Feeds
     protected static $method = "POST";
     protected static $feedType;
     protected static $feedContent;
-    private static $curlParameters = [];
+    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_SubmitFeed.html";
     protected static $requiredParameters = [];
     protected static $allowedParameters = [];
