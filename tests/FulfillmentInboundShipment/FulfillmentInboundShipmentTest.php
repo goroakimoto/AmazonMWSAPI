@@ -12,10 +12,10 @@ use AmazonMWSAPI\FulfillmentInboundShipment\CreateInboundShipment;
 class FulfillmentInboundShipmentTest extends TestCase
 {
 
-    public function setup()
+    public function setUp()
     {
 
-        parent::setup();
+        parent::setUp();
 
         $this->testPerformance = false;
 
@@ -27,13 +27,6 @@ class FulfillmentInboundShipmentTest extends TestCase
 
     }
 
-    public function teardown()
-    {
-
-        unset($this->AmazonClient);
-
-    }
-
     public function testCreateInboundShipment()
     {
 
@@ -41,7 +34,7 @@ class FulfillmentInboundShipmentTest extends TestCase
 
         $example = CreateInboundShipment::$exampleCreateInboundShipment;
 
-        $inboundShipment = Helpers::test(
+        $this->testObject = Helpers::test(
             $this->apiObject,
             $example,
             $this->print,
@@ -49,7 +42,7 @@ class FulfillmentInboundShipmentTest extends TestCase
             $this->iterations
         );
 
-        $curlParameters = $inboundShipment->getCurlParameters();
+        $curlParameters = $this->testObject->getCurlParameters();
 
         $this->assertArrayHasKey("InboundShipmentHeader.ShipmentName", $curlParameters);
         $this->assertArrayHasKey("InboundShipmentHeader.ShipFromAddress.Name", $curlParameters);
@@ -86,7 +79,7 @@ class FulfillmentInboundShipmentTest extends TestCase
 
         $failingExample = CreateInboundShipment::$exampleCreateInboundShipmentFailing;
 
-        $inboundShipment = Helpers::test(
+        $this->testObject = Helpers::test(
             $this->apiObject,
             $failingExample,
             $this->print,

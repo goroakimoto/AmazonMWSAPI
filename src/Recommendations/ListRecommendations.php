@@ -70,7 +70,7 @@ class ListRecommendations extends Recommendations
             [
                 "RecommendationCategory" => "Selection",
                 "FilterOptions" => [
-                    "IncludeCommonRecommendations=false"
+                    // "IncludeCommonRecommendations=false"
                 ]
             ]
         ]

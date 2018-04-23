@@ -12,10 +12,10 @@ use AmazonMWSAPI\Finances\ListFinancialEventGroups;
 class FinancesTest extends TestCase
 {
 
-    public function setup()
+    public function setUp()
     {
 
-        parent::setup();
+        parent::setUp();
 
         $this->testPerformance = false;
 
@@ -27,13 +27,6 @@ class FinancesTest extends TestCase
 
     }
 
-    public function teardown()
-    {
-
-        unset($this->AmazonClient);
-
-    }
-
     public function testListFinancialEventGroups()
     {
 
@@ -41,7 +34,7 @@ class FinancesTest extends TestCase
 
         $example = ListFinancialEventGroups::$exampleFinancialEventGroups;
 
-        $listFinancialEventGroups = Helpers::test(
+        $this->testObject = Helpers::test(
             $this->apiObject,
             $example,
             $this->print,
@@ -49,7 +42,7 @@ class FinancesTest extends TestCase
             $this->iterations
         );
 
-        $curlParameters = $listFinancialEventGroups->getCurlParameters();
+        $curlParameters = $this->testObject->getCurlParameters();
 
         $this->assertArrayHasKey("FinancialEventGroupStartedBefore", $curlParameters);
         $this->assertArrayHasKey("FinancialEventGroupStartedAfter", $curlParameters);
@@ -67,7 +60,7 @@ class FinancesTest extends TestCase
 
         $failingExample = ListFinancialEventGroups::$exampleFinancialEventGroupsFailing;
 
-        $listFinancialEventGroups = Helpers::test(
+        $this->testObject = Helpers::test(
             $this->apiObject,
             $failingExample,
             $this->print,

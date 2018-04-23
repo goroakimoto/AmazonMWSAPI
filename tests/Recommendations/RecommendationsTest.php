@@ -12,8 +12,6 @@ use AmazonMWSAPI\Exception\{RequiredException};
 class RecommendationsTest extends TestCase
 {
 
-    protected $amazonClient;
-
     public function setUp()
     {
 
