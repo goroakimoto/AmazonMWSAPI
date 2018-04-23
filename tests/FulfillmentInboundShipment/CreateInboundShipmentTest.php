@@ -3,8 +3,8 @@
 namespace Tests\FulfillmentInboundShipment;
 
 use AmazonMWSAPI\Helpers\Helpers;
-use Tests\FulfillmentInboundShipment\FulfillmentInboundShipmentTest;
 use AmazonMWSAPI\FulfillmentInboundShipment\CreateInboundShipment;
+use Tests\FulfillmentInboundShipment\FulfillmentInboundShipmentTest;
 
 class CreateInboundShipmentTest extends FulfillmentInboundShipmentTest
 {
@@ -50,7 +50,7 @@ class CreateInboundShipmentTest extends FulfillmentInboundShipmentTest
 
     }
 
-    public function testRequiredParameterMissingFromCreateInboundShipment()
+    public function testCreateInboundShipmentFailing()
     {
 
         $regex = '/InboundShipmentItems.member.1.PrepDetailsList.member.1.PrepInstruction must be set to complete this request/';

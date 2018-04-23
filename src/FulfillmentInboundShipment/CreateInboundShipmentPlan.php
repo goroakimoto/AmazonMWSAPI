@@ -58,7 +58,8 @@ class CreateInboundShipmentPlan extends FulfillmentInboundShipment
             "required"
         ]
     ];
-    public static $example = [
+
+    public static $exampleCreateInboundShipmentPlan = [
         "InboundShipmentPlanRequestItems" => [
             [
                 "SellerSKU" => "SKU2",
@@ -76,6 +77,29 @@ class CreateInboundShipmentPlan extends FulfillmentInboundShipment
             "AddressLine1" => "123 Main St.",
             "City" => "New York",
             "CountryCode" => "IN"
+        ],
+        "LabelPrepPreference" => "SELLER_LABEL",
+        "ShipToCountryCode" => "US"
+    ];
+
+    public static $exampleCreateInboundShipmentPlanFailing = [
+        "InboundShipmentPlanRequestItems" => [
+            [
+                "SellerSKU" => "SKU2",
+                "Quantity" => 1,
+                "PrepDetailsList" => [
+                    [
+                        // "PrepInstruction" => "Taping",
+                        "PrepOwner" => "AMAZON"
+                    ]
+                ]
+            ]
+        ],
+        "ShipFromAddress" => [
+            "Name" => "Ben Parker",
+            "AddressLine1" => "123 Main St.",
+            "City" => "New York",
+            // "CountryCode" => "IN"
         ],
         "LabelPrepPreference" => "SELLER_LABEL",
         "ShipToCountryCode" => "US"
