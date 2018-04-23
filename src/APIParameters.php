@@ -10,28 +10,6 @@ use DateTimeZone;
 trait APIParameters
 {
 
-    // dependentOn
-    // divisorOf
-    // earlierThan -- Timestamp default interval is "PT2M"
-    // format
-    // greaterThan
-    // incompatibleWith
-    // laterThan -- Timestamp default interval is "PT2M"
-    // length
-    // maximumLength
-    // maximumCount
-    // minimumLength
-    // notIncremented
-    // notFartherApartThan
-    // ifOperationIs
-    // rangeWithin
-    // required
-    // !requiredIf
-    // requiredIfNotSet
-    // validIf
-    // validWith
-    // parent - Key => value || value
-
     private static $requiredParameters = [
         "AWSAccessKeyId",
         "Action",
@@ -394,6 +372,10 @@ trait APIParameters
                         static::setRequiredParameter("$parentParameter.$parameter.$incrementor.$x", 1);
 
                     }
+
+                } else {
+
+                    static::setRequiredParameter("$parentParameter.$parameter.$incrementor.1", 1);
 
                 }
 
