@@ -44,10 +44,19 @@ class ListInboundShipments extends FulfillmentInboundShipment
             "requiredIfSet" => "LastUpdatedAfter"
         ]
     ];
-    public static $example = [
+
+    public static $exampleListInboundShipments = [
         "ShipmentStatusList" => [
             "WORKING"
         ]
+    ];
+
+    public static $exmpleListInboundShipmentsShipmentIdList = [
+        "ShipmentIdList" => [
+            "FBA44JV8R"
+        ],
+        "LastUpdateAfter" => "",
+        "LastUpdatedBefore" => ""
     ];
 
 }

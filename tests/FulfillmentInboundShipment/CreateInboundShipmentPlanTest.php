@@ -37,12 +37,29 @@ class CreateInboundShipmentPlanTest extends FulfillmentInboundShipmentTest
 
     }
 
-    public function testCreateInboundShipmentPlanFailing()
+    public function testCreateInboundShipmentPlanFailingCountryCode()
     {
 
         $regex = '/ShipFromAddress.CountryCode must be set to complete this request/';
 
         $this->expectOutputRegex($regex);
+
+        $this->apiObject .= "CreateInboundShipmentPlan";
+
+        $failingExample = CreateInboundShipmentPlan::$exampleCreateInboundShipmentPlanFailing;
+
+        $this->testObject = Helpers::test(
+            $this->apiObject,
+            $failingExample,
+            $this->print,
+            $this->testPerformance,
+            $this->iterations
+        );
+
+    }
+
+    public function testCreateInboundShipmentPlanFailingPrepInstruction()
+    {
 
         $regex = '/InboundShipmentPlanRequestItems.member.1.PrepDetailsList.member.1.PrepInstruction must be set to complete this request/';
 

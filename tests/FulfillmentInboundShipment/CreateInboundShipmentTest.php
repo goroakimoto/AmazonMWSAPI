@@ -50,10 +50,31 @@ class CreateInboundShipmentTest extends FulfillmentInboundShipmentTest
 
     }
 
-    public function testCreateInboundShipmentFailing()
+    public function testCreateInboundShipmentPrepInstruction()
     {
 
         $regex = '/InboundShipmentItems.member.1.PrepDetailsList.member.1.PrepInstruction must be set to complete this request/';
+
+        $this->expectOutputRegex($regex);
+
+        $this->apiObject .= "CreateInboundShipment";
+
+        $failingExample = CreateInboundShipment::$exampleCreateInboundShipmentFailing;
+
+        $this->testObject = Helpers::test(
+            $this->apiObject,
+            $failingExample,
+            $this->print,
+            $this->testPerformance,
+            $this->iterations
+        );
+
+    }
+
+    public function testCreateInboundShipmentSellerSKU()
+    {
+
+        $regex = '/InboundShipmentItems.member.2.SellerSKU must be set to complete this request/';
 
         $this->expectOutputRegex($regex);
 

@@ -106,7 +106,7 @@ class CreateInboundShipment extends FulfillmentInboundShipment
                 ]
             ],
             [
-                "SellerSKU" => "M180",
+                // "SellerSKU" => "M180",
                 "QuantityShipped" => 2,
                 "QuantityInCase" => 4,
                 "ReleaseDate" => "2018-01-05",
