@@ -1649,7 +1649,7 @@ trait APIParameters
         // Helpers::dd(static::getCurlParameters());
         // Helpers::dd(static::getParameters());
 
-        static::testOneIsSet();
+        // static::testOneIsSet();
 
         static::ensureRequiredParametersAreSet();
 

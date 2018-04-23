@@ -3,18 +3,18 @@
 namespace Tests\FulfillmentOutboundShipment;
 
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\FulfillmentOutboundShipment\CreateFulfillmentOrder;
+use AmazonMWSAPI\FulfillmentOutboundShipment\UpdateFulfillmentOrder;
 use Tests\FulfillmentOutboundShipment\FulfillmentOutboundShipmentTest;
 
-class CreateFulfillmentOrderTest extends FulfillmentOutboundShipmentTest
+class UpdateFulfillmentOrderTest extends FulfillmentOutboundShipmentTest
 {
 
-    public function testCreateFulfillmentOrder()
+    public function testUpdateFulfillmentOrder()
     {
 
-        $this->apiObject .= "CreateFulfillmentOrder";
+        $this->apiObject .= "UpdateFulfillmentOrder";
 
-        $example = CreateFulfillmentOrder::$exampleCreateFulfillmentOrder;
+        $example = UpdateFulfillmentOrder::$exampleUpdateFulfillmentOrder;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
@@ -27,34 +27,39 @@ class CreateFulfillmentOrderTest extends FulfillmentOutboundShipmentTest
         $curlParameters = $this->testObject->getCurlParameters();
 
         $this->assertArrayHasKey("SellerFulfillmentOrderId", $curlParameters);
-        $this->assertArrayHasKey("DisplayableOrderId", $curlParameters);
-        $this->assertArrayHasKey("DisplayableOrderDateTime", $curlParameters);
-        $this->assertArrayHasKey("ShippingSpeedCategory", $curlParameters);
         $this->assertArrayHasKey("DestinationAddress.Name", $curlParameters);
         $this->assertArrayHasKey("DestinationAddress.Line1", $curlParameters);
         $this->assertArrayHasKey("DestinationAddress.StateOrProvinceCode", $curlParameters);
         $this->assertArrayHasKey("DestinationAddress.CountryCode", $curlParameters);
-        $this->assertArrayHasKey("Items.member.1.SellerSKU", $curlParameters);
         $this->assertArrayHasKey("Items.member.1.SellerFulfillmentOrderItemId", $curlParameters);
         $this->assertArrayHasKey("Items.member.1.Quantity", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.PerUnitDeclaredValue.CurrencyCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.PerUnitDeclaredValue.Value", $curlParameters);
         $this->assertArrayHasKey("Items.member.1.PerUnitPrice.CurrencyCode", $curlParameters);
         $this->assertArrayHasKey("Items.member.1.PerUnitPrice.Value", $curlParameters);
-        $this->assertArrayHasKey("Items.member.2.SellerSKU", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.PerUnitTax.CurrencyCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.1.PerUnitTax.Value", $curlParameters);
         $this->assertArrayHasKey("Items.member.2.SellerFulfillmentOrderItemId", $curlParameters);
         $this->assertArrayHasKey("Items.member.2.Quantity", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.PerUnitDeclaredValue.CurrencyCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.PerUnitDeclaredValue.Value", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.PerUnitPrice.CurrencyCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.PerUnitPrice.Value", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.PerUnitTax.CurrencyCode", $curlParameters);
+        $this->assertArrayHasKey("Items.member.2.PerUnitTax.Value", $curlParameters);
 
     }
 
-    public function testCreateFulfillmentOrderFailing()
+    public function testUpdateFulfillmentOrderFailing()
     {
 
-        $regex = '/Items.member.1.SellerSKU must be set to complete this request/';
+        $regex = '/DestinationAddress.Name must be set to complete this request/';
 
         $this->expectOutputRegex($regex);
 
-        $this->apiObject .= "CreateFulfillmentOrder";
+        $this->apiObject .= "UpdateFulfillmentOrder";
 
-        $failingExample = CreateFulfillmentOrder::$exampleCreateFulfillmentOrderFailing;
+        $failingExample = UpdateFulfillmentOrder::$exampleUpdateFulfillmentOrderFailing;
 
         $this->testObject = Helpers::test(
             $this->apiObject,

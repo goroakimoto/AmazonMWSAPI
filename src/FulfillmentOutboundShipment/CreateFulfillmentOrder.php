@@ -91,7 +91,8 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
             "required"
         ]
     ];
-    public static $exampleCreateFilfillmentOrder = [
+
+    public static $exampleCreateFulfillmentOrder = [
         "SellerFulfillmentOrderId" => "1234567890",
         "DisplayableOrderId" => "123456",
         "DisplayableOrderDateTime" => "now",
@@ -117,6 +118,47 @@ class CreateFulfillmentOrder extends FulfillmentOutboundShipment
         "Items" => [
             [
                 "SellerSKU" => "M150",
+                "SellerFulfillmentOrderItemId" => "1",
+                "Quantity" => 2,
+                "PerUnitPrice" => [
+                    "CurrencyCode" => "USD",
+                    "Value" => "4.95"
+                ]
+            ],
+            [
+                "SellerSKU" => "M180",
+                "SellerFulfillmentOrderItemId" => "2",
+                "Quantity" => 10
+            ]
+        ]
+    ];
+
+    public static $exampleCreateFulfillmentOrderFailing = [
+        "SellerFulfillmentOrderId" => "1234567890",
+        "DisplayableOrderId" => "123456",
+        "DisplayableOrderDateTime" => "now",
+        "DisplayableOrderComment" => "Sent this morning",
+        "ShippingSpeedCategory" => "Standard",
+        "DestinationAddress" => [
+            "Name" => "Ben Parker",
+            "Line1" => "123 Main St",
+            "City" => "New York",
+            "StateOrProvinceCode" => "NY",
+            "CountryCode" => "US"
+        ],
+        "CODSettings" => [
+            "CODCharge" => [
+                "CurrencyCode" => "USD",
+                "Value" => "2.99"
+            ]
+        ],
+        "NotificationEmailList" => [
+            "joe@example.com",
+            "bob@example.com"
+        ],
+        "Items" => [
+            [
+                // "SellerSKU" => "M150",
                 "SellerFulfillmentOrderItemId" => "1",
                 "Quantity" => 2,
                 "PerUnitPrice" => [

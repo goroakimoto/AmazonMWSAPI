@@ -46,6 +46,27 @@ class PutTransportContentTest extends FulfillmentInboundShipmentTest
 
     }
 
+    public function testCreateInboundShipmentFailing()
+    {
+
+        $regex = '/TransportDetails.PartneredSmallParcelData.PackageList.member.1.Dimensions.Unit must be set to complete this request/';
+
+        $this->expectOutputRegex($regex);
+
+        $this->apiObject .= "PutTransportContent";
+
+        $failingExample = PutTransportContent::$examplePutTransportContentFailing;
+
+        $this->testObject = Helpers::test(
+            $this->apiObject,
+            $failingExample,
+            $this->print,
+            $this->testPerformance,
+            $this->iterations
+        );
+
+    }
+
     // public function testCreateInboundShipmentPrepInstruction()
     // {
 

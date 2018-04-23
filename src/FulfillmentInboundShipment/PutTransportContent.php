@@ -44,6 +44,7 @@ class PutTransportContent extends FulfillmentInboundShipment
             "required"
         ]
     ];
+
     public static $examplePutTransportContent = [
         "ShipmentId" => "1234567890",
         "IsPartnered" => "false",
@@ -55,6 +56,43 @@ class PutTransportContent extends FulfillmentInboundShipment
                     [
                         "Dimensions" => [
                             "Unit" => "inches",
+                            "Length" => 12,
+                            "Width" => 12,
+                            "Height" => 12
+                        ],
+                        "Weight" => [
+                            "Unit" => "pounds",
+                            "Value" => 20
+                        ]
+                    ],
+                    [
+                        "Dimensions" => [
+                            "Unit" => "inches",
+                            "Length" => 12,
+                            "Width" => 12,
+                            "Height" => 12
+                        ],
+                        "Weight" => [
+                            "Unit" => "pounds",
+                            "Value" => 100
+                        ]
+                    ]
+                ]
+            ],
+        ]
+    ];
+
+    public static $examplePutTransportContentFailing = [
+        "ShipmentId" => "1234567890",
+        "IsPartnered" => "false",
+        "ShipmentType" => "SP",
+        "TransportDetails" => [
+            "PartneredSmallParcelData" => [
+                "CarrierName" => "UNITED_PARCEL_SERVICE_INC",
+                "PackageList" => [
+                    [
+                        "Dimensions" => [
+                            // "Unit" => "inches",
                             "Length" => 12,
                             "Width" => 12,
                             "Height" => 12
