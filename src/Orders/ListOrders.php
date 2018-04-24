@@ -122,9 +122,15 @@ class ListOrders extends Orders
             ]
         ]
     ];
-    public static $example = [
+
+    public static $exampleListOrders = [
         "BuyerEmail" => "blah@example.com",
         "CreatedAfter" => "-3 days"
+    ];
+
+    public static $exampleListOrdersFailing = [
+        // "BuyerEmail" => "blah@example.com",
+        // "CreatedAfter" => "-3 days"
     ];
 
 }
