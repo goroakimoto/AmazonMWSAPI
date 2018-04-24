@@ -9,25 +9,25 @@ use AmazonMWSAPI\FulfillmentInventory\ListInventorySupply;
 class ListInventorySupplyTest extends FulfillmentInventoryTest
 {
 
-    public function testListInventorySupply()
-    {
+    // public function testListInventorySupply()
+    // {
 
-        $this->apiObject .= "ListInventorySupply";
+    //     $this->apiObject .= "ListInventorySupply";
 
-        $example = ListInventorySupply::$exampleListInventorySupply;
+    //     $example = ListInventorySupply::$exampleListInventorySupply;
 
-        $this->testObject = Helpers::test(
-            $this->apiObject,
-            $example,
-            $this->print,
-            $this->testPerformance,
-            $this->iterations
-        );
+    //     $this->testObject = Helpers::test(
+    //         $this->apiObject,
+    //         $example,
+    //         $this->print,
+    //         $this->testPerformance,
+    //         $this->iterations
+    //     );
 
-        $curlParameters = $this->testObject->getCurlParameters();
+    //     $curlParameters = $this->testObject->getCurlParameters();
 
-        $this->assertArrayHasKey("SellerId", $curlParameters);
+    //     $this->assertArrayHasKey("SellerId", $curlParameters);
 
-    }
+    // }
 
 }
