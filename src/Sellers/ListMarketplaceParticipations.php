@@ -20,4 +20,8 @@ class ListMarketplaceParticipations extends Sellers
         ]
     ];
 
+    public static $exampleListMarketplaceParticipations = [
+
+    ];
+
 }
