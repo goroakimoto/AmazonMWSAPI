@@ -40,4 +40,8 @@ class GetFeedSubmissionList extends Feeds
 
     ];
 
+    public static $exampleGetFeedSubmissionList = [
+
+    ];
+
 }

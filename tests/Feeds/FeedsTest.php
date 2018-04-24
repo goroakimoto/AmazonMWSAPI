@@ -3,11 +3,17 @@
 namespace Tests\Feeds;
 
 use Tests\TestCase;
-use AmazonMWSAPI\Feeds;
-use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\AmazonClient;
 
-class FeedsTest extends TestCase
+abstract class FeedsTest extends TestCase
 {
+
+    public function setUp()
+    {
+
+        parent::setUp();
+
+        $this->apiObject = "\\AmazonMWSAPI\Feeds\\";
+
+    }
 
 }
