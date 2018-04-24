@@ -25,4 +25,6 @@ class ListSubscriptions extends Subscriptions
         ]
     ];
 
+    public static $exampleListSubscriptions = [];
+
 }

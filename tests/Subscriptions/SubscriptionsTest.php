@@ -3,13 +3,17 @@
 namespace Tests\Subscriptions;
 
 use Tests\TestCase;
-use AmazonMWSAPI\Subscriptions;
-use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\AmazonClient;
 
-class SubscriptionsTest extends TestCase
+abstract class SubscriptionsTest extends TestCase
 {
 
+    public function setUp()
+    {
 
+        parent::setUp();
+
+        $this->apiObject = "\\AmazonMWSAPI\Subscriptions\\";
+
+    }
 
 }
