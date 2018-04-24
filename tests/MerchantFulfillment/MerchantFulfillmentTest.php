@@ -1,15 +1,19 @@
 <?php
 
-namespace Tests\MerchantFulfillmentTest;
+namespace Tests\MerchantFulfillment;
 
 use Tests\TestCase;
-use AmazonMWSAPI\MerchantFulfillmentTest;
-use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\AmazonClient;
 
-class MerchantFulfillmentTestTest extends TestCase
+abstract class MerchantFulfillmentTest extends TestCase
 {
 
+    public function setUp()
+    {
 
+        parent::setUp();
+
+        $this->apiObject = "\\AmazonMWSAPI\MerchantFulfillment\\";
+
+    }
 
 }

@@ -23,4 +23,8 @@ class GetShipment extends MerchantFulfillment
         ]
     ];
 
+    public static $exampleGetShipment = [
+        "ShipmentId" => "6f77095e-9f75-47eb-aaab-a42d5428fa1a"
+    ];
+
 }
