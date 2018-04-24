@@ -36,4 +36,8 @@ class ListInventorySupply extends FulfillmentInventory
         ]
     ];
 
+    public static $exampleListInventorySupply = [
+
+    ];
+
 }
