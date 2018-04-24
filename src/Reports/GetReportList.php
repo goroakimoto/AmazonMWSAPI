@@ -38,4 +38,8 @@ class GetReportList extends Reports
         ]
     ];
 
+    public static $exampleGetReportList = [
+
+    ];
+
 }
