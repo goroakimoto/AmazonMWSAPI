@@ -17,6 +17,7 @@ class ListMatchingProducts extends Products
     protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
+            "notIncremented",
             "required"
         ],
         "Query" => [
@@ -28,6 +29,10 @@ class ListMatchingProducts extends Products
         "SellerId" => [
             "required"
         ]
+    ];
+
+    public static $exampleListMatchingProducts = [
+        "Query" => "0439708184"
     ];
 
 }
