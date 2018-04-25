@@ -14,11 +14,11 @@ class ListRecommendationsTest extends RecommendationsTest
 
         $this->apiObject .= "ListRecommendations";
 
-        $example = ListRecommendations::$exampleInventoryRecommendation;
+        $requestParameters = ListRecommendations::$exampleInventoryRecommendation;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

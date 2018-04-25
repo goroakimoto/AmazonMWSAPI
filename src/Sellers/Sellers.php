@@ -3,8 +3,9 @@
 namespace AmazonMWSAPI\Sellers;
 
 use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Parameters\Parameter;
 
-class Sellers
+class Sellers extends Parameter
 {
 
     use APIMethods;

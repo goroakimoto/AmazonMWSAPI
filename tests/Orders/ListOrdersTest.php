@@ -14,11 +14,11 @@ class ListOrdersTest extends OrdersTest
 
         $this->apiObject .= "ListOrders";
 
-        $example = ListOrders::$exampleListOrders;
+        $requestParameters = ListOrders::$exampleListOrders;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

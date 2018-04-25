@@ -14,11 +14,11 @@ class ListMatchingProductsTest extends ProductsTest
 
         $this->apiObject .= "ListMatchingProducts";
 
-        $example = ListMatchingProducts::$exampleListMatchingProducts;
+        $requestParameters = ListMatchingProducts::$exampleListMatchingProducts;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

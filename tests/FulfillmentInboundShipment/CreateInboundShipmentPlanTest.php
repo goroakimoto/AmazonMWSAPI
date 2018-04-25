@@ -14,11 +14,11 @@ class CreateInboundShipmentPlanTest extends FulfillmentInboundShipmentTest
 
         $this->apiObject .= "CreateInboundShipmentPlan";
 
-        $example = CreateInboundShipmentPlan::$exampleCreateInboundShipmentPlan;
+        $requestParameters = CreateInboundShipmentPlan::$exampleCreateInboundShipmentPlan;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

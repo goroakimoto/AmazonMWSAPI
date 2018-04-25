@@ -14,11 +14,11 @@ class ListFinancialEventGroupsTest extends FinancesTest
 
         $this->apiObject .= "ListFinancialEventGroups";
 
-        $example = ListFinancialEventGroups::$exampleFinancialEventGroups;
+        $requestParameters = ListFinancialEventGroups::$exampleFinancialEventGroups;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

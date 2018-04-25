@@ -14,11 +14,11 @@ class PutTransportContentTest extends FulfillmentInboundShipmentTest
 
         $this->apiObject .= "PutTransportContent";
 
-        $example = PutTransportContent::$examplePutTransportContent;
+        $requestParameters = PutTransportContent::$examplePutTransportContent;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations
@@ -76,11 +76,11 @@ class PutTransportContentTest extends FulfillmentInboundShipmentTest
 
     //     $this->apiObject .= "PutTransportContent";
 
-    //     $example = PutTransportContent::$examplePutTransportContent;
+    //     $requestParameters = PutTransportContent::$examplePutTransportContent;
 
     //     $this->testObject = Helpers::test(
     //         $this->apiObject,
-    //         $example,
+    //         $requestParameters,
     //         $this->print,
     //         $this->testPerformance,
     //         $this->iterations

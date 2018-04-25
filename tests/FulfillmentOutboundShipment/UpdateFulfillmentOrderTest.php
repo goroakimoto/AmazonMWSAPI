@@ -14,11 +14,11 @@ class UpdateFulfillmentOrderTest extends FulfillmentOutboundShipmentTest
 
         $this->apiObject .= "UpdateFulfillmentOrder";
 
-        $example = UpdateFulfillmentOrder::$exampleUpdateFulfillmentOrder;
+        $requestParameters = UpdateFulfillmentOrder::$exampleUpdateFulfillmentOrder;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

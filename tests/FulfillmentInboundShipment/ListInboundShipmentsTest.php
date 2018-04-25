@@ -14,11 +14,11 @@ class ListInboundShipmentsTest extends FulfillmentInboundShipmentTest
 
         $this->apiObject .= "ListInboundShipments";
 
-        $example = ListInboundShipments::$exampleListInboundShipments;
+        $requestParameters = ListInboundShipments::$exampleListInboundShipments;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations
@@ -35,11 +35,11 @@ class ListInboundShipmentsTest extends FulfillmentInboundShipmentTest
 
     //     $this->apiObject .= "ListInboundShipments";
 
-    //     $example = ListInboundShipments::$exampleListInboundShipments;
+    //     $requestParameters = ListInboundShipments::$exampleListInboundShipments;
 
     //     $this->testObject = Helpers::test(
     //         $this->apiObject,
-    //         $example,
+    //         $requestParameters,
     //         $this->print,
     //         $this->testPerformance,
     //         $this->iterations

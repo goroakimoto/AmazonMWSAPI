@@ -14,11 +14,11 @@ class ListInventorySupplyTest extends FulfillmentInventoryTest
 
     //     $this->apiObject .= "ListInventorySupply";
 
-    //     $example = ListInventorySupply::$exampleListInventorySupply;
+    //     $requestParameters = ListInventorySupply::$exampleListInventorySupply;
 
     //     $this->testObject = Helpers::test(
     //         $this->apiObject,
-    //         $example,
+    //         $requestParameters,
     //         $this->print,
     //         $this->testPerformance,
     //         $this->iterations

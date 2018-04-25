@@ -14,11 +14,11 @@ class GetFeedSubmissionTest extends FeedsTest
 
         $this->apiObject .= "GetFeedSubmissionList";
 
-        $example = GetFeedSubmissionList::$exampleGetFeedSubmissionList;
+        $requestParameters = GetFeedSubmissionList::$exampleGetFeedSubmissionList;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

@@ -14,11 +14,11 @@ class ListSubscriptionsTest extends SubscriptionsTest
 
         $this->apiObject .= "ListSubscriptions";
 
-        $example = ListSubscriptions::$exampleListSubscriptions;
+        $requestParameters = ListSubscriptions::$exampleListSubscriptions;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

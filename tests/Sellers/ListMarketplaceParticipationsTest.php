@@ -9,16 +9,18 @@ use AmazonMWSAPI\Sellers\ListMarketplaceParticipations;
 class ListMarketplaceParticipationsTest extends SellersTest
 {
 
+    protected $requestName = "ListMarketplaceParticipations";
+
     public function testListMarketplaceParticipations()
     {
 
-        $this->apiObject .= "ListMarketplaceParticipations";
+        $this->apiObject .= $this->requestName;
 
-        $example = ListMarketplaceParticipations::$exampleListMarketplaceParticipations;
+        $requestParameters = ListMarketplaceParticipations::$exampleListMarketplaceParticipations;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

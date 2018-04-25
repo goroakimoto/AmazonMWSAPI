@@ -14,11 +14,11 @@ class GetReportListTest extends ReportsTest
 
         $this->apiObject .= "GetReportList";
 
-        $example = GetReportList::$exampleGetReportList;
+        $requestParameters = GetReportList::$exampleGetReportList;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations

@@ -14,11 +14,11 @@ class GetShipmentTest extends MerchantFulfillmentTest
 
         $this->apiObject .= "GetShipment";
 
-        $example = GetShipment::$exampleGetShipment;
+        $requestParameters = GetShipment::$exampleGetShipment;
 
         $this->testObject = Helpers::test(
             $this->apiObject,
-            $example,
+            $requestParameters,
             $this->print,
             $this->testPerformance,
             $this->iterations
