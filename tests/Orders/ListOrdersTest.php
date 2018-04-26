@@ -26,7 +26,7 @@ class ListOrdersTest extends OrdersTest
 
         $curlParameters = $this->testObject->getCurlParameters();
 
-        $this->assertArrayHasKey("MarketplaceId", $curlParameters);
+        $this->assertArrayHasKey("MarketplaceId.Id.1", $curlParameters);
         $this->assertArrayHasKey("SellerId", $curlParameters);
 
     }

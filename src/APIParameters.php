@@ -837,6 +837,10 @@ trait APIParameters
 
                 static::setParameterByKey($parentParameter, $value);
 
+            } elseif ($incrementor) {
+
+                static::setParameterByKey("$parameter.$incrementor.1", $value);
+
             } else {
 
                 static::setParameterByKey($parameter, $value);
