@@ -1602,7 +1602,7 @@ trait APIParameters
 
     public static function verifyParameters()
     {
-        // Helpers::dd(static::getCurlParameters());
+        Helpers::dd(static::getCurlParameters());
         // Helpers::dd(static::getParameters());
 
         static::testOneIsSet();

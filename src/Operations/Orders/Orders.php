@@ -2,19 +2,13 @@
 
 namespace AmazonMWSAPI\Operations\Orders;
 
-use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Operations\Operations;
 
-class Orders
+class Orders extends Operations
 {
-
-    use APIMethods;
-    use APIParameters;
-    use APIProperties;
-    use APIParameterValidation;
 
     protected static $feedType = "";
     protected static $feedContent = "";
-    protected static $feed = "Orders";
     protected static $versionDate = "2013-09-01";
     private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/orders-2013-09-01/Orders_Overview.html";
     private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/orders-2013-09-01/Orders_ClientLibraries.html";
@@ -366,14 +360,5 @@ class Orders
             ]
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

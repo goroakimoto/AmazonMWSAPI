@@ -8,7 +8,7 @@ class CurlController
     public static function request($request)
     {
 
-        return CurlController::send($request);
+        return static::send($request);
 
     }
 
