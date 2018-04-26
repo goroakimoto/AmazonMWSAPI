@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Orders;
 
+use AmazonMWSAPI\Sections\Orders;
+
 class GetOrder extends Orders
 {
 

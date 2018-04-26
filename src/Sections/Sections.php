@@ -1,11 +1,11 @@
 <?php
 
-namespace AmazonMWSAPI\Operations;
+namespace AmazonMWSAPI\Sections;
 
 use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
 use AmazonMWSAPI\Helpers\Helpers;
 
-class Operations
+class Sections
 {
 
     use APIMethods;
@@ -18,7 +18,7 @@ class Operations
     public function __construct($parametersToSet = null)
     {
 
-        static::setFeedName();
+        static::setSectionName();
 
         static::setParameters($parametersToSet);
 
@@ -26,10 +26,10 @@ class Operations
 
     }
 
-    protected static function setFeedName()
+    protected static function setSectionName()
     {
 
-        static::$feed = Helpers::getCalledClassNameOnly(get_called_class());
+        static::$feed = Helpers::getCalledClassParentNameOnly(get_called_class());
 
     }
 

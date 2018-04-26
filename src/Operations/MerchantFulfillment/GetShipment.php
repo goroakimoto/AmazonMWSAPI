@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\MerchantFulfillment;
 
+use AmazonMWSAPI\Sections\MerchantFulfillment;
+
 class GetShipment extends MerchantFulfillment
 {
 

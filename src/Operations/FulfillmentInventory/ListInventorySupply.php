@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\FulfillmentInventory;
 
+use AmazonMWSAPI\Sections\FulfillmentInventory;
+
 class ListInventorySupply extends FulfillmentInventory
 {
 

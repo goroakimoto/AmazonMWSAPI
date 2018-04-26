@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\FulfillmentOutboundShipment;
 
+use AmazonMWSAPI\Sections\FulfillmentOutboundShipment;
+
 class UpdateFulfillmentOrder extends FulfillmentOutboundShipment
 {
 

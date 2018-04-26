@@ -1,6 +1,8 @@
 <?php
 namespace AmazonMWSAPI\Operations\Recommendations;
 
+use AmazonMWSAPI\Sections\Recommendations;
+
 
 class ListRecommendations extends Recommendations
 {

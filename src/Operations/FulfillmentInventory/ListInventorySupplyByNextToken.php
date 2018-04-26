@@ -2,6 +2,7 @@
 
 namespace AmazonMWSAPI\Operations\FulfillmentInventory;
 
+use AmazonMWSAPI\Sections\FulfillmentInventory;
 class ListInventorySupplyByNextToken extends FulfillmentInventory
 {
 

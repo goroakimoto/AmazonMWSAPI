@@ -1,10 +1,10 @@
 <?php
 
-namespace AmazonMWSAPI\Operations\FulfillmentOutboundShipment;
+namespace AmazonMWSAPI\Sections;
 
-use AmazonMWSAPI\Operations\Operations;
+use AmazonMWSAPI\Sections\Sections;
 
-class FulfillmentOutboundShipment extends Operations
+class FulfillmentOutboundShipment extends Sections
 {
 
     protected static $feedType = "";

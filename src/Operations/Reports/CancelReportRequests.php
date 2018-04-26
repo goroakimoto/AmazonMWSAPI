@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Reports;
 
+use AmazonMWSAPI\Sections\Reports;
+
 class CancelReportRequests extends Reports
 {
 

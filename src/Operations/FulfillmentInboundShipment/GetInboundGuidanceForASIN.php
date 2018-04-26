@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\FulfillmentInboundShipment;
 
+use AmazonMWSAPI\Sections\FulfillmentInboundShipment;
+
 class GetInboundGuidanceForASIN extends FulfillmentInboundShipment
 {
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace AmazonMWSAPI\Operations\Finances;
+namespace AmazonMWSAPI\Sections;
 
-use AmazonMWSAPI\Operations\Operations;
+use AmazonMWSAPI\Sections\Sections;
 
-class Finances extends Operations
+class Finances extends Sections
 {
 
     protected static $feedType = "";

@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Subscriptions;
 
+use AmazonMWSAPI\Sections\Subscriptions;
+
 class CreateSubscription extends Subscriptions
 {
 

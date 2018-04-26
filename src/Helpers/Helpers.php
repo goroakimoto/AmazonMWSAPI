@@ -46,6 +46,17 @@ class Helpers
 
     }
 
+    public static function getCalledClassParentNameOnly($calledClass)
+    {
+
+        $parentClass = get_parent_class($calledClass);
+
+        $fullClassName = explode("\\", $parentClass);
+
+        return end($fullClassName);
+
+    }
+
     public static function getAPIProperty($class, $property)
     {
 
@@ -115,10 +126,10 @@ class Helpers
 
     }
 
-    public static function printTest($print, $object)
+    public static function printTest($print, $object, $printXml = false)
     {
 
-        return $print ? static::dd($object) : $object;
+        return ($print && $printXml) ? static::ddXml($object) : ($print ? static::dd($object) : $object);
 
     }
 
@@ -140,11 +151,11 @@ class Helpers
 
         return $testPerformance ?
 
-            static::printTest($print, AmazonClient::amazonCurl(static::performance($objectToNewUp, $parameters, $iterations)))
+            static::printTest($print, AmazonClient::amazonCurl(static::performance($objectToNewUp, $parameters, $iterations)), true)
 
             :
 
-            static::printTest($print, AmazonClient::amazonCurl(new $objectToNewUp($parameters)));
+            static::printTest($print, AmazonClient::amazonCurl(new $objectToNewUp($parameters)), true);
 
     }
 

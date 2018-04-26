@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Feeds;
 
+use AmazonMWSAPI\Sections\Feeds;
+
 class GetFeedSubmissionResult extends Feeds
 {
 

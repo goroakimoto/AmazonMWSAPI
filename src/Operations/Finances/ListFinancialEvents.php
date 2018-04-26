@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Finances;
 
+use AmazonMWSAPI\Sections\Finances;
+
 class ListFinancialEvents extends Finances
 {
 

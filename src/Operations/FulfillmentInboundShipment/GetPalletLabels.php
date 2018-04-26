@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\FulfillmentInboundShipment;
 
+use AmazonMWSAPI\Sections\FulfillmentInboundShipment;
+
 class GetPalletLabels extends FulfillmentInboundShipment
 {
 

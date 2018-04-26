@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Recommendations;
 
+use AmazonMWSAPI\Sections\Recommendations;
+
 class GetServiceStatus extends Recommendations
 {
 

@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Products;
 
+use AmazonMWSAPI\Sections\Products;
+
 class GetLowestPricedOffersForSKU extends Products
 {
 

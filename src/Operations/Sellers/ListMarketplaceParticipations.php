@@ -2,6 +2,8 @@
 
 namespace AmazonMWSAPI\Operations\Sellers;
 
+use AmazonMWSAPI\Sections\Sellers;
+
 class ListMarketplaceParticipations extends Sellers
 {
 

@@ -2,6 +2,7 @@
 
 namespace AmazonMWSAPI\Operations\Reports;
 
+
 class GetReportRequestListByNextToken extends Reports
 {
 
