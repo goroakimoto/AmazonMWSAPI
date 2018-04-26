@@ -114,14 +114,14 @@ trait APIParameters
     public static function setSignatureMethodParameter()
     {
 
-        self::setParameterByKey("SignatureMethod", self::getSignatureMethod());
+        self::setCurlParameter("SignatureMethod", self::getSignatureMethod());
 
     }
 
     public static function setSignatureVersionParameter()
     {
 
-        self::setParameterByKey("SignatureVersion", self::getSignatureVersion());
+        self::setCurlParameter("SignatureVersion", self::getSignatureVersion());
 
     }
 
@@ -130,35 +130,35 @@ trait APIParameters
 
         $date = new DateTime(date("Y-m-d H:i:s"));
 
-        self::setParameterByKey("Timestamp", $date->format("Y-m-d\TH:i:s\Z"));
+        self::setCurlParameter("Timestamp", $date->format("Y-m-d\TH:i:s\Z"));
 
     }
 
     public static function setAwsAccessKeyParameter()
     {
 
-        self::setParameterByKey("AWSAccessKeyId", AmazonClient::getAwsAccessKey());
+        self::setCurlParameter("AWSAccessKeyId", AmazonClient::getAwsAccessKey());
 
     }
 
     public static function setActionParameter()
     {
 
-        self::setParameterByKey("Action", Helpers::getCalledClassNameOnly(get_called_class()));
+        self::setCurlParameter("Action", Helpers::getCalledClassNameOnly(get_called_class()));
 
     }
 
     public static function setMerchantIdParameter($key)
     {
 
-        self::setParameterByKey($key, AmazonClient::getMerchantId());
+        self::setCurlParameter($key, AmazonClient::getMerchantId());
 
     }
 
     public static function setPurgeAndReplaceParameter()
     {
 
-        self::setParameterByKey("PurgeAndReplace", "false");
+        self::setCurlParameter("PurgeAndReplace", "false");
 
     }
 
@@ -502,7 +502,7 @@ trait APIParameters
     public static function setVersionDateParameter()
     {
 
-        self::setParameterByKey("Version", static::getVersionDate());
+        self::setCurlParameter("Version", static::getVersionDate());
 
     }
 
@@ -712,7 +712,7 @@ trait APIParameters
 
     }
 
-    public static function setParameterByKey($key, $value)
+    public static function setCurlParameter($key, $value)
     {
 
         if (isset($value)) {
@@ -784,7 +784,7 @@ trait APIParameters
 
         if ($notIncremented) {
 
-            static::setParameterByKey($parameter, $value);
+            static::setCurlParameter($parameter, $value);
 
         } elseif (is_array($value)) {
 
@@ -819,7 +819,7 @@ trait APIParameters
 
                     } else {
 
-                        static::setParameterByKey("$parentParameter.$parameter.$key", $val);
+                        static::setCurlParameter("$parentParameter.$parameter.$key", $val);
 
                     }
 
@@ -837,15 +837,15 @@ trait APIParameters
 
             if ($parentParameter) {
 
-                static::setParameterByKey($parentParameter, $value);
+                static::setCurlParameter($parentParameter, $value);
 
             } elseif ($incrementor) {
 
-                static::setParameterByKey("$parameter.$incrementor.1", $value);
+                static::setCurlParameter("$parameter.$incrementor.1", $value);
 
             } else {
 
-                static::setParameterByKey($parameter, $value);
+                static::setCurlParameter($parameter, $value);
 
             }
 
@@ -872,7 +872,7 @@ trait APIParameters
 
                     } else {
 
-                        static::setParameterByKey("$parameter.$parameterSubKey", $subKeyValue);
+                        static::setCurlParameter("$parameter.$parameterSubKey", $subKeyValue);
 
                     }
 
@@ -882,11 +882,11 @@ trait APIParameters
 
                 if ($parentParameter) {
 
-                    static::setParameterByKey("$parentParameter.$parameter", $value);
+                    static::setCurlParameter("$parentParameter.$parameter", $value);
 
                 } else {
 
-                    static::setParameterByKey($parameter, $value);
+                    static::setCurlParameter($parameter, $value);
 
                 }
 
