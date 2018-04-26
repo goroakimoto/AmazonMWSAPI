@@ -12,10 +12,8 @@ class GetServiceStatus extends FulfillmentOutboundShipment
     protected static $restoreRateTime = 5;
     protected static $restoreRateTimePeriod = "minute";
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/fba_outbound/MWS_GetServiceStatus.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "SellerId" => [
             "requird"

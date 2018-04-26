@@ -12,10 +12,8 @@ class ListOrderItems extends Orders
     protected static $restoreRateTime = 2;
     protected static $restoreRateTimePeriod = "second";
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/orders-2013-09-01/Orders_ListOrderItems.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "AmazonOrderId" => [
             "required"

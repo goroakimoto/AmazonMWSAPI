@@ -13,10 +13,8 @@ class GetMatchingProduct extends Products
     protected static $restoreRateTimePeriod = "second";
     protected static $hourlyRequestQuota = 7200;
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetMatchingProduct.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
             "required"

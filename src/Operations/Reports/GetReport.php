@@ -13,10 +13,8 @@ class GetReport extends Reports
     protected static $restoreRateTimePeriod = "minute";
     protected static $hourlyRequestQuota = 60;
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_GetReport.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "ReportId" => [
             "required"

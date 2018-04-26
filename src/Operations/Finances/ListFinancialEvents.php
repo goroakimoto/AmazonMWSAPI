@@ -13,10 +13,8 @@ class ListFinancialEvents extends Finances
     protected static $restoreRateTimePeriod = "second";
     protected static $hourlyRequestQuota = 1800;
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/finances/Finances_ListFinancialEvents.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "AmazonOrderId" => [
             "incompatibleWith" => [

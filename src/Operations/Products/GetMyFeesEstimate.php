@@ -13,10 +13,8 @@ class GetMyFeesEstimate extends Products
     protected static $restoreRateTimePeriod = "second";
     protected static $hourlyRequestQuota = 36000;
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetMyFeesEstimate.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "FeesEstimateRequestList" => [
             "format" => "FeesEstimateRequest",

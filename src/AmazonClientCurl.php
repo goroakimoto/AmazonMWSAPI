@@ -6,10 +6,12 @@ use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\Helpers\XMLController;
 use AmazonMWSAPI\Helpers\CurlController;
 
+use AmazonMWSAPI\Sections\Sections;
+
 trait AmazonClientCurl
 {
 
-    protected static function sign($arr, $amazonAPI)
+    protected static function sign($arr, Sections $amazonAPI)
     {
 
         $sign = $amazonAPI::getMethod();
@@ -82,7 +84,7 @@ trait AmazonClientCurl
 
     }
 
-    protected static function createUrlArray($amazonAPI)
+    protected static function createUrlArray(Sections $amazonAPI)
     {
 
         $parameters = $amazonAPI::getCurlParameters();
@@ -122,7 +124,7 @@ trait AmazonClientCurl
 
     }
 
-    protected static function createLink($amazonAPI)
+    protected static function createLink(Sections $amazonAPI)
     {
 
         $url = static::createUrlArray($amazonAPI);
@@ -220,7 +222,7 @@ trait AmazonClientCurl
 
     }
 
-    protected static function parseAmazonXML($amazonAPI)
+    protected static function parseAmazonXML(Sections $amazonAPI)
     {
 
         $amazonXML = '';
@@ -242,7 +244,7 @@ trait AmazonClientCurl
 
     }
 
-    public static function amazonCurl($amazonAPI)
+    public static function amazonCurl(Sections $amazonAPI)
     {
 
         $amazonXmlFeed = static::parseAmazonXML($amazonAPI);

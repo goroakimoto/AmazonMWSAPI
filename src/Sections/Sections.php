@@ -19,6 +19,17 @@ class Sections
     protected static $endpoint;
     protected static $marketplaceId;
     protected static $region;
+    protected static $curlParameters = [];
+    // protected static $requiredParameters = [
+    //     "AWSAccessKeyId",
+    //     "Action",
+    //     // "MWSAuthToken", //For Developer Access
+    //     "SignatureMethod",
+    //     "SignatureVersion",
+    //     "Timestamp",
+    //     "Version"
+    // ];
+    protected static $allowedParameters = [];
 
     public function __construct($parametersToSet = null)
     {
@@ -142,13 +153,6 @@ class Sections
     {
 
         return static::$feedContent;
-
-    }
-
-    public static function getAction()
-    {
-
-        return static::$action;
 
     }
 

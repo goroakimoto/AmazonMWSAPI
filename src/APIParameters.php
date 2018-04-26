@@ -181,7 +181,9 @@ trait APIParameters
     public static function setEachRequiredParentParameter()
     {
 
-        $parentRequiredParameters = array_flip(static::getRequiredParameters(true));
+        $parentRequiredParameters = static::getRequiredParameters(true);
+
+        $parentRequiredParameters = array_flip($parentRequiredParameters);
 
         array_filter(
 

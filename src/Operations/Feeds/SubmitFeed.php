@@ -13,12 +13,8 @@ class SubmitFeed extends Feeds
     protected static $restoreRateTimePeriod = "minute";
     protected static $hourlyRequestQuota = 30;
     protected static $method = "POST";
-    protected static $feedType;
-    protected static $feedContent;
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_SubmitFeed.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "ContentMD5Value",
         "FeedContent" => [

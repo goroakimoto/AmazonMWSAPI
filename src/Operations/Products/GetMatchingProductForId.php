@@ -12,10 +12,8 @@ class GetMatchingProductForId extends Products
     protected static $restoreRateTime = 1;
     protected static $restoreRateTimePeriod = "second";
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetMatchingProductForId.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "MarketplaceId" => [
             "format" => "MarketplaceType",

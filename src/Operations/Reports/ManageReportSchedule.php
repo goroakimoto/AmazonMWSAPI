@@ -13,10 +13,8 @@ class ManageReportSchedule extends Reports
     protected static $restoreRateTimePeriod = "second";
     protected static $hourlyRequestQuota = 80;
     protected static $method = "POST";
-    protected static $curlParameters = [];
     private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_ManageReportSchedule.html";
     protected static $requiredParameters = [];
-    protected static $allowedParameters = [];
     protected static $parameters = [
         "ReportType" => [
             "format" => "ReportType",
