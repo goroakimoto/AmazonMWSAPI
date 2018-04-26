@@ -4,7 +4,7 @@ namespace Tests\Orders;
 
 use Tests\Orders\OrdersTest;
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\Orders\ListOrders;
+use AmazonMWSAPI\Operations\Orders\ListOrders;
 
 class ListOrdersTest extends OrdersTest
 {

@@ -12,7 +12,7 @@ abstract class MerchantFulfillmentTest extends TestCase
 
         parent::setUp();
 
-        $this->apiObject = "\\AmazonMWSAPI\MerchantFulfillment\\";
+        $this->apiObject = "\\AmazonMWSAPI\Operations\MerchantFulfillment\\";
 
     }
 

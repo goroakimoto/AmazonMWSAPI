@@ -4,7 +4,7 @@ namespace Tests\Reports;
 
 use Tests\Reports\ReportsTest;
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\Reports\GetReportList;
+use AmazonMWSAPI\Operations\Reports\GetReportList;
 
 class GetReportListTest extends ReportsTest
 {

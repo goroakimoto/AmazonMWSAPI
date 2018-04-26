@@ -4,7 +4,7 @@ namespace Tests\MerchantFulfillmentTest;
 
 use AmazonMWSAPI\Helpers\Helpers;
 use Tests\MerchantFulfillment\MerchantFulfillmentTest;
-use AmazonMWSAPI\MerchantFulfillment\GetShipment;
+use AmazonMWSAPI\Operations\MerchantFulfillment\GetShipment;
 
 class GetShipmentTest extends MerchantFulfillmentTest
 {

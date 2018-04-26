@@ -4,7 +4,7 @@ namespace Tests\FulfillmentInventory;
 
 use AmazonMWSAPI\Helpers\Helpers;
 use Tests\FulfillmentInventory\FulfillmentInventoryTest;
-use AmazonMWSAPI\FulfillmentInventory\ListInventorySupply;
+use AmazonMWSAPI\Operations\FulfillmentInventory\ListInventorySupply;
 
 class ListInventorySupplyTest extends FulfillmentInventoryTest
 {

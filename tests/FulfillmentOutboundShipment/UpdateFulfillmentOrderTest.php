@@ -3,8 +3,8 @@
 namespace Tests\FulfillmentOutboundShipment;
 
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\FulfillmentOutboundShipment\UpdateFulfillmentOrder;
 use Tests\FulfillmentOutboundShipment\FulfillmentOutboundShipmentTest;
+use AmazonMWSAPI\Operations\FulfillmentOutboundShipment\UpdateFulfillmentOrder;
 
 class UpdateFulfillmentOrderTest extends FulfillmentOutboundShipmentTest
 {

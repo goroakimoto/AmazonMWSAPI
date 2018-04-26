@@ -4,7 +4,7 @@ namespace Tests\Subscriptions;
 
 use AmazonMWSAPI\Helpers\Helpers;
 use Tests\Subscriptions\SubscriptionsTest;
-use AmazonMWSAPI\Subscriptions\ListSubscriptions;
+use AmazonMWSAPI\Operations\Subscriptions\ListSubscriptions;
 
 class ListSubscriptionsTest extends SubscriptionsTest
 {

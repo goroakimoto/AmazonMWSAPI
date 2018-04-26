@@ -5,7 +5,7 @@ namespace Tests\Setup;
 use Tests\TestCase;
 use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\AmazonClient;
-use AmazonMWSAPI\Feeds\Feeds;
+use AmazonMWSAPI\Operations\Feeds\Feeds;
 
 class SetupTest extends TestCase
 {
