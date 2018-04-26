@@ -8,102 +8,102 @@ use AmazonMWSAPI\Helpers\Helpers;
 trait APIMethods
 {
 
-    protected static function setMethod($method)
-    {
+    // protected static function setMethod($method)
+    // {
 
-        static::$method = $method;
+    //     static::$method = $method;
 
-    }
+    // }
 
-    protected static function setFeedType($feedType)
-    {
+    // protected static function setFeedType($feedType)
+    // {
 
-        static::$feedType = $feedType;
+    //     static::$feedType = $feedType;
 
-    }
+    // }
 
-    protected static function setFeedContent($feedContent)
-    {
+    // protected static function setFeedContent($feedContent)
+    // {
 
-        static::$feedContent = $feedContent;
+    //     static::$feedContent = $feedContent;
 
-    }
+    // }
 
-    public static function getCountry()
-    {
+    // public static function getCountry()
+    // {
 
-        return getenv("AMAZON_COUNTRY");
+    //     return getenv("AMAZON_COUNTRY");
 
-    }
+    // }
 
-    public static function getCountryCode()
-    {
+    // public static function getCountryCode()
+    // {
 
-        return self::$marketplaceTypes[static::getCountry()]["countryCode"];
+    //     return self::$marketplaceTypes[static::getCountry()]["countryCode"];
 
-    }
+    // }
 
-    public static function getEndpoint()
-    {
+    // public static function getEndpoint()
+    // {
 
-        return self::$marketplaceTypes[static::getCountry()]["endpoint"];
+    //     return self::$marketplaceTypes[static::getCountry()]["endpoint"];
 
-    }
+    // }
 
-    public static function getMarketplaceId()
-    {
+    // public static function getMarketplaceId()
+    // {
 
-        return self::$marketplaceTypes[static::getCountry()]["marketplaceId"];
+    //     return self::$marketplaceTypes[static::getCountry()]["marketplaceId"];
 
-    }
+    // }
 
-    public static function getRegion()
-    {
+    // public static function getRegion()
+    // {
 
-        return self::$marketplaceTypes[static::getCountry()]["region"];
+    //     return self::$marketplaceTypes[static::getCountry()]["region"];
 
-    }
+    // }
 
-    public static function getMethod()
-    {
+    // public static function getMethod()
+    // {
 
-        return static::$method;
+    //     return static::$method;
 
-    }
+    // }
 
-    public static function getFeed()
-    {
+    // public static function getFeed()
+    // {
 
-        return static::$feed;
+    //     return static::$feed;
 
-    }
+    // }
 
-    public static function getFeedType()
-    {
+    // public static function getFeedType()
+    // {
 
-        return static::$feedType;
+    //     return static::$feedType;
 
-    }
+    // }
 
-    public static function getFeedContent()
-    {
+    // public static function getFeedContent()
+    // {
 
-        return static::$feedContent;
+    //     return static::$feedContent;
 
-    }
+    // }
 
-    public static function getAction()
-    {
+    // public static function getAction()
+    // {
 
-        return static::$action;
+    //     return static::$action;
 
-    }
+    // }
 
-    public static function getVersionDate()
-    {
+    // public static function getVersionDate()
+    // {
 
-        return static::$versionDate;
+    //     return static::$versionDate;
 
-    }
+    // }
 
 }
