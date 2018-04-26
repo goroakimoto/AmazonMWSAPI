@@ -1,0 +1,29 @@
+AmazonClient
+    -> Request
+        -> Parameter
+            -> ParameterValidation
+                -> dependentOn
+                -> divisorOf
+                -> earlierThan -- Timestamp default interval is "PT2M"
+                -> format
+                -> greaterThan
+                -> incompatibleWith
+                -> laterThan -- Timestamp default interval is "PT2M"
+                -> length
+                -> maximumLength
+                -> maximumCount
+                -> minimumLength
+                -> notIncremented
+                -> notFartherApartThan
+                -> ifOperationIs
+                -> rangeWithin
+                -> required
+                -> requiredIfNotSet
+                -> requiredIf
+                -> validIf
+                -> validWith
+                -> parent - Key => value || value
+
+Request->Parameters[
+    Parameter
+]

@@ -12,7 +12,7 @@ abstract class FeedsTest extends TestCase
 
         parent::setUp();
 
-        $this->apiObject = "\\AmazonMWSAPI\Feeds\\";
+        $this->apiObject = "\\AmazonMWSAPI\Operations\Feeds\\";
 
     }
 

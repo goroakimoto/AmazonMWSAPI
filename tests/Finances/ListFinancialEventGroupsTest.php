@@ -4,7 +4,7 @@ namespace Tests\Finances;
 
 use AmazonMWSAPI\Helpers\Helpers;
 use Tests\Finances\FinancesTest;
-use AmazonMWSAPI\Finances\ListFinancialEventGroups;
+use AmazonMWSAPI\Operations\Finances\ListFinancialEventGroups;
 
 class ListFinancialEventGroupsTest extends FinancesTest
 {

@@ -4,7 +4,7 @@ namespace Tests\Products;
 
 use Tests\Products\ProductsTest;
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\Products\ListMatchingProducts;
+use AmazonMWSAPI\Operations\Products\ListMatchingProducts;
 
 class ListMatchingProductsTest extends ProductsTest
 {

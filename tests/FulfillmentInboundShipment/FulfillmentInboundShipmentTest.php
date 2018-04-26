@@ -12,7 +12,7 @@ abstract class FulfillmentInboundShipmentTest extends TestCase
 
         parent::setUp();
 
-        $this->apiObject = "\AmazonMWSAPI\FulfillmentInboundShipment\\";
+        $this->apiObject = "\AmazonMWSAPI\Operations\FulfillmentInboundShipment\\";
 
     }
 

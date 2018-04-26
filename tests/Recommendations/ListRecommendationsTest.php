@@ -4,7 +4,7 @@ namespace Tests\Recommendations;
 
 use AmazonMWSAPI\Helpers\Helpers;
 use Tests\Recommendations\RecommendationsTest;
-use AmazonMWSAPI\Recommendations\ListRecommendations;
+use AmazonMWSAPI\Operations\Recommendations\ListRecommendations;
 
 class ListRecommendationsTest extends RecommendationsTest
 {

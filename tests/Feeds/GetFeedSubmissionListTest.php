@@ -4,7 +4,7 @@ namespace Tests\Feeds;
 
 use Tests\Feeds\FeedsTest;
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\Feeds\GetFeedSubmissionList;
+use AmazonMWSAPI\Operations\Feeds\GetFeedSubmissionList;
 
 class GetFeedSubmissionTest extends FeedsTest
 {

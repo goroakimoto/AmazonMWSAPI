@@ -4,7 +4,7 @@ namespace Tests\FulfillmentInboundShipment;
 
 use AmazonMWSAPI\Helpers\Helpers;
 use Tests\FulfillmentInboundShipment\FulfillmentInboundShipmentTest;
-use AmazonMWSAPI\FulfillmentInboundShipment\CreateInboundShipmentPlan;
+use AmazonMWSAPI\Operations\FulfillmentInboundShipment\CreateInboundShipmentPlan;
 
 class CreateInboundShipmentPlanTest extends FulfillmentInboundShipmentTest
 {

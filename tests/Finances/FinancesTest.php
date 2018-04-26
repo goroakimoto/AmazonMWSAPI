@@ -12,7 +12,7 @@ abstract class FinancesTest extends TestCase
 
         parent::setUp();
 
-        $this->apiObject = "\AmazonMWSAPI\Finances\\";
+        $this->apiObject = "\AmazonMWSAPI\Operations\Finances\\";
 
     }
 

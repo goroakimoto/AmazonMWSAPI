@@ -3,8 +3,8 @@
 namespace Tests\FulfillmentInboundShipment;
 
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\FulfillmentInboundShipment\ListInboundShipments;
 use Tests\FulfillmentInboundShipment\FulfillmentInboundShipmentTest;
+use AmazonMWSAPI\Operations\FulfillmentInboundShipment\ListInboundShipments;
 
 class ListInboundShipmentsTest extends FulfillmentInboundShipmentTest
 {

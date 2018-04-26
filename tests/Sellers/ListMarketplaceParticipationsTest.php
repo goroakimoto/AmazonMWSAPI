@@ -4,7 +4,7 @@ namespace Tests\Sellers;
 
 use Tests\Sellers\SellersTest;
 use AmazonMWSAPI\Helpers\Helpers;
-use AmazonMWSAPI\Sellers\ListMarketplaceParticipations;
+use AmazonMWSAPI\Operations\Sellers\ListMarketplaceParticipations;
 
 class ListMarketplaceParticipationsTest extends SellersTest
 {
