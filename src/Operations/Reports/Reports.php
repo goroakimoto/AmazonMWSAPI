@@ -2,19 +2,13 @@
 
 namespace AmazonMWSAPI\Operations\Reports;
 
-use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Operations\Operations;
 
-class Reports
+class Reports extends Operations
 {
-
-    use APIMethods;
-    use APIParameters;
-    use APIProperties;
-    use APIParameterValidation;
 
     protected static $feedType = "";
     protected static $feedContent = "";
-    protected static $feed = "Reports";
     protected static $versionDate = "2009-01-01";
     private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_Overview.html";
     private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_ClientLibraries.html";
@@ -161,14 +155,5 @@ class Reports
             ]
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

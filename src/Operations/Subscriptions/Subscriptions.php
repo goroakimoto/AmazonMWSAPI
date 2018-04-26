@@ -2,19 +2,13 @@
 
 namespace AmazonMWSAPI\Operations\Subscriptions;
 
-use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Operations\Operations;
 
-class Subscriptions
+class Subscriptions extends Operations
 {
-
-    use APIMethods;
-    use APIParameters;
-    use APIProperties;
-    use APIParameterValidation;
 
     protected static $feedType = "";
     protected static $feedContent = "";
-    protected static $feed = "Subscriptions";
     protected static $versionDate = "2013-07-01";
     private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_Overview.html";
     private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_ClientLibraries.html";
@@ -61,14 +55,5 @@ class Subscriptions
             "FeePromotion"
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

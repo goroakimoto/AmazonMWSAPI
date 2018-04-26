@@ -2,19 +2,13 @@
 
 namespace AmazonMWSAPI\Operations\MerchantFulfillment;
 
-use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Operations\Operations;
 
-class MerchantFulfillment
+class MerchantFulfillment extends Operations
 {
-
-    use APIMethods;
-    use APIParameters;
-    use APIProperties;
-    use APIParameterValidation;
 
     protected static $feedType = "";
     protected static $feedContent = "";
-    protected static $feed = "MerchantFulfillment";
     protected static $versionDate = "2015-06-01";
     private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_Overview.html";
     private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_ClientLibraries.html";
@@ -393,14 +387,5 @@ class MerchantFulfillment
             ]
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

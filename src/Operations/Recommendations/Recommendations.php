@@ -2,19 +2,13 @@
 
 namespace AmazonMWSAPI\Operations\Recommendations;
 
-use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Operations\Operations;
 
-class Recommendations
+class Recommendations extends Operations
 {
-
-    use APIMethods;
-    use APIParameters;
-    use APIProperties;
-    use APIParameterValidation;
 
     protected static $feedType = "";
     protected static $feedContent = "";
-    protected static $feed = "Recommendations";
     protected static $versionDate = "2013-04-01";
     private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/recommendations/Recommendations_Overview.html";
     private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/recommendations/Recommendations_ClientLibraries.html";
@@ -265,14 +259,5 @@ class Recommendations
             ]
         ]
     ];
-
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 
 }

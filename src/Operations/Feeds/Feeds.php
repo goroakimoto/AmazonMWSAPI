@@ -2,19 +2,13 @@
 
 namespace AmazonMWSAPI\Operations\Feeds;
 
-use AmazonMWSAPI\{APIMethods, APIParameters, APIParameterValidation, APIProperties};
+use AmazonMWSAPI\Operations\Operations;
 
-class Feeds
+class Feeds extends Operations
 {
-
-    use APIMethods;
-    use APIParameters;
-    use APIProperties;
-    use APIParameterValidation;
 
     protected static $feedType = "";
     protected static $feedContent = "";
-    protected static $feed = "Feeds";
     protected static $versionDate = "2009-01-01";
     private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_Overview.html";
     private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_ClientLibraries.html";
@@ -85,12 +79,4 @@ class Feeds
         ]
     ];
 
-    public function __construct($parametersToSet = null)
-    {
-
-        static::setParameters($parametersToSet);
-
-        static::verifyParameters();
-
-    }
 }
