@@ -7,14 +7,14 @@ use AmazonMWSAPI\Sections\Products;
 class GetServiceStatus extends Products
 {
 
-    protected static $requestQuota = 2;
-    protected static $restoreRate = 1;
-    protected static $restoreRateTime = 5;
-    protected static $restoreRateTimePeriod = "second";
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetServiceStatus.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 2;
+    protected $restoreRate = 1;
+    protected $restoreRateTime = 5;
+    protected $restoreRateTimePeriod = "second";
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetServiceStatus.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "SellerId" => [
             "required"
         ]

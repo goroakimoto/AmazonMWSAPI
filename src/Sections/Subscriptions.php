@@ -7,12 +7,12 @@ use AmazonMWSAPI\Sections\Sections;
 class Subscriptions extends Sections
 {
 
-    protected static $feedType = "";
-    protected static $feedContent = "";
-    protected static $versionDate = "2013-07-01";
-    private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_Overview.html";
-    private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_ClientLibraries.html";
-    protected static $dataTypes = [
+    protected $feedType = "";
+    protected $feedContent = "";
+    protected $versionDate = "2013-07-01";
+    private $overviewUrl = "http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_Overview.html";
+    private $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_ClientLibraries.html";
+    protected $dataTypes = [
         "AttributeKeyValue" => [
             "Key" => [
                 "required",

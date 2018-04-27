@@ -14,17 +14,17 @@ class Sections
     use APIProperties;
     use APIParameterValidation;
 
-    protected static $feed;
-    protected static $method;
-    protected static $country;
-    protected static $countryCode;
-    protected static $endpoint;
-    protected static $marketplaceId;
-    protected static $region;
-    protected static $curlParameters = [];
-    protected static $p = [];
-    protected static $allowedParameters = [];
-    protected static $parametersRequiredForAllCalls = [
+    protected $feed;
+    protected $method;
+    protected $country;
+    protected $countryCode;
+    protected $endpoint;
+    protected $marketplaceId;
+    protected $region;
+    protected $curlParameters = [];
+    protected $p = [];
+    protected $allowedParameters = [];
+    protected $parametersRequiredForAllCalls = [
         "AWSAccessKeyId",
         "Action",
         // "MWSAuthToken", //For Developer Access
@@ -37,32 +37,32 @@ class Sections
     public function __construct($parametersToSet = null)
     {
 
-        static::setSectionName();
+        $this->setSectionName();
 
-        static::setCountry();
+        $this->setCountry();
 
-        static::setCountryCode();
+        $this->setCountryCode();
 
-        static::setEndpoint();
+        $this->setEndpoint();
 
-        static::setMarketplaceId();
+        $this->setMarketplaceId();
 
-        static::setRegion();
+        $this->setRegion();
 
-        static::setParameters($parametersToSet);
+        $this->setParameters($parametersToSet);
 
-        static::verifyParameters();
+        $this->verifyParameters();
 
-        static::initializeParameters(static::getParametersRequiredForAllCalls());
+        $this->initializeParameters($this->getParametersRequiredForAllCalls());
 
-        static::initializeParameters();
+        $this->initializeParameters();
 
     }
 
-    protected static function initializeParameters($parameters = null)
+    protected function initializeParameters($parameters = null)
     {
 
-        $parameters = !$parameters ? static::getParameters() : $parameters;
+        $parameters = !$parameters ? $this->getParameters() : $parameters;
 
         foreach ($parameters as $key => $value) {
 
@@ -70,13 +70,13 @@ class Sections
 
                 $parameter = $key;
 
-                static::setAllowedParameter($parameter);
+                $this->setAllowedParameter($parameter);
 
             } else {
 
                 $parameter = $value;
 
-                static::setAllowedParameter($parameter);
+                $this->setAllowedParameter($parameter);
 
             }
 
@@ -84,142 +84,149 @@ class Sections
 
     }
 
-    protected static function getParametersRequiredForAllCalls()
+    public function getParametersRequiredForAllCalls()
     {
 
-        return static::$parametersRequiredForAllCalls;
+        return $this->parametersRequiredForAllCalls;
 
     }
 
-    protected static function getParameters()
+    public function getParameters()
     {
 
-        return static::$parameters;
+        return $this->parameters;
 
     }
 
-    protected static function setAllowedParameter($parameter)
+    public function getProperty($property)
     {
 
-        static::$p["allowedParameters"][] = new AllowedParameter($parameter);
+        return $this->$property;
 
     }
 
-    public static function getAllowedParameters()
+    protected function setAllowedParameter($parameter)
     {
 
-        return static::$p["allowedParameters"];
+        $this->p["allowedParameters"][] = new AllowedParameter($parameter);
 
     }
 
-    protected static function setSectionName()
+    public function getAllowedParameters()
     {
 
-        static::$feed = Helpers::getCalledClassParentNameOnly(get_called_class());
-
-    }
-    protected static function setCountry()
-    {
-
-        static::$country = getenv("AMAZON_COUNTRY");
+        return $this->p["allowedParameters"];
 
     }
 
-    public static function getCountry()
+    protected function setSectionName()
     {
 
-        return static::$country;
+        $this->feed = Helpers::getCalledClassParentNameOnly(get_called_class());
+
+    }
+    protected function setCountry()
+    {
+
+        $this->country = getenv("AMAZON_COUNTRY");
 
     }
 
-    protected static function setCountryCode()
+    public function getCountry()
     {
 
-        static::$countryCode = self::$marketplaceTypes[static::getCountry()]["countryCode"];
+        return $this->country;
 
     }
 
-    public static function getCountryCode()
+    protected function setCountryCode()
     {
 
-        return static::$countryCode;
+        $this->countryCode = $this->marketplaceTypes[$this->getCountry()]["countryCode"];
 
     }
 
-    protected static function setEndpoint()
+    public function getCountryCode()
     {
 
-        static::$endpoint = self::$marketplaceTypes[static::getCountry()]["endpoint"];
+        return $this->countryCode;
 
     }
 
-    public static function getEndpoint()
+    protected function setEndpoint()
     {
 
-        return static::$endpoint;
+        $this->endpoint = $this->marketplaceTypes[$this->getCountry()]["endpoint"];
 
     }
 
-    protected static function setMarketplaceId()
+    public function getEndpoint()
     {
 
-        static::$marketplaceId = self::$marketplaceTypes[static::getCountry()]["marketplaceId"];
+        return $this->endpoint;
 
     }
 
-    public static function getMarketplaceId()
+    protected function setMarketplaceId()
     {
 
-        return static::$marketplaceId;
+        $this->marketplaceId = $this->marketplaceTypes[$this->getCountry()]["marketplaceId"];
 
     }
 
-    protected static function setRegion()
+    public function getMarketplaceId()
     {
 
-        static::$region = self::$marketplaceTypes[static::getCountry()]["region"];
+        return $this->marketplaceId;
 
     }
 
-    public static function getRegion()
+    protected function setRegion()
     {
 
-        return static::$region;
+        $this->region = $this->marketplaceTypes[$this->getCountry()]["region"];
 
     }
 
-    public static function getMethod()
+    public function getRegion()
     {
 
-        return static::$method;
+        return $this->region;
 
     }
 
-    public static function getFeed()
+    public function getMethod()
     {
 
-        return static::$feed;
+        return $this->method;
 
     }
 
-    public static function getFeedType()
+    public function getFeed()
     {
 
-        return static::$feedType;
+        return $this->feed;
 
     }
 
-    public static function getFeedContent()
+    public function getFeedType()
     {
 
-        return static::$feedContent;
+        return $this->feedType;
 
     }
 
-    public static function getVersionDate()
+    public function getFeedContent()
     {
 
-        return static::$versionDate;
+        return $this->feedContent;
+
+    }
+
+    public function getVersionDate()
+    {
+
+        return $this->versionDate;
 
     }
 

@@ -7,12 +7,12 @@ use AmazonMWSAPI\Sections\Sections;
 class Reports extends Sections
 {
 
-    protected static $feedType = "";
-    protected static $feedContent = "";
-    protected static $versionDate = "2009-01-01";
-    private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_Overview.html";
-    private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_ClientLibraries.html";
-    protected static $dataTypes = [
+    protected $feedType = "";
+    protected $feedContent = "";
+    protected $versionDate = "2009-01-01";
+    private $overviewUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_Overview.html";
+    private $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/reports/Reports_ClientLibraries.html";
+    protected $dataTypes = [
         "ReportInfo" => [
             "ReportId",
             "ReportType" => [

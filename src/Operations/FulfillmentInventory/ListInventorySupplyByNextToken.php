@@ -6,14 +6,14 @@ use AmazonMWSAPI\Sections\FulfillmentInventory;
 class ListInventorySupplyByNextToken extends FulfillmentInventory
 {
 
-    protected static $requestQuota = 30;
-    protected static $restoreRate = 2;
-    protected static $restoreRateTime = 1;
-    protected static $restoreRatePeriod = "second";
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_ListInventorySupplyByNextToken.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 30;
+    protected $restoreRate = 2;
+    protected $restoreRateTime = 1;
+    protected $restoreRatePeriod = "second";
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_ListInventorySupplyByNextToken.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "NextToken" => [
             "required"
         ],

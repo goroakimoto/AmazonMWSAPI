@@ -7,12 +7,12 @@ use AmazonMWSAPI\Sections\Sections;
 class MerchantFulfillment extends Sections
 {
 
-    protected static $feedType = "";
-    protected static $feedContent = "";
-    protected static $versionDate = "2015-06-01";
-    private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_Overview.html";
-    private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_ClientLibraries.html";
-    protected static $dataTypes = [
+    protected $feedType = "";
+    protected $feedContent = "";
+    protected $versionDate = "2015-06-01";
+    private $overviewUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_Overview.html";
+    private $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/merch_fulfill/MerchFulfill_ClientLibraries.html";
+    protected $dataTypes = [
         "Address" => [
             "Name" => [
                 "maximumLength" => 30,

@@ -7,14 +7,14 @@ use AmazonMWSAPI\Sections\Products;
 class GetMatchingProductForId extends Products
 {
 
-    protected static $requestQuota = 20;
-    protected static $restoreRate = 5;
-    protected static $restoreRateTime = 1;
-    protected static $restoreRateTimePeriod = "second";
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetMatchingProductForId.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 20;
+    protected $restoreRate = 5;
+    protected $restoreRateTime = 1;
+    protected $restoreRateTimePeriod = "second";
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetMatchingProductForId.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "MarketplaceId" => [
             "format" => "MarketplaceType",
             "required"

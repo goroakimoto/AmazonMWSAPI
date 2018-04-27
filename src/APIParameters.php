@@ -10,7 +10,7 @@ use DateTimeZone;
 trait APIParameters
 {
 
-    private static $requiredParameters = [
+    private $requiredParameters = [
         "AWSAccessKeyId",
         "Action",
         // "MWSAuthToken", //For Developer Access
@@ -20,161 +20,161 @@ trait APIParameters
         "Version"
     ];
 
-    public static function getOrderNumberFormat()
+    public function getOrderNumberFormat()
     {
 
-        return static::$orderNumberFormat;
+        return $this->orderNumberFormat;
 
     }
 
-    public static function getAllowedParameters()
+    public function getAllowedParameters()
     {
 
-        return static::$allowedParameters;
+        return $this->allowedParameters;
 
     }
 
-    public static function setClassParameterByKey($key, $value)
+    public function setClassParameterByKey($key, $value)
     {
 
-        static::$parameters[$key] = $value;
+        $this->parameters[$key] = $value;
 
     }
 
-    public static function getIncrementors()
+    public function getIncrementors()
     {
 
-        return static::$incrementors;
+        return $this->incrementors;
 
     }
 
-    public static function getParameterByKey($key)
+    public function getParameterByKey($key)
     {
 
-        return static::$curlParameters[$key] ?? null;
+        return $this->curlParameters[$key] ?? null;
 
     }
 
-    private static function getSignatureMethod()
+    private function getSignatureMethod()
     {
 
-        return self::$signatureMethod;
+        return $this->signatureMethod;
 
     }
 
-    private static function getSignatureVersion()
+    private function getSignatureVersion()
     {
 
-        return self::$signatureVersion;
+        return $this->signatureVersion;
 
     }
 
-    public static function getCurlParameters()
+    public function getCurlParameters()
     {
 
-        return static::$curlParameters;
+        return $this->curlParameters;
 
     }
 
-    public static function getRequiredParameters($parent = null)
+    public function getRequiredParameters($parent = null)
     {
 
-        return $parent ? self::$requiredParameters : static::$requiredParameters;
+        return $parent ? $this->requiredParameters : $this->requiredParameters;
 
     }
 
-    public static function unsetClassParameterByKey($key)
+    public function unsetClassParameterByKey($key)
     {
 
-        unset(static::$parameters[$key]);
+        unset($this->parameters[$key]);
 
     }
 
-    public static function resetCurlParameters()
+    public function resetCurlParameters()
     {
 
-        static::$curlParameters = [];
+        $this->curlParameters = [];
 
     }
 
-    public static function resetRequiredParameters()
+    public function resetRequiredParameters()
     {
 
-        static::$requiredParameters = [];
+        $this->requiredParameters = [];
 
     }
 
-    public static function setSignatureMethodParameter()
+    public function setSignatureMethodParameter()
     {
 
-        self::setCurlParameter("SignatureMethod", self::getSignatureMethod());
+        $this->setCurlParameter("SignatureMethod", $this->getSignatureMethod());
 
     }
 
-    public static function setSignatureVersionParameter()
+    public function setSignatureVersionParameter()
     {
 
-        self::setCurlParameter("SignatureVersion", self::getSignatureVersion());
+        $this->setCurlParameter("SignatureVersion", $this->getSignatureVersion());
 
     }
 
-    public static function setTimestampParameter()
+    public function setTimestampParameter()
     {
 
         $date = new DateTime(date("Y-m-d H:i:s"));
 
-        self::setCurlParameter("Timestamp", $date->format("Y-m-d\TH:i:s\Z"));
+        $this->setCurlParameter("Timestamp", $date->format("Y-m-d\TH:i:s\Z"));
 
     }
 
-    public static function setAwsAccessKeyParameter()
+    public function setAwsAccessKeyParameter()
     {
 
-        self::setCurlParameter("AWSAccessKeyId", AmazonClient::getAwsAccessKey());
+        $this->setCurlParameter("AWSAccessKeyId", AmazonClient::getAwsAccessKey());
 
     }
 
-    public static function setActionParameter()
+    public function setActionParameter()
     {
 
-        self::setCurlParameter("Action", Helpers::getCalledClassNameOnly(get_called_class()));
+        $this->setCurlParameter("Action", Helpers::getCalledClassNameOnly(get_called_class()));
 
     }
 
-    public static function setMerchantIdParameter($key)
+    public function setMerchantIdParameter($key)
     {
 
-        self::setCurlParameter($key, AmazonClient::getMerchantId());
+        $this->setCurlParameter($key, AmazonClient::getMerchantId());
 
     }
 
-    public static function setPurgeAndReplaceParameter()
+    public function setPurgeAndReplaceParameter()
     {
 
-        self::setCurlParameter("PurgeAndReplace", "false");
+        $this->setCurlParameter("PurgeAndReplace", "false");
 
     }
 
-    public static function setMarketplaceIdParameter()
+    public function setMarketplaceIdParameter()
     {
 
-        static::incrementParameterWithValue("MarketplaceId", self::getMarketplaceId());
+        $this->incrementParameterWithValue("MarketplaceId", $this->getMarketplaceId());
 
     }
 
-    public static function setDateParameter($parameter, $date, $format = "Y-m-d\TH:i:s\Z")
+    public function setDateParameter($parameter, $date, $format = "Y-m-d\TH:i:s\Z")
     {
 
         $newDate = new DateTime($date);
 
-        static::$curlParameters[$parameter] = $newDate->format($format);
+        $this->curlParameters[$parameter] = $newDate->format($format);
 
     }
 
-    public static function setEachRequiredParentParameter()
+    public function setEachRequiredParentParameter()
     {
 
-        $parentRequiredParameters = static::getRequiredParameters(true);
+        $parentRequiredParameters = $this->getRequiredParameters(true);
 
         $parentRequiredParameters = array_flip($parentRequiredParameters);
 
@@ -184,7 +184,7 @@ trait APIParameters
 
             function ($value, $parameter) {
 
-                static::setRequiredParameter($parameter, $value);
+                $this->setRequiredParameter($parameter, $value);
 
             },
 
@@ -194,7 +194,7 @@ trait APIParameters
 
     }
 
-    public static function getNumberOfObjectsAtLevel($parameterToCheck, $incrementor, $arrayToCheck)
+    public function getNumberOfObjectsAtLevel($parameterToCheck, $incrementor, $arrayToCheck)
     {
 
         $count = [];
@@ -225,12 +225,12 @@ trait APIParameters
 
     }
 
-    public static function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
+    public function setEachRequiredParameter($requiredParameters = null, $requiredParentParameter = null)
     {
 
-        $requiredParameters = $requiredParameters ?? static::findRequiredParameters();
+        $requiredParameters = $requiredParameters ?? $this->findRequiredParameters();
 
-        static::setRequiredParameters($requiredParameters);
+        $this->setRequiredParameters($requiredParameters);
 
         array_filter(
 
@@ -238,7 +238,7 @@ trait APIParameters
 
             function ($value, $parameter) {
 
-                static::setRequiredParameter($parameter, $value);
+                $this->setRequiredParameter($parameter, $value);
 
             },
 
@@ -248,38 +248,38 @@ trait APIParameters
 
     }
 
-    protected static function incrementRequiredParameterByInstancesInCurl($numberOfInstances, $key, $val, $requiredParameters, $parentParameter)
+    protected function incrementRequiredParameterByInstancesInCurl($numberOfInstances, $key, $val, $requiredParameters, $parentParameter)
     {
 
         for ($x = 1; $x <= $numberOfInstances; $x++) {
 
-            static::incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter.$x");
+            $this->incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter.$x");
 
         }
 
     }
 
-    protected static function setRequiredParametersByInstancesInCurl($numberOfInstances, $parameter)
+    protected function setRequiredParametersByInstancesInCurl($numberOfInstances, $parameter)
     {
 
         for ($x = 1; $x <= $numberOfInstances; $x++) {
 
-            static::setRequiredParameter("$parameter.$x", 1);
+            $this->setRequiredParameter("$parameter.$x", 1);
 
         }
 
     }
 
-    protected static function setRequiredParametersArrayWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $key, $val, $requiredParameters, &$currentKey, $curlParameters)
+    protected function setRequiredParametersArrayWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $key, $val, $requiredParameters, &$currentKey, $curlParameters)
     {
 
         if (!is_numeric($key)) {
 
-            $matchingParameters = static::searchBackupParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
+            $matchingParameters = $this->searchBackupParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
 
-            $numberOfInstances = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
+            $numberOfInstances = $this->getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
 
-            $numberOfInstances ? static::incrementRequiredParameterByInstancesInCurl($numberOfInstances, $key, $val, $requiredParameters, "$parentParameter.$parameter.$incrementor") : "";
+            $numberOfInstances ? $this->incrementRequiredParameterByInstancesInCurl($numberOfInstances, $key, $val, $requiredParameters, "$parentParameter.$parameter.$incrementor") : "";
 
             return;
 
@@ -289,143 +289,143 @@ trait APIParameters
 
     }
 
-    protected static function setRequiredParametersArrayWithParentParameter($parameter, $parentParameter, $key, $val, $requiredParameters, $requiredArray)
+    protected function setRequiredParametersArrayWithParentParameter($parameter, $parentParameter, $key, $val, $requiredParameters, $requiredArray)
     {
 
         if (is_numeric($parameter)) {
 
             (is_array($val) && $val !== $requiredArray) ?
 
-                static::incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter") :
+                $this->incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter") :
 
-                static::incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter.$key");
+                $this->incrementRequiredParameter($key, $val, $requiredParameters, "$parentParameter.$key");
 
             return;
 
         }
 
-        !is_numeric($key) ? static::setRequiredParameter("$parentParameter.$parameter.$key", 1) : "";
+        !is_numeric($key) ? $this->setRequiredParameter("$parentParameter.$parameter.$key", 1) : "";
 
     }
 
-    protected static function setRequiredParametersArrayWithIncrementor($parameter, $incrementor, $key, $val, $requiredParameters, &$currentKey, $curlParameters)
+    protected function setRequiredParametersArrayWithIncrementor($parameter, $incrementor, $key, $val, $requiredParameters, &$currentKey, $curlParameters)
     {
 
-        $matchingParameters = static::searchBackupParametersReturnResults("$parameter.$incrementor", $curlParameters);
+        $matchingParameters = $this->searchBackupParametersReturnResults("$parameter.$incrementor", $curlParameters);
 
-        $numberOfInstances = static::getNumberOfObjectsAtLevel($parameter, $incrementor, array_keys($matchingParameters));
+        $numberOfInstances = $this->getNumberOfObjectsAtLevel($parameter, $incrementor, array_keys($matchingParameters));
 
         is_numeric($key) ? $currentKey++ : "";
 
-        return $numberOfInstances ? static::incrementRequiredParameterByInstancesInCurl($numberOfInstances, $key, $val, $requiredParameters, "$parameter.$incrementor") : "";
+        return $numberOfInstances ? $this->incrementRequiredParameterByInstancesInCurl($numberOfInstances, $key, $val, $requiredParameters, "$parameter.$incrementor") : "";
 
     }
 
-    protected static function setRequiredParametersWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $curlParameters)
+    protected function setRequiredParametersWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $curlParameters)
     {
 
-        $matchingParameters = static::searchBackupParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
+        $matchingParameters = $this->searchBackupParametersReturnResults("$parentParameter.$parameter.$incrementor", $curlParameters);
 
-        $numberOfInstances = static::getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
+        $numberOfInstances = $this->getNumberOfObjectsAtLevel("$parentParameter.$parameter", $incrementor, array_keys($matchingParameters));
 
         return $numberOfInstances ?
 
-            static::setRequiredParametersByInstancesInCurl($numberOfInstances, "$parentParameter.$parameter.$incrementor") :
+            $this->setRequiredParametersByInstancesInCurl($numberOfInstances, "$parentParameter.$parameter.$incrementor") :
 
-            static::setRequiredParameter("$parentParameter.$parameter.$incrementor.1", 1);
+            $this->setRequiredParameter("$parentParameter.$parameter.$incrementor.1", 1);
 
     }
 
-    protected static function setRequiredParametersUsingArray($parameter, $value, $parentParameter, $incrementor, $key, $val, $requiredParameters, $requiredArray, $currentKey, $curlParameters)
+    protected function setRequiredParametersUsingArray($parameter, $value, $parentParameter, $incrementor, $key, $val, $requiredParameters, $requiredArray, $currentKey, $curlParameters)
     {
 
         if ($parentParameter && $incrementor) {
 
-            static::setRequiredParametersArrayWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $key, $val, $requiredParameters, $currentKey, $curlParameters);
+            $this->setRequiredParametersArrayWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $key, $val, $requiredParameters, $currentKey, $curlParameters);
 
         } elseif ($parentParameter) {
 
-            static::setRequiredParametersArrayWithParentParameter($parameter, $parentParameter, $key, $val, $requiredParameters, $requiredArray);
+            $this->setRequiredParametersArrayWithParentParameter($parameter, $parentParameter, $key, $val, $requiredParameters, $requiredArray);
 
         } elseif ($incrementor) {
 
-            static::setRequiredParametersArrayWithIncrementor($parameter, $incrementor, $key, $val, $requiredParameters, $currentKey, $curlParameters);
+            $this->setRequiredParametersArrayWithIncrementor($parameter, $incrementor, $key, $val, $requiredParameters, $currentKey, $curlParameters);
 
         }
 
     }
 
-    protected static function setRequiredParametersValueIsArray($parameter, $value, $requiredParameters, $requiredArray, $curlParameters, $parentParameter = null, $incrementor = null, &$currentKey = 0)
+    protected function setRequiredParametersValueIsArray($parameter, $value, $requiredParameters, $requiredArray, $curlParameters, $parentParameter = null, $incrementor = null, &$currentKey = 0)
     {
 
         foreach ($value as $key => $val) {
 
-            static::setRequiredParametersUsingArray($parameter, $value, $parentParameter, $incrementor, $key, $val, $requiredParameters, $requiredArray, $currentKey, $curlParameters);
+            $this->setRequiredParametersUsingArray($parameter, $value, $parentParameter, $incrementor, $key, $val, $requiredParameters, $requiredArray, $currentKey, $curlParameters);
 
         }
 
     }
 
-    protected static function setRequiredParametersValueIsNotArray($parameter, $curlParameters, $parentParameter = null, $incrementor = null)
+    protected function setRequiredParametersValueIsNotArray($parameter, $curlParameters, $parentParameter = null, $incrementor = null)
     {
 
         if ($parentParameter && $incrementor) {
 
-            static::setRequiredParametersWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $curlParameters);
+            $this->setRequiredParametersWithParentParameterAndIncrementor($parameter, $parentParameter, $incrementor, $curlParameters);
 
         } elseif ($parentParameter) {
 
-            static::setRequiredParameter("$parentParameter.$parameter", 1);
+            $this->setRequiredParameter("$parentParameter.$parameter", 1);
 
         } else {
 
-            static::setRequiredParameter($parameter, 1);
+            $this->setRequiredParameter($parameter, 1);
 
         }
 
     }
 
-    public static function incrementRequiredParameter($parameter, $value, &$requiredParameters, $parentParameter = null)
+    public function incrementRequiredParameter($parameter, $value, &$requiredParameters, $parentParameter = null)
     {
 
         $requiredArray = ["required"];
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $curlParameters = static::getCurlParameters();
+        $curlParameters = $this->getCurlParameters();
 
-        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
+        $notIncremented = $this->recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
 
-        $incrementor = static::assembleIncrementor($parameter);
+        $incrementor = $this->assembleIncrementor($parameter);
 
         if ($notIncremented) {
 
-            static::setRequiredParameter($parameter, 1);
+            $this->setRequiredParameter($parameter, 1);
 
         } elseif (is_array($value) && $value !== $requiredArray) {
 
             $currentKey = 0;
 
-            static::setRequiredParametersValueIsArray($parameter, $value, $requiredParameters, $requiredArray, $curlParameters, $parentParameter, $incrementor, $currentKey);
+            $this->setRequiredParametersValueIsArray($parameter, $value, $requiredParameters, $requiredArray, $curlParameters, $parentParameter, $incrementor, $currentKey);
 
         } else {
 
-            static::setRequiredParametersValueIsNotArray($parameter, $curlParameters, $parentParameter, $incrementor);
+            $this->setRequiredParametersValueIsNotArray($parameter, $curlParameters, $parentParameter, $incrementor);
 
         }
 
     }
 
-    public static function setRequiredParameters($requiredParameters, $parentParameter = null)
+    public function setRequiredParameters($requiredParameters, $parentParameter = null)
     {
 
         $requiredArray = ["required"];
 
         foreach ($requiredParameters as $parameter => $value) {
 
-            if (static::assembleIncrementor($parameter)) {
+            if ($this->assembleIncrementor($parameter)) {
 
-                static::incrementRequiredParameter($parameter, $value, $requiredParameters, $parentParameter);
+                $this->incrementRequiredParameter($parameter, $value, $requiredParameters, $parentParameter);
 
             } elseif (is_array($value) && $value !== $requiredArray) {
 
@@ -435,11 +435,11 @@ trait APIParameters
 
                         if ($parentParameter) {
 
-                            static::setRequiredParameters($subKeyValue, "$parentParameter.$parameter.$parameterSubKey");
+                            $this->setRequiredParameters($subKeyValue, "$parentParameter.$parameter.$parameterSubKey");
 
                         } else {
 
-                            static::setRequiredParameters($subKeyValue, "$parameter.$parameterSubKey");
+                            $this->setRequiredParameters($subKeyValue, "$parameter.$parameterSubKey");
 
                         }
 
@@ -448,15 +448,15 @@ trait APIParameters
 
                         if ($parentParameter && !is_numeric($parameterSubKey)) {
 
-                            static::setRequiredParameter("$parentParameter.$parameter.$parameterSubKey", 1);
+                            $this->setRequiredParameter("$parentParameter.$parameter.$parameterSubKey", 1);
 
                         } elseif ($parentParameter) {
 
-                            static::setRequiredParameter("$parentParameter.$parameter", 1);
+                            $this->setRequiredParameter("$parentParameter.$parameter", 1);
 
                         } elseif (!is_numeric($parameterSubKey)) {
 
-                            static::setRequiredParameter("$parameter.$parameterSubKey", 1);
+                            $this->setRequiredParameter("$parameter.$parameterSubKey", 1);
                         }
 
                     }
@@ -469,13 +469,13 @@ trait APIParameters
 
                     if (!is_numeric($parameter)) {
 
-                        static::setRequiredParameter("$parentParameter.$parameter", 1);
+                        $this->setRequiredParameter("$parentParameter.$parameter", 1);
 
                     }
 
                 } else {
 
-                    static::setRequiredParameter($parameter, 1);
+                    $this->setRequiredParameter($parameter, 1);
 
                 }
 
@@ -485,21 +485,21 @@ trait APIParameters
 
     }
 
-    public static function setRequiredParameter($parameter, $value = null)
+    public function setRequiredParameter($parameter, $value = null)
     {
 
-        static::$requiredParameters[$parameter] = $value;
+        $this->requiredParameters[$parameter] = $value;
 
     }
 
-    public static function setVersionDateParameter()
+    public function setVersionDateParameter()
     {
 
-        self::setCurlParameter("Version", static::getVersionDate());
+        $this->setCurlParameter("Version", $this->getVersionDate());
 
     }
 
-    public static function recursiveArrayFilterReturnBoolean($method, $array, $arg = null, $inArray = false, $class = "static")
+    public function recursiveArrayFilterReturnBoolean($method, $array, $arg = null, $inArray = false, $class = "static")
     {
 
         foreach ($array as $key => $value) {
@@ -511,7 +511,7 @@ trait APIParameters
 
             } elseif (is_array($value)) {
 
-                static::recursiveArrayFilterReturnBoolean($method, $value, $arg, $inArray);
+                $this->recursiveArrayFilterReturnBoolean($method, $value, $arg, $inArray);
 
             }
 
@@ -521,14 +521,14 @@ trait APIParameters
 
     }
 
-    public static function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $lookingFor = "key", $callback = false, $class = "static")
+    public function recursiveArrayFilterReturnArray($method, $array, $removeEmptyArrays = false, $arg = null, $lookingFor = "key", $callback = false, $class = "static")
     {
 
         foreach ($array as $key => $value) {
 
             if (is_array($value) && $lookingFor === "value") {
 
-                $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
+                $array[$key] = $this->recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
 
                 if ($removeEmptyArrays && !(bool)$array[$key]) {
 
@@ -538,7 +538,7 @@ trait APIParameters
 
             } elseif (is_array($value) && $lookingFor === "key" && !call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
-                $array[$key] = static::recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
+                $array[$key] = $this->recursiveArrayFilterReturnArray($method, $value, $removeEmptyArrays, $arg, $lookingFor, call_user_func_array([$class, $method], [$value, $key, $arg]));
 
                 if ($removeEmptyArrays && !(bool)$array[$key]) {
 
@@ -564,14 +564,14 @@ trait APIParameters
 
     }
 
-    public static function recursiveArrayFilterUnsetParameter($method, $array, $arg, $callback = false, $class = "static")
+    public function recursiveArrayFilterUnsetParameter($method, $array, $arg, $callback = false, $class = "static")
     {
 
         foreach ($array as $key => $value) {
 
             if (is_array($value) && !call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
-                $array[$key] = static::recursiveArrayFilterUnsetParameter($method, $value, $arg, call_user_func_array([$class, $method], [$value, $key, $arg]));
+                $array[$key] = $this->recursiveArrayFilterUnsetParameter($method, $value, $arg, call_user_func_array([$class, $method], [$value, $key, $arg]));
 
             } elseif (call_user_func_array([$class, $method], [$value, $key, $arg])) {
 
@@ -585,21 +585,21 @@ trait APIParameters
 
     }
 
-    public static function findRequiredParameters()
+    public function findRequiredParameters()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        return static::recursiveArrayFilterReturnArray("required", $parameters, true, null, "value");
+        return $this->recursiveArrayFilterReturnArray("required", $parameters, true, null, "value");
 
     }
 
-    public static function getIncrementorByKey($parameterToCheck)
+    public function getIncrementorByKey($parameterToCheck)
     {
 
-        if (is_string($parameterToCheck) && array_key_exists($parameterToCheck, static::$incrementors)) {
+        if (is_string($parameterToCheck) && array_key_exists($parameterToCheck, $this->incrementors)) {
 
-            return static::$incrementors[$parameterToCheck];
+            return $this->incrementors[$parameterToCheck];
 
         }
 
@@ -607,12 +607,12 @@ trait APIParameters
 
     }
 
-    public static function getDateTimeParameters()
+    public function getDateTimeParameters()
     {
 
         return array_filter(
 
-            static::getParameters(),
+            $this->getParameters(),
 
             function ($v, $k) {
 
@@ -626,12 +626,12 @@ trait APIParameters
 
     }
 
-    public static function getDateParameters()
+    public function getDateParameters()
     {
 
         return array_filter(
 
-            static::getParameters(),
+            $this->getParameters(),
 
             function ($v, $k) {
 
@@ -645,12 +645,12 @@ trait APIParameters
 
     }
 
-    public static function getParametersWithFormat($parameters = null)
+    public function getParametersWithFormat($parameters = null)
     {
 
         if (!$parameters) {
 
-            $parameters = static::getParameters();
+            $parameters = $this->getParameters();
 
         }
 
@@ -670,12 +670,12 @@ trait APIParameters
 
     }
 
-    public static function combineFormatWithParameters($array, $find = null, $replace = null)
+    public function combineFormatWithParameters($array, $find = null, $replace = null)
     {
 
-        $dataTypes = static::$dataTypes;
+        $dataTypes = $this->dataTypes;
 
-        $parametersWithFormats = static::getParametersWithFormat($replace);
+        $parametersWithFormats = $this->getParametersWithFormat($replace);
 
         foreach ($array as $key => $value) {
 
@@ -693,7 +693,7 @@ trait APIParameters
 
                 if (is_array($array[$key])) {
 
-                    $array[$key] = static::combineFormatWithParameters($array[$key], $key, $dataType);
+                    $array[$key] = $this->combineFormatWithParameters($array[$key], $key, $dataType);
 
                 }
 
@@ -705,22 +705,22 @@ trait APIParameters
 
     }
 
-    public static function setCurlParameter($key, $value)
+    public function setCurlParameter($key, $value)
     {
 
         if (isset($value)) {
 
-            if (array_key_exists($key, static::getDateTimeParameters()) && !in_array($key, static::getCurlParameters())) {
+            if (array_key_exists($key, $this->getDateTimeParameters()) && !in_array($key, $this->getCurlParameters())) {
 
-                static::setDateParameter($key, $value);
+                $this->setDateParameter($key, $value);
 
-            } elseif (array_key_exists($key, static::getDateParameters()) && !in_array($key, static::getCurlParameters())) {
+            } elseif (array_key_exists($key, $this->getDateParameters()) && !in_array($key, $this->getCurlParameters())) {
 
-                static::setDateParameter($key, $value);
+                $this->setDateParameter($key, $value);
 
             } else {
 
-                static::$curlParameters[$key] = $value;
+                $this->curlParameters[$key] = $value;
 
             }
 
@@ -728,7 +728,7 @@ trait APIParameters
 
     }
 
-    public static function notIncremented($v, $k, $arg)
+    public function notIncremented($v, $k, $arg)
     {
 
         if (is_array($v) && in_array("notIncremented", $v) && $k === $arg) {
@@ -741,10 +741,10 @@ trait APIParameters
 
     }
 
-    public static function assembleIncrementor($parameter)
+    public function assembleIncrementor($parameter)
     {
 
-        $incrementor = static::getIncrementorByKey($parameter);
+        $incrementor = $this->getIncrementorByKey($parameter);
 
         if (is_array($incrementor)) {
 
@@ -766,18 +766,18 @@ trait APIParameters
 
     }
 
-    public static function incrementParameterWithValue($parameter, $value, $parentParameter = null)
+    public function incrementParameterWithValue($parameter, $value, $parentParameter = null)
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $notIncremented = static::recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
+        $notIncremented = $this->recursiveArrayFilterReturnBoolean("notIncremented", $parameters, $parameter);
 
-        $incrementor = static::assembleIncrementor($parameter);
+        $incrementor = $this->assembleIncrementor($parameter);
 
         if ($notIncremented) {
 
-            static::setCurlParameter($parameter, $value);
+            $this->setCurlParameter($parameter, $value);
 
         } elseif (is_array($value)) {
 
@@ -788,11 +788,11 @@ trait APIParameters
                     if (is_numeric($key)) {
 
                         $key++;
-                        static::incrementParameterWithValue($key, $val, "$parentParameter.$parameter.$incrementor.$key");
+                        $this->incrementParameterWithValue($key, $val, "$parentParameter.$parameter.$incrementor.$key");
 
                     } else {
 
-                        static::incrementParameterWithValue($key, $val, "$parentParameter.$parameter.$incrementor");
+                        $this->incrementParameterWithValue($key, $val, "$parentParameter.$parameter.$incrementor");
 
                     }
 
@@ -802,17 +802,17 @@ trait APIParameters
 
                         if (is_array($val)) {
 
-                            static::incrementParameterWithValue($key, $val, "$parentParameter");
+                            $this->incrementParameterWithValue($key, $val, "$parentParameter");
 
                         } else {
 
-                            static::incrementParameterWithValue($key, $val, "$parentParameter.$key");
+                            $this->incrementParameterWithValue($key, $val, "$parentParameter.$key");
 
                         }
 
                     } else {
 
-                        static::setCurlParameter("$parentParameter.$parameter.$key", $val);
+                        $this->setCurlParameter("$parentParameter.$parameter.$key", $val);
 
                     }
 
@@ -820,7 +820,7 @@ trait APIParameters
 
                     $key++;
 
-                    static::incrementParameterWithValue($key, $val, "$parameter.$incrementor.$key");
+                    $this->incrementParameterWithValue($key, $val, "$parameter.$incrementor.$key");
 
                 }
 
@@ -830,15 +830,15 @@ trait APIParameters
 
             if ($parentParameter) {
 
-                static::setCurlParameter($parentParameter, $value);
+                $this->setCurlParameter($parentParameter, $value);
 
             } elseif ($incrementor) {
 
-                static::setCurlParameter("$parameter.$incrementor.1", $value);
+                $this->setCurlParameter("$parameter.$incrementor.1", $value);
 
             } else {
 
-                static::setCurlParameter($parameter, $value);
+                $this->setCurlParameter($parameter, $value);
 
             }
 
@@ -846,14 +846,14 @@ trait APIParameters
 
     }
 
-    public static function setPassedParameters($parametersToSet, $parentParameter = null)
+    public function setPassedParameters($parametersToSet, $parentParameter = null)
     {
 
         foreach ($parametersToSet as $parameter => $value) {
 
-            if (static::getIncrementorByKey($parameter)) {
+            if ($this->getIncrementorByKey($parameter)) {
 
-                static::incrementParameterWithValue($parameter, $value, $parentParameter);
+                $this->incrementParameterWithValue($parameter, $value, $parentParameter);
 
             } elseif (is_array($value)) {
 
@@ -861,11 +861,11 @@ trait APIParameters
 
                     if (is_array($subKeyValue)) {
 
-                        static::setPassedParameters($subKeyValue, "$parameter.$parameterSubKey");
+                        $this->setPassedParameters($subKeyValue, "$parameter.$parameterSubKey");
 
                     } else {
 
-                        static::setCurlParameter("$parameter.$parameterSubKey", $subKeyValue);
+                        $this->setCurlParameter("$parameter.$parameterSubKey", $subKeyValue);
 
                     }
 
@@ -875,11 +875,11 @@ trait APIParameters
 
                 if ($parentParameter) {
 
-                    static::setCurlParameter("$parentParameter.$parameter", $value);
+                    $this->setCurlParameter("$parentParameter.$parameter", $value);
 
                 } else {
 
-                    static::setCurlParameter($parameter, $value);
+                    $this->setCurlParameter($parameter, $value);
 
                 }
 
@@ -889,7 +889,7 @@ trait APIParameters
 
     }
 
-    public static function searchForBackupParameter($v, $k, $parameterToCheck)
+    public function searchForBackupParameter($v, $k, $parameterToCheck)
     {
 
         $explodedKey = explode(".", $k);
@@ -909,7 +909,7 @@ trait APIParameters
 
     }
 
-    public static function keyEqualsParameter($v, $k, $parameterToCheck)
+    public function keyEqualsParameter($v, $k, $parameterToCheck)
     {
 
         if ($k === $parameterToCheck) {
@@ -922,88 +922,88 @@ trait APIParameters
 
     }
 
-    public static function searchParameters($parameterToCheck, $parameters = null)
+    public function searchParameters($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters) {
 
-            $parameters = static::getCurlParameters();
+            $parameters = $this->getCurlParameters();
 
         }
 
-        return static::recursiveArrayFilterReturnBoolean("keyEqualsParameter", $parameters, $parameterToCheck);
+        return $this->recursiveArrayFilterReturnBoolean("keyEqualsParameter", $parameters, $parameterToCheck);
 
     }
 
-    public static function searchBackupParameters($parameterToCheck, $parameters = null)
+    public function searchBackupParameters($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters) {
 
-            $parameters = static::getCurlParameters();
+            $parameters = $this->getCurlParameters();
 
         }
 
-        return static::recursiveArrayFilterReturnBoolean("searchForBackupParameter", $parameters, $parameterToCheck);
+        return $this->recursiveArrayFilterReturnBoolean("searchForBackupParameter", $parameters, $parameterToCheck);
 
     }
 
-    public static function searchParametersReturnResults($parameterToCheck, $parameters = null)
+    public function searchParametersReturnResults($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters) {
 
-            $parameters = static::getCurlParameters();
+            $parameters = $this->getCurlParameters();
 
         }
 
-        return static::recursiveArrayFilterReturnArray("keyEqualsParameter", $parameters, true, $parameterToCheck);
+        return $this->recursiveArrayFilterReturnArray("keyEqualsParameter", $parameters, true, $parameterToCheck);
 
     }
 
-    public static function searchBackupParametersReturnResults($parameterToCheck, $parameters = null)
+    public function searchBackupParametersReturnResults($parameterToCheck, $parameters = null)
     {
 
         if (!$parameters) {
 
-            $parameters = static::getCurlParameters();
+            $parameters = $this->getCurlParameters();
 
         }
 
-        return static::recursiveArrayFilterReturnArray("searchForBackupParameter", $parameters, true, $parameterToCheck);
+        return $this->recursiveArrayFilterReturnArray("searchForBackupParameter", $parameters, true, $parameterToCheck);
 
     }
 
-    public static function combineRequiredParameters()
+    public function combineRequiredParameters()
     {
 
-        static::setEachRequiredParentParameter();
+        $this->setEachRequiredParentParameter();
 
-        static::setEachRequiredParameter();
+        $this->setEachRequiredParameter();
 
     }
 
-    public static function combineRequiredAndAllowedParameters()
+    public function combineRequiredAndAllowedParameters()
     {
 
-        static::$allowedParameters = array_merge(
+        $this->allowedParameters = array_merge(
 
-            static::getRequiredParameters(),
+            $this->getRequiredParameters(),
 
-            static::getParameters()
+            $this->getParameters()
 
         );
 
-        // Helpers::dd(static::$allowedParameters);
+        // Helpers::dd($this->allowedParameters);
 
     }
 
-    public static function requiredIf($v, $k, $arg)
+    public function requiredIf($v, $k, $arg)
     {
 
         if (is_array($v) && array_key_exists("requiredIf", $v)) {
 
-            static::ensureRequiredIfParametersAreSet($k, $v["requiredIf"]);
+            $this->ensureRequiredIfParametersAreSet($k, $v["requiredIf"]);
 
             return true;
 
@@ -1013,12 +1013,12 @@ trait APIParameters
 
     }
 
-    public static function validWith($v, $k, $arg)
+    public function validWith($v, $k, $arg)
     {
 
         if (is_array($v) && array_key_exists("validWith", $v)) {
 
-            static::ensureParameterValuesAreValidWith($k, $v["validWith"]);
+            $this->ensureParameterValuesAreValidWith($k, $v["validWith"]);
 
             return true;
 
@@ -1028,12 +1028,12 @@ trait APIParameters
 
     }
 
-    public static function validif($v, $k)
+    public function validif($v, $k)
     {
 
         if (is_array($v) && array_key_exists("validIf", $v)) {
 
-            static::ensureParameterValuesAreValidif($k, $v {
+            $this->ensureParameterValuesAreValidif($k, $v {
                 "validIf"});
 
             return true;
@@ -1044,7 +1044,7 @@ trait APIParameters
 
     }
 
-    public static function required($v, $k)
+    public function required($v, $k)
     {
 
         if (is_array($v) && in_array("required", $v)) {
@@ -1061,12 +1061,12 @@ trait APIParameters
 
     }
 
-    public static function countIsLessThanMaximum($v, $k)
+    public function countIsLessThanMaximum($v, $k)
     {
 
         if (is_array($v) && array_key_exists("maximumCount", $v)) {
 
-            static::ensureParameterCountIsLessThanMaximum($k, $v["maximumCount"]);
+            $this->ensureParameterCountIsLessThanMaximum($k, $v["maximumCount"]);
 
             return true;
 
@@ -1076,12 +1076,12 @@ trait APIParameters
 
     }
 
-    public static function noLongerThanMaximum($v, $k)
+    public function noLongerThanMaximum($v, $k)
     {
 
         if (is_array($v) && array_key_exists("maximumLength", $v)) {
 
-            static::ensureParameterIsNoLongerThanMaximum($k, $v["maximumLength"]);
+            $this->ensureParameterIsNoLongerThanMaximum($k, $v["maximumLength"]);
 
             return true;
 
@@ -1091,12 +1091,12 @@ trait APIParameters
 
     }
 
-    public static function noShorterThanMinimum($v, $k)
+    public function noShorterThanMinimum($v, $k)
     {
 
         if (is_array($v) && array_key_exists("minimumLength", $v)) {
 
-            static::ensureParameterIsNoShorterThanMinimum($k, $v["minimumLength"]);
+            $this->ensureParameterIsNoShorterThanMinimum($k, $v["minimumLength"]);
 
             return true;
 
@@ -1106,14 +1106,14 @@ trait APIParameters
 
     }
 
-    public static function areWithinRange($v, $k)
+    public function areWithinRange($v, $k)
     {
 
         if (is_array($v) && array_key_exists("rangeWithin", $v)) {
 
-            static::ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
+            $this->ensureParameterIsNotGreaterThanMaximum($k, $v["rangeWithin"]["max"]);
 
-            static::ensureParameterIsNotLessThanMinimum($k, $v["rangeWithin"]["min"]);
+            $this->ensureParameterIsNotLessThanMinimum($k, $v["rangeWithin"]["min"]);
 
             return true;
 
@@ -1123,18 +1123,18 @@ trait APIParameters
 
     }
 
-    public static function oneIsSet($v, $k)
+    public function oneIsSet($v, $k)
     {
 
         if (is_array($v) && array_key_exists("requiredIfNotSet", $v)) {
 
             if (is_array($v["requiredIfNotSet"])) {
 
-                static::ensureOnlyOneParameterIsSet($k, $v["requiredIfNotSet"]);
+                $this->ensureOnlyOneParameterIsSet($k, $v["requiredIfNotSet"]);
 
             } else {
 
-                static::ensureOneParameterOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
+                $this->ensureOneParameterOrTheOtherIsSet($k, $v["requiredIfNotSet"]);
 
             }
 
@@ -1146,12 +1146,12 @@ trait APIParameters
 
     }
 
-    public static function withIncompatibilities($v, $k)
+    public function withIncompatibilities($v, $k)
     {
 
         if (is_array($v) && array_key_exists("incompatibleWith", $v)) {
 
-            static::ensureIncompatibleParametersNotSet($k, $v["incompatibleWith"]);
+            $this->ensureIncompatibleParametersNotSet($k, $v["incompatibleWith"]);
 
             return true;
 
@@ -1161,12 +1161,12 @@ trait APIParameters
 
     }
 
-    public static function datesNotOutsideInterval($v, $k)
+    public function datesNotOutsideInterval($v, $k)
     {
 
         if (is_array($v) && array_key_exists("notFartherApartThan", $v)) {
 
-            static::ensureDatesNotOutsideInterval($k, $v["notFartherApartThan"]["from"], $v["notFartherApartThan"]["days"]);
+            $this->ensureDatesNotOutsideInterval($k, $v["notFartherApartThan"]["from"], $v["notFartherApartThan"]["days"]);
 
             return true;
 
@@ -1176,26 +1176,26 @@ trait APIParameters
 
     }
 
-    public static function dateTimesAreInProperFormat($v, $k)
+    public function dateTimesAreInProperFormat($v, $k)
     {
 
-        static::ensureDateTimesAreInProperFormat($k);
+        $this->ensureDateTimesAreInProperFormat($k);
 
     }
 
-    public static function datesAreInProperFormat($v, $k)
+    public function datesAreInProperFormat($v, $k)
     {
 
-        static::ensureDatesAreInProperFormat($k);
+        $this->ensureDatesAreInProperFormat($k);
 
     }
 
-    public static function datesAreLaterThan($v, $k)
+    public function datesAreLaterThan($v, $k)
     {
 
         if (is_array($v) && array_key_exists("laterThan", $v)) {
 
-            static::ensureIntervalBetweenDates($k, $v["laterThan"], "later");
+            $this->ensureIntervalBetweenDates($k, $v["laterThan"], "later");
 
             return true;
 
@@ -1205,7 +1205,7 @@ trait APIParameters
 
     }
 
-    public static function datesAreEarlierThan($v, $k)
+    public function datesAreEarlierThan($v, $k)
     {
 
         if (is_array($v) && array_key_exists("earlierThan", $v)) {
@@ -1218,7 +1218,7 @@ trait APIParameters
 
                     function ($vv, $kk) use ($k) {
 
-                        static::ensureIntervalBetweenDates($k, $vv);
+                        $this->ensureIntervalBetweenDates($k, $vv);
 
                     },
 
@@ -1227,7 +1227,7 @@ trait APIParameters
 
             } else {
 
-                static::ensureIntervalBetweenDates($k);
+                $this->ensureIntervalBetweenDates($k);
 
             }
 
@@ -1235,12 +1235,12 @@ trait APIParameters
 
     }
 
-    public static function divisorOf($v, $k)
+    public function divisorOf($v, $k)
     {
 
         if (is_array($v) && array_key_exists("divisorOf", $v)) {
 
-            static::ensureParameterIsAnEvenDivisorOf($k, $v["divisorOf"]);
+            $this->ensureParameterIsAnEvenDivisorOf($k, $v["divisorOf"]);
 
             return true;
 
@@ -1250,12 +1250,12 @@ trait APIParameters
 
     }
 
-    public static function greaterThanParameters($v, $k)
+    public function greaterThanParameters($v, $k)
     {
 
         if (is_array($v) && array_key_exists("greaterThan", $v)) {
 
-            static::ensureParameterIsGreaterThan($k, $v["greaterThan"]);
+            $this->ensureParameterIsGreaterThan($k, $v["greaterThan"]);
 
             return true;
 
@@ -1265,12 +1265,12 @@ trait APIParameters
 
     }
 
-    public static function length($v, $k)
+    public function length($v, $k)
     {
 
         if (is_array($v) && array_key_exists("length", $v)) {
 
-            static::ensureParameterIsThisLength($k, $v["length"]);
+            $this->ensureParameterIsThisLength($k, $v["length"]);
 
             return true;
 
@@ -1280,16 +1280,16 @@ trait APIParameters
 
     }
 
-    public static function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
+    public function getSiblingParameters($parameterToCheck, $arrayToCheck = null)
     {
 
         if (!$arrayToCheck) {
 
-            $arrayToCheck = static::getCurlParameters();
+            $arrayToCheck = $this->getCurlParameters();
 
         }
 
-        $level = static::getLevel($parameterToCheck);
+        $level = $this->getLevel($parameterToCheck);
 
         if ($level) {
 
@@ -1313,7 +1313,7 @@ trait APIParameters
 
     }
 
-    public static function getLevel($parameterToCheck)
+    public function getLevel($parameterToCheck)
     {
 
         $level = explode(".", $parameterToCheck);
@@ -1324,176 +1324,176 @@ trait APIParameters
 
     }
 
-    public static function testRequiredIfParametersAreSet()
+    public function testRequiredIfParametersAreSet()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $requiredIfParameters = static::recursiveArrayFilterReturnArray("requiredIf", $parameters, true);
+        $requiredIfParameters = $this->recursiveArrayFilterReturnArray("requiredIf", $parameters, true);
 
     }
 
-    public static function testParametersAreValidWith()
+    public function testParametersAreValidWith()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $validWithParameters = static::recursiveArrayFilterReturnArray("validWith", $parameters, true);
+        $validWithParameters = $this->recursiveArrayFilterReturnArray("validWith", $parameters, true);
 
     }
 
-    public static function testParametersAreValidif()
+    public function testParametersAreValidif()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $validIfParameters = static::recursiveArrayFilterReturnArray("validIf", $parameters, false);
+        $validIfParameters = $this->recursiveArrayFilterReturnArray("validIf", $parameters, false);
 
     }
 
-    public static function testParameterCountIsLessThanMaximum()
+    public function testParameterCountIsLessThanMaximum()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $countIsLessThanMaximumParameters = static::recursiveArrayFilterReturnArray("countIsLessThanMaximum", $parameters, false);
+        $countIsLessThanMaximumParameters = $this->recursiveArrayFilterReturnArray("countIsLessThanMaximum", $parameters, false);
 
     }
 
-    public static function testParametersAreNoLongerThanMaximum()
+    public function testParametersAreNoLongerThanMaximum()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $noLongerThanMaximumParameters = static::recursiveArrayFilterReturnArray("noLongerThanMaximum", $parameters, false);
+        $noLongerThanMaximumParameters = $this->recursiveArrayFilterReturnArray("noLongerThanMaximum", $parameters, false);
 
     }
 
-    public static function testParametersAreNoShorterThanMinimum()
+    public function testParametersAreNoShorterThanMinimum()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $noShorterThanMinimumParameters = static::recursiveArrayFilterReturnArray("noShorterThanMinimum", $parameters, false);
+        $noShorterThanMinimumParameters = $this->recursiveArrayFilterReturnArray("noShorterThanMinimum", $parameters, false);
 
     }
 
-    public static function testDatesNotOutsideInterval()
+    public function testDatesNotOutsideInterval()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesNotOutsideInterval", $parameters, false);
+        $datesNotOutsideIntervalParameters = $this->recursiveArrayFilterReturnArray("datesNotOutsideInterval", $parameters, false);
 
     }
 
-    public static function testDateTimesAreInProperFormat()
+    public function testDateTimesAreInProperFormat()
     {
 
-        $dateTimeParameters = static::getDateTimeParameters();
+        $dateTimeParameters = $this->getDateTimeParameters();
 
-        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("dateTimesAreInProperFormat", $dateTimeParameters, false);
+        $datesNotOutsideIntervalParameters = $this->recursiveArrayFilterReturnArray("dateTimesAreInProperFormat", $dateTimeParameters, false);
 
     }
 
-    public static function testDatesAreInProperFormat()
+    public function testDatesAreInProperFormat()
     {
 
-        $dateParameters = static::getDateParameters();
+        $dateParameters = $this->getDateParameters();
 
-        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreInProperFormat", $dateParameters, false);
+        $datesNotOutsideIntervalParameters = $this->recursiveArrayFilterReturnArray("datesAreInProperFormat", $dateParameters, false);
 
     }
 
-    public static function testDatesAreLaterThan()
+    public function testDatesAreLaterThan()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreLaterThan", $parameters, false);
+        $datesNotOutsideIntervalParameters = $this->recursiveArrayFilterReturnArray("datesAreLaterThan", $parameters, false);
 
     }
 
-    public static function testDatesAreEarlierThan()
+    public function testDatesAreEarlierThan()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $datesNotOutsideIntervalParameters = static::recursiveArrayFilterReturnArray("datesAreEarlierThan", $parameters, false);
+        $datesNotOutsideIntervalParameters = $this->recursiveArrayFilterReturnArray("datesAreEarlierThan", $parameters, false);
 
     }
 
-    public static function testParametersAreWithinGivenRange()
+    public function testParametersAreWithinGivenRange()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $rangeWithinParameters = static::recursiveArrayFilterReturnArray("areWithinRange", $parameters, false);
+        $rangeWithinParameters = $this->recursiveArrayFilterReturnArray("areWithinRange", $parameters, false);
 
     }
 
-    public static function testOneIsSet()
+    public function testOneIsSet()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $oneIsSetParameters = static::recursiveArrayFilterReturnArray("oneIsSet", $parameters, true);
+        $oneIsSetParameters = $this->recursiveArrayFilterReturnArray("oneIsSet", $parameters, true);
 
-        static::$requiredParameters = static::removeConditionallyRequiredParametersNotUsed($oneIsSetParameters, static::$requiredParameters);
+        $this->requiredParameters = $this->removeConditionallyRequiredParametersNotUsed($oneIsSetParameters, $this->requiredParameters);
 
     }
 
-    public static function testParametersWithIncompatibilities()
+    public function testParametersWithIncompatibilities()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $withIncompatibilitiesParameters = static::recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
+        $withIncompatibilitiesParameters = $this->recursiveArrayFilterReturnArray("withIncompatibilities", $parameters, false);
 
     }
 
-    public static function testDivisorOf()
+    public function testDivisorOf()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $divisorOf = static::recursiveArrayFilterReturnArray("divisorOf", $parameters, false);
+        $divisorOf = $this->recursiveArrayFilterReturnArray("divisorOf", $parameters, false);
 
     }
 
-    public static function testGreaterThan()
+    public function testGreaterThan()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $greaterThan = static::recursiveArrayFilterReturnArray("greaterThanParameters", $parameters, false);
+        $greaterThan = $this->recursiveArrayFilterReturnArray("greaterThanParameters", $parameters, false);
     }
 
-    public static function testLength()
+    public function testLength()
     {
 
-        $parameters = static::getParameters();
+        $parameters = $this->getParameters();
 
-        $length = static::recursiveArrayFilterReturnArray("length", $parameters, false);
+        $length = $this->recursiveArrayFilterReturnArray("length", $parameters, false);
 
     }
 
-    public static function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
+    public function removeConditionallyRequiredParametersNotUsed($arrayToRemoveConditionallyRequiredParameters, &$requiredParameters)
     {
 
         foreach ($arrayToRemoveConditionallyRequiredParameters as $parameter => $value) {
 
             if (is_array($value) && !array_key_exists("requiredIfNotSet", $value)) {
 
-                static::removeConditionallyRequiredParametersNotUsed($value, $requiredParameters);
+                $this->removeConditionallyRequiredParametersNotUsed($value, $requiredParameters);
 
             } elseif (is_array($value) && array_key_exists("requiredIfNotSet", $value)) {
 
-                $matchingCurlParameters = static::searchBackupParameters($parameter);
+                $matchingCurlParameters = $this->searchBackupParameters($parameter);
 
                 if (!$matchingCurlParameters) {
 
-                    $requiredParameters = static::recursiveArrayFilterUnsetParameter("keyEqualsParameter", $requiredParameters, $parameter);
+                    $requiredParameters = $this->recursiveArrayFilterUnsetParameter("keyEqualsParameter", $requiredParameters, $parameter);
 
                 }
 
@@ -1504,14 +1504,14 @@ trait APIParameters
         return $requiredParameters;
 
     }
-    public static function getNestedParameterKey($parameterToFind, $arrayToCheck)
+    public function getNestedParameterKey($parameterToFind, $arrayToCheck)
     {
 
         if (is_array($arrayToCheck)) {
 
             if (!array_key_exists($parameterToFind, $arrayToCheck)) {
 
-                return static::getNestedParameterKey($parameterToFind, end($arrayToCheck));
+                return $this->getNestedParameterKey($parameterToFind, end($arrayToCheck));
 
             } else {
 
@@ -1527,12 +1527,12 @@ trait APIParameters
 
     }
 
-    public static function getNestedParameterValue($parameterToFind, $arrayToCheck)
+    public function getNestedParameterValue($parameterToFind, $arrayToCheck)
     {
 
         if (!array_key_exists($parameterToFind, $arrayToCheck)) {
 
-            return static::getNestedParameterValue($parameterToFind, end($arrayToCheck));
+            return $this->getNestedParameterValue($parameterToFind, end($arrayToCheck));
 
         } else {
 
@@ -1542,107 +1542,107 @@ trait APIParameters
 
     }
 
-    public static function setParameters($parametersToSet = null)
+    public function setParameters($parametersToSet = null)
     {
 
-        static::resetCurlParameters();
+        $this->resetCurlParameters();
 
-        static::resetRequiredParameters();
+        $this->resetRequiredParameters();
 
-        static::$parameters = static::combineFormatWithParameters(static::$parameters);
+        $this->parameters = $this->combineFormatWithParameters($this->parameters);
 
         if ($parametersToSet) {
 
-            static::setPassedParameters($parametersToSet);
+            $this->setPassedParameters($parametersToSet);
 
         }
 
-        static::combineRequiredParameters();
+        $this->combineRequiredParameters();
 
-        static::combineRequiredAndAllowedParameters();
+        $this->combineRequiredAndAllowedParameters();
 
-        static::setAwsAccessKeyParameter();
+        $this->setAwsAccessKeyParameter();
 
-        static::setActionParameter();
+        $this->setActionParameter();
 
-        if (array_key_exists("Merchant", static::getRequiredParameters())) {
+        if (array_key_exists("Merchant", $this->getRequiredParameters())) {
 
-            static::setMerchantIdParameter("Merchant");
-
-        }
-
-        if (array_key_exists("SellerId", static::getRequiredParameters())) {
-
-            static::setMerchantIdParameter("SellerId");
+            $this->setMerchantIdParameter("Merchant");
 
         }
 
-        if (array_key_exists("MarketplaceId", static::getRequiredParameters())) {
+        if (array_key_exists("SellerId", $this->getRequiredParameters())) {
 
-            static::setMarketplaceIdParameter();
-
-        }
-
-        if (array_key_exists("PurgeAndReplace", static::getRequiredParameters())) {
-
-            static::setPurgeAndReplaceParameter();
+            $this->setMerchantIdParameter("SellerId");
 
         }
 
-        static::setSignatureMethodParameter();
+        if (array_key_exists("MarketplaceId", $this->getRequiredParameters())) {
 
-        static::setSignatureVersionParameter();
+            $this->setMarketplaceIdParameter();
 
-        static::setTimestampParameter();
+        }
 
-        static::setVersionDateParameter();
+        if (array_key_exists("PurgeAndReplace", $this->getRequiredParameters())) {
+
+            $this->setPurgeAndReplaceParameter();
+
+        }
+
+        $this->setSignatureMethodParameter();
+
+        $this->setSignatureVersionParameter();
+
+        $this->setTimestampParameter();
+
+        $this->setVersionDateParameter();
 
     }
 
-    public static function verifyParameters()
+    public function verifyParameters()
     {
-        // Helpers::dd(static::getCurlParameters());
-        // Helpers::dd(static::getParameters());
+        // Helpers::dd($this->getCurlParameters());
+        // Helpers::dd($this->getParameters());
 
-        static::testOneIsSet();
+        $this->testOneIsSet();
 
-        static::ensureRequiredParametersAreSet();
+        $this->ensureRequiredParametersAreSet();
 
-        // static::testRequiredIfParametersAreSet();
+        // $this->testRequiredIfParametersAreSet();
 
-        // static::ensureSetParametersAreAllowed();
+        // $this->ensureSetParametersAreAllowed();
 
-        // static::ensureParameterIsInFormat("AmazonOrderId", self::getOrderNumberFormat());
+        // $this->ensureParameterIsInFormat("AmazonOrderId", $this->getOrderNumberFormat());
 
-        // static::testParametersWithIncompatibilities();
+        // $this->testParametersWithIncompatibilities();
 
-        // static::testParametersAreValidWith();
+        // $this->testParametersAreValidWith();
 
-        // static::testParametersAreValidif();
+        // $this->testParametersAreValidif();
 
-        // static::testParametersAreWithinGivenRange();
+        // $this->testParametersAreWithinGivenRange();
 
-        // static::testParametersAreNoLongerThanMaximum();
+        // $this->testParametersAreNoLongerThanMaximum();
 
-        // static::testParametersAreNoShorterThanMinimum();
+        // $this->testParametersAreNoShorterThanMinimum();
 
-        // static::testParameterCountIsLessThanMaximum();
+        // $this->testParameterCountIsLessThanMaximum();
 
-        // static::testDatesAreEarlierThan();
+        // $this->testDatesAreEarlierThan();
 
-        // static::testDatesAreLaterThan();
+        // $this->testDatesAreLaterThan();
 
-        // static::testDatesAreInProperFormat();
+        // $this->testDatesAreInProperFormat();
 
-        // static::testDateTimesAreInProperFormat();
+        // $this->testDateTimesAreInProperFormat();
 
-        // static::testDatesNotOutsideInterval();
+        // $this->testDatesNotOutsideInterval();
 
-        // static::testGreaterThan();
+        // $this->testGreaterThan();
 
-        // static::testDivisorOf();
+        // $this->testDivisorOf();
 
-        // static::testLength();
+        // $this->testLength();
 
     }
 

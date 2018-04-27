@@ -7,15 +7,15 @@ use AmazonMWSAPI\Sections\Products;
 class GetCompetitivePricingForASIN extends Products
 {
 
-    protected static $requestQuota = 20;
-    protected static $restoreRate = 10;
-    protected static $restoreRateTime = 1;
-    protected static $restoreRateTimePeriod = "second";
-    protected static $hourlyRequestQuota = 36000;
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetCompetitivePricingForASIN.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 20;
+    protected $restoreRate = 10;
+    protected $restoreRateTime = 1;
+    protected $restoreRateTimePeriod = "second";
+    protected $hourlyRequestQuota = 36000;
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetCompetitivePricingForASIN.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "MarketplaceId" => [
             "required"
         ],
