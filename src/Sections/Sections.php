@@ -6,6 +6,7 @@ use AmazonMWSAPI\{APIParameters, APIParameterValidation, APIProperties};
 use AmazonMWSAPI\Helpers\Helpers;
 use AmazonMWSAPI\Parameter\RequiredParameter;
 use AmazonMWSAPI\Parameter\AllowedParameter;
+use AmazonMWSAPI\Marketplaces\Marketplaces;
 
 class Sections
 {
@@ -14,6 +15,9 @@ class Sections
     use APIProperties;
     use APIParameterValidation;
 
+    protected $signatureMethod = 'HmacSHA256';
+    protected $signatureVersion = "2";
+    protected $orderNumberFormat = "/^[0-9]{3}\-[0-9]{7}\-[0-9]{7}$/";
     protected $feed;
     protected $method;
     protected $country;
@@ -24,6 +28,7 @@ class Sections
     protected $curlParameters = [];
     protected $p = [];
     protected $allowedParameters = [];
+    protected $marketplaces;
     protected $parametersRequiredForAllCalls = [
         "AWSAccessKeyId",
         "Action",
@@ -36,6 +41,8 @@ class Sections
 
     public function __construct($parametersToSet = null)
     {
+
+        $this->setMarketplaces();
 
         $this->setSectionName();
 
@@ -59,63 +66,10 @@ class Sections
 
     }
 
-    protected function initializeParameters($parameters = null)
+    protected function setMarketplaces()
     {
 
-        $parameters = !$parameters ? $this->getParameters() : $parameters;
-
-        foreach ($parameters as $key => $value) {
-
-            if (is_array($value)) {
-
-                $parameter = $key;
-
-                $this->setAllowedParameter($parameter);
-
-            } else {
-
-                $parameter = $value;
-
-                $this->setAllowedParameter($parameter);
-
-            }
-
-        }
-
-    }
-
-    public function getParametersRequiredForAllCalls()
-    {
-
-        return $this->parametersRequiredForAllCalls;
-
-    }
-
-    public function getParameters()
-    {
-
-        return $this->parameters;
-
-    }
-
-    public function getProperty($property)
-    {
-
-        return $this->$property;
-
-    }
-
-    protected function setAllowedParameter($parameter)
-    {
-
-        $this->p["allowedParameters"][] = new AllowedParameter($parameter);
-
-    }
-
-    public function getAllowedParameters()
-    {
-
-        return $this->p["allowedParameters"];
+        $this->marketplaces = Marketplaces::$marketplaces;
 
     }
 
@@ -132,17 +86,45 @@ class Sections
 
     }
 
+    protected function setCountryCode()
+    {
+
+        $this->countryCode = $this->marketplaces[$this->getCountry()]["countryCode"];
+
+    }
+
+    protected function setEndpoint()
+    {
+
+        $this->endpoint = $this->marketplaces[$this->getCountry()]["endpoint"];
+
+    }
+
+    protected function setMarketplaceId()
+    {
+
+        $this->marketplaceId = $this->marketplaces[$this->getCountry()]["marketplaceId"];
+
+    }
+
+    protected function setRegion()
+    {
+
+        $this->region = $this->marketplaces[$this->getCountry()]["region"];
+
+    }
+
+    protected function setAllowedParameter($parameter)
+    {
+
+        $this->p["allowedParameters"][] = new AllowedParameter($parameter);
+
+    }
+
     public function getCountry()
     {
 
         return $this->country;
-
-    }
-
-    protected function setCountryCode()
-    {
-
-        $this->countryCode = $this->marketplaceTypes[$this->getCountry()]["countryCode"];
 
     }
 
@@ -153,13 +135,6 @@ class Sections
 
     }
 
-    protected function setEndpoint()
-    {
-
-        $this->endpoint = $this->marketplaceTypes[$this->getCountry()]["endpoint"];
-
-    }
-
     public function getEndpoint()
     {
 
@@ -167,24 +142,10 @@ class Sections
 
     }
 
-    protected function setMarketplaceId()
-    {
-
-        $this->marketplaceId = $this->marketplaceTypes[$this->getCountry()]["marketplaceId"];
-
-    }
-
     public function getMarketplaceId()
     {
 
         return $this->marketplaceId;
-
-    }
-
-    protected function setRegion()
-    {
-
-        $this->region = $this->marketplaceTypes[$this->getCountry()]["region"];
 
     }
 
@@ -227,6 +188,59 @@ class Sections
     {
 
         return $this->versionDate;
+
+    }
+
+    public function getProperty($property)
+    {
+
+        return $this->$property;
+
+    }
+
+    public function getParameters()
+    {
+
+        return $this->parameters;
+
+    }
+
+    public function getAllowedParameters()
+    {
+
+        return $this->p["allowedParameters"];
+
+    }
+
+    public function getParametersRequiredForAllCalls()
+    {
+
+        return $this->parametersRequiredForAllCalls;
+
+    }
+
+    protected function initializeParameters($parameters = null)
+    {
+
+        $parameters = !$parameters ? $this->getParameters() : $parameters;
+
+        foreach ($parameters as $key => $value) {
+
+            if (is_array($value)) {
+
+                $parameter = $key;
+
+                $this->setAllowedParameter($parameter);
+
+            } else {
+
+                $parameter = $value;
+
+                $this->setAllowedParameter($parameter);
+
+            }
+
+        }
 
     }
 
