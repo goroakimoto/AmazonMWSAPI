@@ -17,6 +17,7 @@ class ListFinancialEventsTest extends FinancesTest
         $requestParameters = ListFinancialEvents::$exampleListFinancialEvents;
 
         $this->testObject = new ListFinancialEvents($requestParameters);
+        Helpers::dd($this->testObject);
 
         Helpers::dd($this->testObject->getAllowedParameters());
 

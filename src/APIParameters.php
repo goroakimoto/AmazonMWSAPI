@@ -34,13 +34,6 @@ trait APIParameters
 
     }
 
-    public static function getParameters()
-    {
-
-        return static::$parameters;
-
-    }
-
     public static function setClassParameterByKey($key, $value)
     {
 

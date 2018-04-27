@@ -24,15 +24,15 @@ class Sections
     protected static $curlParameters = [];
     protected static $p = [];
     protected static $allowedParameters = [];
-    // protected static $requiredParameters = [
-    //     "AWSAccessKeyId",
-    //     "Action",
-    //     // "MWSAuthToken", //For Developer Access
-    //     "SignatureMethod",
-    //     "SignatureVersion",
-    //     "Timestamp",
-    //     "Version"
-    // ];
+    protected static $parametersRequiredForAllCalls = [
+        "AWSAccessKeyId",
+        "Action",
+        // "MWSAuthToken", //For Developer Access
+        "SignatureMethod",
+        "SignatureVersion",
+        "Timestamp",
+        "Version"
+    ];
 
     public function __construct($parametersToSet = null)
     {
@@ -53,29 +53,24 @@ class Sections
 
         static::verifyParameters();
 
-        static::allowedParameters();
+        static::initializeParameters(static::getParametersRequiredForAllCalls());
+
+        static::initializeParameters();
 
     }
 
-    protected static function allowedParameters()
+    protected static function initializeParameters($parameters = null)
     {
 
-        foreach (static::$parameters as $key => $value) {
+        $parameters = !$parameters ? static::getParameters() : $parameters;
 
-            // Helpers::dd($key);
-            // Helpers::dd($value);
+        foreach ($parameters as $key => $value) {
 
             if (is_array($value)) {
 
                 $parameter = $key;
 
                 static::setAllowedParameter($parameter);
-
-                // if (in_array("required", $value)) {
-
-                //     $this->$p["requiredParameters"][] = new RequiredParameter($parameter);
-
-                // }
 
             } else {
 
@@ -86,6 +81,20 @@ class Sections
             }
 
         }
+
+    }
+
+    protected static function getParametersRequiredForAllCalls()
+    {
+
+        return static::$parametersRequiredForAllCalls;
+
+    }
+
+    protected static function getParameters()
+    {
+
+        return static::$parameters;
 
     }
 
