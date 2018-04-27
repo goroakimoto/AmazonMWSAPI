@@ -7,14 +7,14 @@ use AmazonMWSAPI\Sections\Recommendations;
 class ListRecommendations extends Recommendations
 {
 
-    protected static $requestQuota = 8;
-    protected static $restoreRate = 1;
-    protected static $restoreRateTime = 2;
-    protected static $restoreRateTimePeriod = "second";
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/recommendations/Recommendations_ListRecommendations.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 8;
+    protected $restoreRate = 1;
+    protected $restoreRateTime = 2;
+    protected $restoreRateTimePeriod = "second";
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/recommendations/Recommendations_ListRecommendations.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "MarketplaceId" => [
             "notIncremented",
             "required"

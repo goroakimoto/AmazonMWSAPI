@@ -7,14 +7,14 @@ use AmazonMWSAPI\Sections\FulfillmentInboundShipment;
 class GetInboundGuidanceForASIN extends FulfillmentInboundShipment
 {
 
-    protected static $requestQuota = 200;
-    protected static $restoreRate = 200;
-    protected static $restoreRateTime = 1;
-    protected static $restoreRateTimePeriod = "second";
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/fba_inbound/FBAInbound_GetInboundGuidanceForASIN.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 200;
+    protected $restoreRate = 200;
+    protected $restoreRateTime = 1;
+    protected $restoreRateTimePeriod = "second";
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/fba_inbound/FBAInbound_GetInboundGuidanceForASIN.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "ASINList" => [
             "maximumCount" => 50,
             "required"

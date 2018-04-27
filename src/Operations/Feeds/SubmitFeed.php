@@ -7,15 +7,15 @@ use AmazonMWSAPI\Sections\Feeds;
 class SubmitFeed extends Feeds
 {
 
-    protected static $requestQuota = 15;
-    protected static $restoreRate = 1;
-    protected static $restoreRateTime = 2;
-    protected static $restoreRateTimePeriod = "minute";
-    protected static $hourlyRequestQuota = 30;
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_SubmitFeed.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 15;
+    protected $restoreRate = 1;
+    protected $restoreRateTime = 2;
+    protected $restoreRateTimePeriod = "minute";
+    protected $hourlyRequestQuota = 30;
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/feeds/Feeds_SubmitFeed.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "ContentMD5Value",
         "FeedContent" => [
             "required"

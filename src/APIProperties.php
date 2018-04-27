@@ -5,10 +5,10 @@ namespace AmazonMWSAPI;
 trait APIProperties
 {
 
-    protected static $signatureMethod = 'HmacSHA256';
-    protected static $signatureVersion = "2";
-    protected static $orderNumberFormat = "/^[0-9]{3}\-[0-9]{7}\-[0-9]{7}$/";
-    protected static $marketplaceTypes = [
+    protected $signatureMethod = 'HmacSHA256';
+    protected $signatureVersion = "2";
+    protected $orderNumberFormat = "/^[0-9]{3}\-[0-9]{7}\-[0-9]{7}$/";
+    protected $marketplaceTypes = [
         "US" => [
             "endpoint" => "https://mws.amazonservices.com",
             "marketplaceId" => "ATVPDKIKX0DER",
@@ -88,7 +88,7 @@ trait APIProperties
             "region" => "Australia"
         ]
     ];
-    protected static $incrementors = [
+    protected $incrementors = [
         "AmazonOrderId" => "Id",
         "ASINList" => [
             "default" => "Id",

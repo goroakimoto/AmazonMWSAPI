@@ -7,12 +7,12 @@ use AmazonMWSAPI\Sections\Sections;
 class FulfillmentInventory extends Sections
 {
 
-    protected static $feedType = "";
-    protected static $feedContent = "";
-    protected static $versionDate = "2010-10-01";
-    private static $overviewUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_Overview.html";
-    private static $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_ClientLibraries.html";
-    protected static $dataTypes = [
+    protected $feedType = "";
+    protected $feedContent = "";
+    protected $versionDate = "2010-10-01";
+    private $overviewUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_Overview.html";
+    private $libraryUpdateUrl = "http://docs.developer.amazonservices.com/en_US/fba_inventory/FBAInventory_ClientLibraries.html";
+    protected $dataTypes = [
         "InventorySupply" => [
             "SellerSKU",
             "FNSKU" => [

@@ -7,15 +7,15 @@ use AmazonMWSAPI\Sections\Products;
 class GetProductCategoriesForASIN extends Products
 {
 
-    protected static $requestQuota = 20;
-    protected static $restoreRate = 1;
-    protected static $restoreRateTime = 5;
-    protected static $restoreRateTimePeriod = "second";
-    protected static $hourlyRequestQuota = 720;
-    protected static $method = "POST";
-    private static $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetProductCategoriesForASIN.html";
-    protected static $requiredParameters = [];
-    protected static $parameters = [
+    protected $requestQuota = 20;
+    protected $restoreRate = 1;
+    protected $restoreRateTime = 5;
+    protected $restoreRateTimePeriod = "second";
+    protected $hourlyRequestQuota = 720;
+    protected $method = "POST";
+    private $apiUrl = "http://docs.developer.amazonservices.com/en_US/products/Products_GetProductCategoriesForASIN.html";
+    protected $requiredParameters = [];
+    protected $parameters = [
         "MarketplaceId" => [
             "required"
         ],
