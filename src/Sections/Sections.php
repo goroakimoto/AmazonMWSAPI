@@ -4,6 +4,8 @@ namespace AmazonMWSAPI\Sections;
 
 use AmazonMWSAPI\{APIParameters, APIParameterValidation, APIProperties};
 use AmazonMWSAPI\Helpers\Helpers;
+use AmazonMWSAPI\Parameter\RequiredParameter;
+use AmazonMWSAPI\Parameter\AllowedParameter;
 
 class Sections
 {
@@ -20,6 +22,8 @@ class Sections
     protected static $marketplaceId;
     protected static $region;
     protected static $curlParameters = [];
+    protected static $p = [];
+    protected static $allowedParameters = [];
     // protected static $requiredParameters = [
     //     "AWSAccessKeyId",
     //     "Action",
@@ -29,7 +33,6 @@ class Sections
     //     "Timestamp",
     //     "Version"
     // ];
-    protected static $allowedParameters = [];
 
     public function __construct($parametersToSet = null)
     {
@@ -49,6 +52,54 @@ class Sections
         static::setParameters($parametersToSet);
 
         static::verifyParameters();
+
+        static::allowedParameters();
+
+    }
+
+    protected static function allowedParameters()
+    {
+
+        foreach (static::$parameters as $key => $value) {
+
+            // Helpers::dd($key);
+            // Helpers::dd($value);
+
+            if (is_array($value)) {
+
+                $parameter = $key;
+
+                static::setAllowedParameter($parameter);
+
+                // if (in_array("required", $value)) {
+
+                //     $this->$p["requiredParameters"][] = new RequiredParameter($parameter);
+
+                // }
+
+            } else {
+
+                $parameter = $value;
+
+                static::setAllowedParameter($parameter);
+
+            }
+
+        }
+
+    }
+
+    protected static function setAllowedParameter($parameter)
+    {
+
+        static::$p["allowedParameters"][] = new AllowedParameter($parameter);
+
+    }
+
+    public static function getAllowedParameters()
+    {
+
+        return static::$p["allowedParameters"];
 
     }
 

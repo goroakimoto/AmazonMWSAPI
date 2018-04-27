@@ -66,4 +66,10 @@ class ListFinancialEvents extends Finances
         ]
     ];
 
+    public static $exampleListFinancialEvents = [
+
+        "AmazonOrderId" => "113-1234567-0987654"
+
+    ];
+
 }
