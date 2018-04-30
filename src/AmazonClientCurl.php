@@ -14,19 +14,19 @@ trait AmazonClientCurl
     protected static function sign($arr, Sections $amazonAPI)
     {
 
-        $sign = $amazonAPI::getMethod();
+        $sign = $amazonAPI->getMethod();
 
         $sign .= "\n";
 
-        $sign .= Helpers::removeUrlProtocol($amazonAPI::getEndpoint());
+        $sign .= Helpers::removeUrlProtocol($amazonAPI->getEndpoint());
 
         $sign .= "\n/";
 
-        $sign .= $amazonAPI::getFeed();
+        $sign .= $amazonAPI->getFeed();
 
         $sign .= "/";
 
-        $sign .= $amazonAPI::getParameterByKey('Version');
+        $sign .= $amazonAPI->getParameterByKey('Version');
 
         $sign .= "\n";
 
@@ -87,7 +87,7 @@ trait AmazonClientCurl
     protected static function createUrlArray(Sections $amazonAPI)
     {
 
-        $parameters = $amazonAPI::getCurlParameters();
+        $parameters = $amazonAPI->getCurlParameters();
 
         $url = [];
 
@@ -137,15 +137,15 @@ trait AmazonClientCurl
 
         $signature = static::encodeSignature($sign);
 
-        $link = $amazonAPI::getEndpoint();
+        $link = $amazonAPI->getEndpoint();
 
         $link .= "/";
 
-        $link .= $amazonAPI::getFeed();
+        $link .= $amazonAPI->getFeed();
 
         $link .= "/";
 
-        $link .= $amazonAPI::getParameterByKey('Version');
+        $link .= $amazonAPI->getParameterByKey('Version');
 
         $link .= "?$arr&Signature=$signature";
 
@@ -227,14 +227,14 @@ trait AmazonClientCurl
 
         $amazonXML = '';
 
-        if ($amazonAPI::getParameterByKey("FeedContent"))
+        if ($amazonAPI->getParameterByKey("FeedContent"))
         {
 
             $amazonXML = XMLController::xmlOpenTag();
 
             $amazonXML .= static::xmlAmazonEnvelopeHeader();
 
-            $amazonXML .= static::parseXML($amazonAPI::getParameterByKey("FeedContent"));
+            $amazonXML .= static::parseXML($amazonAPI->getParameterByKey("FeedContent"));
 
             $amazonXML .= static::xmlAmazonEnvelopeFooter();
 
