@@ -29,6 +29,7 @@ class Sections
     protected $p = [];
     protected $allowedParameters = [];
     protected $marketplaces;
+    public $errors = [];
     protected $parametersRequiredForAllCalls = [
         "AWSAccessKeyId",
         "Action",

@@ -613,6 +613,7 @@ trait APIParameterValidation
                     } catch (RequiredException $e) {
 
                         Helpers::dd($e->errorMessage());
+                        $this->errors[] = $e->errorMessage();
                     }
 
                 } else {
@@ -624,6 +625,7 @@ trait APIParameterValidation
                     } catch (RequiredException $e) {
 
                         Helpers::dd($e->errorMessage());
+                        $this->errors[] = $e->errorMessage();
 
                     }
 
